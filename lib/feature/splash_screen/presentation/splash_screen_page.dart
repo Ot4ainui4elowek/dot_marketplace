@@ -1,7 +1,5 @@
 import 'package:dot_marketplace/feature/router/domain/dot_marketplace_routes.dart';
-import 'package:dot_marketplace/feature/router/domain/router.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class SplashScreenPage extends StatefulWidget {
