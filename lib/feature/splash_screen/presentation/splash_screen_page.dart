@@ -14,6 +14,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
 
   @override
   void initState() {
+    super.initState;
     Future.delayed(const Duration(seconds: 4),
         () => Navigator.of(context).pushNamed(DotMarketplaceRoutes.loginPage));
   }

@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 
 final theme = ThemeData(
@@ -33,4 +35,14 @@ final theme = ThemeData(
     inversePrimary: Color(0xFFF9B1DB),
   ),
   useMaterial3: true,
+  inputDecorationTheme: const InputDecorationTheme(
+    prefixIconColor: Color(0xFF81737A),
+    suffixIconColor: Color(0xFF81737A),
+  ),
+  appBarTheme: const AppBarTheme(
+    iconTheme: IconThemeData(
+      color: Color(0xFF81737A),
+    ),
+  ),
+  iconTheme: const IconThemeData(color: Color(0xFF81737A)),
 );
