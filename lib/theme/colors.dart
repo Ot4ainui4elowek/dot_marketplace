@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-abstract final class MarketplaceAppColors {
+abstract class MarketplaceAppColors {
   static const brightness = Brightness.light;
   static const primary = Color(0xFFDF3A76);
   static const onPrimary = Colors.white;
