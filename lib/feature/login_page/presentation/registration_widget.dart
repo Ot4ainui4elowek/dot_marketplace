@@ -12,7 +12,7 @@ class RegistrationWidget extends StatefulWidget {
 }
 
 class _RegistrationWidgetState extends State<RegistrationWidget> {
-  ValueNotifier<bool> isAgree = ValueNotifier<bool>(false);
+  ValueNotifier<bool> isAgreeWitchRules = ValueNotifier<bool>(false);
   ValueNotifier<bool> passwordTextIsUnVisible = ValueNotifier<bool>(true);
   ValueNotifier<bool> passwordConfirmationTextIsUnVisible =
       ValueNotifier<bool>(true);
@@ -33,7 +33,7 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
       passwordTextFieldController.text.isNotEmpty &&
               phoneTextFieldController.text.isNotEmpty &&
               passwordConfirmationTextFieldController.text.isNotEmpty &&
-              isAgree.value
+              isAgreeWitchRules.value
           ? () => debugPrint('login')
           : null;
 
@@ -120,16 +120,17 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                 Row(
                   children: [
                     ValueListenableBuilder(
-                      valueListenable: isAgree,
+                      valueListenable: isAgreeWitchRules,
                       builder: (context, value, child) => Checkbox(
-                        value: isAgree.value,
+                        value: isAgreeWitchRules.value,
                         onChanged: (value) {
-                          value = isAgree.value = !isAgree.value;
+                          value = isAgreeWitchRules.value =
+                              !isAgreeWitchRules.value;
                           canLogIn.value = logInAccount();
                         },
                       ),
                     ),
-                    Flexible(
+                    const Flexible(
                       child: Text(
                           'Я согласен с Правилами и условиями использования'),
                     ),
