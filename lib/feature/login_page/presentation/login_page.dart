@@ -46,11 +46,9 @@ class _LoginPageState extends State<LoginPage> {
             tabs: _tabHeaders,
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: TabBarView(
-            children: _tabWidgets,
-          ),
+        body: TabBarView(
+          clipBehavior: Clip.hardEdge,
+          children: _tabWidgets,
         ),
       ),
     );
