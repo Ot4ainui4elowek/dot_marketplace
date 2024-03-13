@@ -146,12 +146,6 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                         text: 'Войти',
                       ),
                     )),
-                Padding(
-                    padding: loginWidgetsVerticalPadding,
-                    child: MarketplaceTextButton(
-                      text: 'Забыли пароль?',
-                      onPress: () => 0,
-                    )),
               ],
             ),
             Container(),
