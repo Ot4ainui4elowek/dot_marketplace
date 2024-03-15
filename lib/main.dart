@@ -1,4 +1,3 @@
-import 'package:dot_marketplace/feature/router/domain/dot_marketplace_routes.dart';
 import 'package:dot_marketplace/feature/router/domain/router.dart';
 import 'package:dot_marketplace/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -13,12 +12,11 @@ class DotMarketplaceApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: router,
       debugShowCheckedModeBanner: false,
       title: 'Dot Marketplace',
       theme: theme,
-      routes: router,
-      initialRoute: DotMarketplaceRoutes.splashScreen,
     );
   }
 }

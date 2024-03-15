@@ -1,5 +1,6 @@
 import 'package:dot_marketplace/feature/router/domain/dot_marketplace_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class SplashScreenPage extends StatefulWidget {
@@ -16,7 +17,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
   void initState() {
     super.initState;
     Future.delayed(const Duration(seconds: 4),
-        () => Navigator.of(context).pushNamed(DotMarketplaceRoutes.loginPage));
+        () => context.go(DotMarketplaceRoutes.loginPage));
   }
 
   @override

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class MarketplaceTextField extends StatelessWidget {
-  final controller;
+class PasswordTextField extends StatelessWidget {
+  final TextEditingController controller;
 
-  bool textIsInvisible;
+  final bool textIsInvisible;
 
   final Widget? prefix;
 
@@ -11,7 +11,7 @@ class MarketplaceTextField extends StatelessWidget {
 
   final String labelText;
 
-  MarketplaceTextField(
+  const PasswordTextField(
       {super.key,
       required this.controller,
       required this.textIsInvisible,
@@ -28,9 +28,6 @@ class MarketplaceTextField extends StatelessWidget {
         prefixIcon: prefix,
         suffixIcon: suffix,
         labelText: labelText,
-        border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(16)),
-        ),
       ),
     );
   }
