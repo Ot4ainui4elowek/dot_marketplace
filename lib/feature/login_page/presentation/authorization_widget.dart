@@ -13,15 +13,11 @@ class AuthorizationWidget extends StatefulWidget {
 }
 
 class _AuthorizationWidgetState extends State<AuthorizationWidget> {
-  ValueNotifier<bool> passwordIsUnVisible = ValueNotifier<bool>(true);
   ValueNotifier<void Function()?> canLogIn =
       ValueNotifier<void Function()?>(null);
 
   final passwordTextFieldController = TextEditingController();
   final phoneTextFieldController = TextEditingController();
-
-  void _setPasswordIsUnvisible() =>
-      passwordIsUnVisible.value = !passwordIsUnVisible.value;
 
   void _logInAccount() {
     canLogIn.value = passwordTextFieldController.text.isNotEmpty &&
@@ -63,22 +59,9 @@ class _AuthorizationWidgetState extends State<AuthorizationWidget> {
           ),
           Padding(
             padding: loginWidgetsVerticalPadding,
-            child: ValueListenableBuilder(
-              valueListenable: passwordIsUnVisible,
-              builder: (context, value, child) => PasswordTextField(
-                controller: passwordTextFieldController,
-                labelText: 'Пароль',
-                textIsInvisible: passwordIsUnVisible.value,
-                suffix: IconButton(
-                  padding: textFieldIconPadding,
-                  icon: const Icon(Icons.remove_red_eye_outlined),
-                  onPressed: _setPasswordIsUnvisible,
-                ),
-                prefix: const Padding(
-                  padding: textFieldIconPadding,
-                  child: Icon(Icons.lock_outline),
-                ),
-              ),
+            child: PasswordTextField(
+              controller: passwordTextFieldController,
+              labelText: 'Пароль',
             ),
           ),
           Padding(
