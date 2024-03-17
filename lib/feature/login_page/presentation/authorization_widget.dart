@@ -2,8 +2,11 @@ import 'package:dot_marketplace/core/presentation/UI/buttons/app_filled_button.d
 import 'package:dot_marketplace/core/presentation/UI/buttons/app_text_button.dart';
 import 'package:dot_marketplace/core/presentation/UI/text_fields/password_textfield.dart';
 import 'package:dot_marketplace/core/presentation/UI/text_fields/phone_textfield.dart';
+import 'package:dot_marketplace/feature/login_page/domain/form_control_names.dart';
+import 'package:dot_marketplace/feature/login_page/domain/login_form_errors.dart';
 import 'package:dot_marketplace/theme/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
 class AuthorizationWidget extends StatefulWidget {
   const AuthorizationWidget({super.key});
@@ -13,32 +16,21 @@ class AuthorizationWidget extends StatefulWidget {
 }
 
 class _AuthorizationWidgetState extends State<AuthorizationWidget> {
-  ValueNotifier<void Function()?> canLogIn =
-      ValueNotifier<void Function()?>(null);
-
-  final passwordTextFieldController = TextEditingController();
-  final phoneTextFieldController = TextEditingController();
-
-  void _logInAccount() {
-    canLogIn.value = passwordTextFieldController.text.isNotEmpty &&
-            phoneTextFieldController.text.isNotEmpty
-        ? () => debugPrint('login')
-        : null;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    passwordTextFieldController.addListener(_logInAccount);
-    phoneTextFieldController.addListener(_logInAccount);
-  }
-
-  @override
-  void dispose() {
-    passwordTextFieldController.removeListener(_logInAccount);
-    phoneTextFieldController.removeListener(_logInAccount);
-    super.dispose();
-  }
+  final authorizatinForm = FormGroup({
+    FormControlNames.phoneNumber: FormControl<String>(
+      validators: [
+        Validators.required,
+        Validators.number,
+        Validators.minLength(10),
+      ],
+    ),
+    FormControlNames.password: FormControl<String>(
+      validators: [
+        Validators.required,
+        Validators.minLength(8),
+      ],
+    ),
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -51,25 +43,41 @@ class _AuthorizationWidgetState extends State<AuthorizationWidget> {
           const SizedBox(
             height: 100,
           ),
-          Padding(
-            padding: loginWidgetsVerticalPadding,
-            child: PhoneTextfield(
-              phoneTextFieldController: phoneTextFieldController,
+          ReactiveForm(
+            formGroup: authorizatinForm,
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: loginWidgetsVerticalPadding,
+                  child: PhoneTextfield(
+                    formControlName: FormControlNames.phoneNumber,
+                    validationMeassages: {
+                      'minLength': (error) =>
+                          LoginFormErrors.getMinLengthMessage(10),
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: loginWidgetsVerticalPadding,
+                  child: PasswordTextField(
+                    formControlName: FormControlNames.password,
+                    labelText: 'Пароль',
+                  ),
+                ),
+              ],
             ),
           ),
           Padding(
             padding: loginWidgetsVerticalPadding,
-            child: PasswordTextField(
-              controller: passwordTextFieldController,
-              labelText: 'Пароль',
-            ),
-          ),
-          Padding(
-            padding: loginWidgetsVerticalPadding,
-            child: ValueListenableBuilder(
-              valueListenable: canLogIn,
-              builder: (context, value, child) => AppFilledButton(
-                onPressed: canLogIn.value,
+            child: ReactiveValueListenableBuilder(
+              formControl: authorizatinForm,
+              builder: (context, control, child) => AppFilledButton(
+                onPressed: authorizatinForm.valid
+                    ? () {
+                        debugPrint('auth');
+                        authorizatinForm.reset();
+                      }
+                    : null,
                 widget: const Text('Войти'),
               ),
             ),
@@ -77,7 +85,7 @@ class _AuthorizationWidgetState extends State<AuthorizationWidget> {
           Padding(
               padding: loginWidgetsVerticalPadding,
               child: AppTextButton(
-                text: 'Забыли пароль',
+                text: 'Забыли пароль?',
                 onPressed: () => 0,
               )),
         ],

@@ -1,16 +1,21 @@
+import 'package:dot_marketplace/feature/login_page/domain/login_form_errors.dart';
 import 'package:flutter/material.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
 class PhoneTextfield extends StatelessWidget {
-  final TextEditingController _phoneTextFieldController;
+  final String _formControlName;
+
+  final Map<String, String Function(Object)>? _validationMeassages;
 
   const PhoneTextfield(
-      {super.key, required TextEditingController phoneTextFieldController})
-      : _phoneTextFieldController = phoneTextFieldController;
+      {super.key, required String formControlName, validationMeassages})
+      : _formControlName = formControlName,
+        _validationMeassages = validationMeassages;
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      controller: _phoneTextFieldController,
+    return ReactiveTextField(
+      formControlName: _formControlName,
       decoration: const InputDecoration(
         labelText: 'Телефон',
         prefixIcon: Padding(
@@ -18,6 +23,11 @@ class PhoneTextfield extends StatelessWidget {
           child: Icon(Icons.phone_outlined),
         ),
       ),
+      validationMessages: {
+        ...?_validationMeassages,
+        'required': (error) => LoginFormErrors.requiredErrorMeassge,
+        'number': (error) => LoginFormErrors.phoneNumberErrorMessage,
+      },
     );
   }
 }
