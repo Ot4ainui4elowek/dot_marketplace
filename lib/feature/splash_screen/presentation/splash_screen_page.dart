@@ -1,4 +1,4 @@
-import 'package:dot_marketplace/feature/router/domain/dot_marketplace_routes.dart';
+import 'package:dot_marketplace/core/domain/router/dot_marketplace_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';

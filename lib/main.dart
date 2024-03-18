@@ -1,4 +1,4 @@
-import 'package:dot_marketplace/feature/router/domain/router.dart';
+import 'package:dot_marketplace/core/domain/router/router.dart';
 import 'package:dot_marketplace/theme/theme.dart';
 import 'package:flutter/material.dart';
 
