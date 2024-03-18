@@ -61,63 +61,52 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
             formGroup: registratinForm,
             child: Column(
               children: <Widget>[
-                Padding(
-                  padding: loginWidgetsVerticalPadding,
-                  child: PhoneTextfield(
-                    formControlName: FormControlNames.phoneNumber,
-                    validationMeassages: {
-                      'minLength': (error) =>
-                          LoginFormErrors.getMinLengthMessage(10),
-                    },
-                  ),
+                PhoneTextfield(
+                  formControlName: FormControlNames.phoneNumber,
+                  validationMeassages: {
+                    'minLength': (error) =>
+                        LoginFormErrors.getMinLengthMessage(10),
+                  },
                 ),
-                Padding(
-                  padding: loginWidgetsVerticalPadding,
-                  child: PasswordTextField(
-                    formControlName: FormControlNames.password,
-                    labelText: 'Пароль',
-                  ),
+                const SizedBox(height: 20),
+                PasswordTextField(
+                  formControlName: FormControlNames.password,
+                  labelText: 'Пароль',
                 ),
-                Padding(
-                  padding: loginWidgetsVerticalPadding,
-                  child: PasswordTextField(
-                    formControlName: FormControlNames.passwordConfirmation,
-                    labelText: 'Повторите пароль',
-                    validationMeassages: {
-                      'mustMatch': (error) => 'Пароли не совпадают!',
-                    },
-                  ),
+                const SizedBox(height: 20),
+                PasswordTextField(
+                  formControlName: FormControlNames.passwordConfirmation,
+                  labelText: 'Повторите пароль',
+                  validationMeassages: {
+                    'mustMatch': (error) => 'Пароли не совпадают!',
+                  },
                 ),
-                Padding(
-                  padding: verticalPadding10,
-                  child: Row(
-                    children: [
-                      ReactiveCheckbox(
-                        formControlName: FormControlNames.agreeWithRules,
-                      ),
-                      const Flexible(
-                        child: Text(
-                            'Я согласен с Правилами и условиями использования'),
-                      ),
-                    ],
-                  ),
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    ReactiveCheckbox(
+                      formControlName: FormControlNames.agreeWithRules,
+                    ),
+                    const Flexible(
+                      child: Text(
+                          'Я согласен с Правилами и условиями использования'),
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
+          const SizedBox(height: 20),
           ReactiveValueListenableBuilder(
             formControl: registratinForm,
-            builder: (context, control, child) => Padding(
-              padding: loginWidgetsVerticalPadding,
-              child: AppFilledButton(
-                onPressed: registratinForm.valid
-                    ? () {
-                        debugPrint('reg');
-                        registratinForm.reset();
-                      }
-                    : null,
-                widget: const Text('Зарегистрироваться'),
-              ),
+            builder: (context, control, child) => AppFilledButton(
+              onPressed: registratinForm.valid
+                  ? () {
+                      debugPrint('reg');
+                      registratinForm.reset();
+                    }
+                  : null,
+              widget: const Text('Зарегистрироваться'),
             ),
           ),
         ],

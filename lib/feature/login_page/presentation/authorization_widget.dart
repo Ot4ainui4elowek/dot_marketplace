@@ -4,7 +4,6 @@ import 'package:dot_marketplace/core/presentation/UI/text_fields/password_textfi
 import 'package:dot_marketplace/core/presentation/UI/text_fields/phone_textfield.dart';
 import 'package:dot_marketplace/feature/login_page/domain/form_control_names.dart';
 import 'package:dot_marketplace/feature/login_page/domain/login_form_errors.dart';
-import 'package:dot_marketplace/theme/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
@@ -47,47 +46,39 @@ class _AuthorizationWidgetState extends State<AuthorizationWidget> {
             formGroup: authorizatinForm,
             child: Column(
               children: <Widget>[
-                Padding(
-                  padding: loginWidgetsVerticalPadding,
-                  child: PhoneTextfield(
-                    formControlName: FormControlNames.phoneNumber,
-                    validationMeassages: {
-                      'minLength': (error) =>
-                          LoginFormErrors.getMinLengthMessage(10),
-                    },
-                  ),
+                PhoneTextfield(
+                  formControlName: FormControlNames.phoneNumber,
+                  validationMeassages: {
+                    'minLength': (error) =>
+                        LoginFormErrors.getMinLengthMessage(10),
+                  },
                 ),
-                Padding(
-                  padding: loginWidgetsVerticalPadding,
-                  child: PasswordTextField(
-                    formControlName: FormControlNames.password,
-                    labelText: 'Пароль',
-                  ),
+                const SizedBox(height: 20),
+                PasswordTextField(
+                  formControlName: FormControlNames.password,
+                  labelText: 'Пароль',
                 ),
+                const SizedBox(height: 20),
               ],
             ),
           ),
-          Padding(
-            padding: loginWidgetsVerticalPadding,
-            child: ReactiveValueListenableBuilder(
-              formControl: authorizatinForm,
-              builder: (context, control, child) => AppFilledButton(
-                onPressed: authorizatinForm.valid
-                    ? () {
-                        debugPrint('auth');
-                        authorizatinForm.reset();
-                      }
-                    : null,
-                widget: const Text('Войти'),
-              ),
+          ReactiveValueListenableBuilder(
+            formControl: authorizatinForm,
+            builder: (context, control, child) => AppFilledButton(
+              onPressed: authorizatinForm.valid
+                  ? () {
+                      debugPrint('auth');
+                      authorizatinForm.reset();
+                    }
+                  : null,
+              widget: const Text('Войти'),
             ),
           ),
-          Padding(
-              padding: loginWidgetsVerticalPadding,
-              child: AppTextButton(
-                text: 'Забыли пароль?',
-                onPressed: () => 0,
-              )),
+          const SizedBox(height: 20),
+          AppTextButton(
+            text: 'Забыли пароль?',
+            onPressed: () => 0,
+          ),
         ],
       ),
     );
