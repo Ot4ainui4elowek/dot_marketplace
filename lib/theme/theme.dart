@@ -34,6 +34,8 @@ final theme = ThemeData(
     inversePrimary: AppColors.inversePrimary,
   ),
   useMaterial3: true,
+  dropdownMenuTheme:
+      DropdownMenuThemeData(inputDecorationTheme: InputDecorationTheme()),
   inputDecorationTheme: const InputDecorationTheme(
     prefixIconColor: AppColors.outline,
     suffixIconColor: AppColors.outline,

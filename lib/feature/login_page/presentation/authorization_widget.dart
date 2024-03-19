@@ -1,3 +1,4 @@
+import 'package:dot_marketplace/core/domain/intl/generated/l10n.dart';
 import 'package:dot_marketplace/core/presentation/UI/buttons/app_filled_button.dart';
 import 'package:dot_marketplace/core/presentation/UI/buttons/app_text_button.dart';
 import 'package:dot_marketplace/core/presentation/UI/text_fields/password_textfield.dart';
@@ -56,7 +57,7 @@ class _AuthorizationWidgetState extends State<AuthorizationWidget> {
                 const SizedBox(height: 20),
                 PasswordTextField(
                   formControlName: FormControlNames.password,
-                  labelText: 'Пароль',
+                  labelText: S.of(context).password,
                 ),
                 const SizedBox(height: 20),
               ],
