@@ -24,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Настройки'),
+                  const Text('Настройки'),
                   AppTextButton(
                     text: 'готово',
                     onPressed: () => context.pop(),
