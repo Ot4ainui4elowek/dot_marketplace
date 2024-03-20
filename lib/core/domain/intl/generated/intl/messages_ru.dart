@@ -20,8 +20,32 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ru';
 
+  static String m0(length) => "В строке должно быть ${length} символов!";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "password": MessageLookupByLibrary.simpleMessage("Пароль")
+        "agreement": MessageLookupByLibrary.simpleMessage(
+            "Я согласен с Правилами и условиями использования"),
+        "appLanguage": MessageLookupByLibrary.simpleMessage("Язык приложения"),
+        "forgotPassword":
+            MessageLookupByLibrary.simpleMessage("Забыли пароль?"),
+        "login": MessageLookupByLibrary.simpleMessage("Вход"),
+        "logon": MessageLookupByLibrary.simpleMessage("Войти"),
+        "minLength": m0,
+        "password": MessageLookupByLibrary.simpleMessage("Пароль"),
+        "passwordMismatch":
+            MessageLookupByLibrary.simpleMessage("Пароли не совпадают!"),
+        "phone": MessageLookupByLibrary.simpleMessage("Телефон"),
+        "phoneNumberErrorMessage": MessageLookupByLibrary.simpleMessage(
+            "Номер телефона должен состоять из цифр!"),
+        "ready": MessageLookupByLibrary.simpleMessage("готово"),
+        "register": MessageLookupByLibrary.simpleMessage("Зарегистрироваться"),
+        "registration": MessageLookupByLibrary.simpleMessage("Регистрация"),
+        "repeatPassword":
+            MessageLookupByLibrary.simpleMessage("Повторите пароль"),
+        "requiredField": MessageLookupByLibrary.simpleMessage(
+            "Это поле должно быть заполнено!"),
+        "settings": MessageLookupByLibrary.simpleMessage("Настройки"),
+        "theme": MessageLookupByLibrary.simpleMessage("Тема")
       };
 }

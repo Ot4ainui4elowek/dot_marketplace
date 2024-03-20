@@ -59,6 +59,166 @@ class S {
       args: [],
     );
   }
+
+  /// `ready`
+  String get ready {
+    return Intl.message(
+      'ready',
+      name: 'ready',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settings`
+  String get settings {
+    return Intl.message(
+      'Settings',
+      name: 'settings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `App language`
+  String get appLanguage {
+    return Intl.message(
+      'App language',
+      name: 'appLanguage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login`
+  String get login {
+    return Intl.message(
+      'Login',
+      name: 'login',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Registration`
+  String get registration {
+    return Intl.message(
+      'Registration',
+      name: 'registration',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Phone`
+  String get phone {
+    return Intl.message(
+      'Phone',
+      name: 'phone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login`
+  String get logon {
+    return Intl.message(
+      'Login',
+      name: 'logon',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Forgot your password?`
+  String get forgotPassword {
+    return Intl.message(
+      'Forgot your password?',
+      name: 'forgotPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Repeat password`
+  String get repeatPassword {
+    return Intl.message(
+      'Repeat password',
+      name: 'repeatPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password mismatch!`
+  String get passwordMismatch {
+    return Intl.message(
+      'Password mismatch!',
+      name: 'passwordMismatch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I agree to the Terms and Conditions of Use`
+  String get agreement {
+    return Intl.message(
+      'I agree to the Terms and Conditions of Use',
+      name: 'agreement',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Register`
+  String get register {
+    return Intl.message(
+      'Register',
+      name: 'register',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This field must be filled!`
+  String get requiredField {
+    return Intl.message(
+      'This field must be filled!',
+      name: 'requiredField',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The phone number must consist of numbers!`
+  String get phoneNumberErrorMessage {
+    return Intl.message(
+      'The phone number must consist of numbers!',
+      name: 'phoneNumberErrorMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The line must contain {length} characters!`
+  String minLength(Object length) {
+    return Intl.message(
+      'The line must contain $length characters!',
+      name: 'minLength',
+      desc: '',
+      args: [length],
+    );
+  }
+
+  /// `Theme`
+  String get theme {
+    return Intl.message(
+      'Theme',
+      name: 'theme',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

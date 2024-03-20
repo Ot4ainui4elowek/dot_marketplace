@@ -1,8 +1,8 @@
+import 'package:dot_marketplace/core/domain/intl/generated/l10n.dart';
 import 'package:dot_marketplace/core/presentation/UI/buttons/app_filled_button.dart';
 import 'package:dot_marketplace/core/presentation/UI/text_fields/password_textfield.dart';
 import 'package:dot_marketplace/core/presentation/UI/text_fields/phone_textfield.dart';
 import 'package:dot_marketplace/feature/login_page/domain/form_control_names.dart';
-import 'package:dot_marketplace/feature/login_page/domain/login_form_errors.dart';
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
@@ -63,21 +63,20 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                 PhoneTextfield(
                   formControlName: FormControlNames.phoneNumber,
                   validationMeassages: {
-                    'minLength': (error) =>
-                        LoginFormErrors.getMinLengthMessage(10),
+                    'minLength': (error) => S.of(context).minLength(10),
                   },
                 ),
                 const SizedBox(height: 20),
                 PasswordTextField(
                   formControlName: FormControlNames.password,
-                  labelText: 'Пароль',
+                  labelText: S.of(context).password,
                 ),
                 const SizedBox(height: 20),
                 PasswordTextField(
                   formControlName: FormControlNames.passwordConfirmation,
-                  labelText: 'Повторите пароль',
+                  labelText: S.of(context).repeatPassword,
                   validationMeassages: {
-                    'mustMatch': (error) => 'Пароли не совпадают!',
+                    'mustMatch': (error) => S.of(context).passwordMismatch,
                   },
                 ),
                 const SizedBox(height: 20),
@@ -86,9 +85,8 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                     ReactiveCheckbox(
                       formControlName: FormControlNames.agreeWithRules,
                     ),
-                    const Flexible(
-                      child: Text(
-                          'Я согласен с Правилами и условиями использования'),
+                    Flexible(
+                      child: Text(S.of(context).agreement),
                     ),
                   ],
                 ),
@@ -105,7 +103,7 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                       registratinForm.reset();
                     }
                   : null,
-              widget: const Text('Зарегистрироваться'),
+              widget: Text(S.of(context).register),
             ),
           ),
         ],

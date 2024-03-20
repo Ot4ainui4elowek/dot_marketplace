@@ -1,3 +1,19 @@
 {
-  "password": "Пароль"
+  "password": "Пароль",
+  "ready": "готово",
+  "settings": "Настройки",
+  "appLanguage": "Язык приложения",
+  "login": "Вход",
+  "registration": "Регистрация",
+  "phone": "Телефон",
+  "logon": "Войти",
+  "forgotPassword": "Забыли пароль?",
+  "repeatPassword": "Повторите пароль",
+  "passwordMismatch": "Пароли не совпадают!",
+  "agreement": "Я согласен с Правилами и условиями использования",
+  "register": "Зарегистрироваться",
+  "requiredField": "Это поле должно быть заполнено!",
+  "phoneNumberErrorMessage": "Номер телефона должен состоять из цифр!",
+  "minLength": "В строке должно быть {length} символов!",
+  "theme": "Тема"
 }

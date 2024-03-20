@@ -4,7 +4,6 @@ import 'package:dot_marketplace/core/presentation/UI/buttons/app_text_button.dar
 import 'package:dot_marketplace/core/presentation/UI/text_fields/password_textfield.dart';
 import 'package:dot_marketplace/core/presentation/UI/text_fields/phone_textfield.dart';
 import 'package:dot_marketplace/feature/login_page/domain/form_control_names.dart';
-import 'package:dot_marketplace/feature/login_page/domain/login_form_errors.dart';
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
@@ -50,8 +49,7 @@ class _AuthorizationWidgetState extends State<AuthorizationWidget> {
                 PhoneTextfield(
                   formControlName: FormControlNames.phoneNumber,
                   validationMeassages: {
-                    'minLength': (error) =>
-                        LoginFormErrors.getMinLengthMessage(10),
+                    'minLength': (error) => S.of(context).minLength(10),
                   },
                 ),
                 const SizedBox(height: 20),
@@ -72,12 +70,12 @@ class _AuthorizationWidgetState extends State<AuthorizationWidget> {
                       authorizatinForm.reset();
                     }
                   : null,
-              widget: const Text('Войти'),
+              widget: Text(S.of(context).logon),
             ),
           ),
           const SizedBox(height: 20),
           AppTextButton(
-            text: 'Забыли пароль?',
+            text: S.of(context).forgotPassword,
             onPressed: () => 0,
           ),
         ],

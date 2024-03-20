@@ -1,3 +1,19 @@
 {
-  "password": "Password"
+  "password": "Password",
+  "ready": "ready",
+  "settings": "Settings",
+  "appLanguage": "App language",
+  "login": "Login",
+  "registration": "Registration",
+  "phone": "Phone",
+  "logon": "Login",
+  "forgotPassword": "Forgot your password?",
+  "repeatPassword": "Repeat password",
+  "passwordMismatch": "Password mismatch!",
+  "agreement": "I agree to the Terms and Conditions of Use",
+  "register": "Register",
+  "requiredField": "This field must be filled!",
+  "phoneNumberErrorMessage": "The phone number must consist of numbers!",
+  "minLength": "The line must contain {length} characters!",
+  "theme": "Theme"
 }

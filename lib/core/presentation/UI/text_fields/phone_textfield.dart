@@ -1,4 +1,4 @@
-import 'package:dot_marketplace/feature/login_page/domain/login_form_errors.dart';
+import 'package:dot_marketplace/core/domain/intl/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
@@ -16,17 +16,17 @@ class PhoneTextfield extends StatelessWidget {
   Widget build(BuildContext context) {
     return ReactiveTextField(
       formControlName: _formControlName,
-      decoration: const InputDecoration(
-        labelText: 'Телефон',
-        prefixIcon: Padding(
+      decoration: InputDecoration(
+        labelText: S.of(context).phone,
+        prefixIcon: const Padding(
           padding: EdgeInsets.all(15),
           child: Icon(Icons.phone_outlined),
         ),
       ),
       validationMessages: {
         ...?_validationMeassages,
-        'required': (error) => LoginFormErrors.requiredErrorMeassge,
-        'number': (error) => LoginFormErrors.phoneNumberErrorMessage,
+        'required': (error) => S.of(context).requiredField,
+        'number': (error) => S.of(context).phoneNumberErrorMessage,
       },
     );
   }

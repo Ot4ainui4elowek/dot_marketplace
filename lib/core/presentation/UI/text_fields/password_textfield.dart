@@ -1,4 +1,4 @@
-import 'package:dot_marketplace/feature/login_page/domain/login_form_errors.dart';
+import 'package:dot_marketplace/core/domain/intl/generated/l10n.dart';
 import 'package:dot_marketplace/theme/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -44,8 +44,8 @@ class PasswordTextField extends StatelessWidget {
         ),
         validationMessages: {
           ...?_validationMeassages,
-          'required': (error) => LoginFormErrors.requiredErrorMeassge,
-          'minLength': (error) => LoginFormErrors.getMinLengthMessage(8),
+          'required': (error) => S.of(context).requiredField,
+          'minLength': (error) => S.of(context).minLength(8),
         },
       ),
     );

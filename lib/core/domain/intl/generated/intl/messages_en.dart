@@ -20,8 +20,32 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static String m0(length) => "The line must contain ${length} characters!";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "password": MessageLookupByLibrary.simpleMessage("Password")
+        "agreement": MessageLookupByLibrary.simpleMessage(
+            "I agree to the Terms and Conditions of Use"),
+        "appLanguage": MessageLookupByLibrary.simpleMessage("App language"),
+        "forgotPassword":
+            MessageLookupByLibrary.simpleMessage("Forgot your password?"),
+        "login": MessageLookupByLibrary.simpleMessage("Login"),
+        "logon": MessageLookupByLibrary.simpleMessage("Login"),
+        "minLength": m0,
+        "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "passwordMismatch":
+            MessageLookupByLibrary.simpleMessage("Password mismatch!"),
+        "phone": MessageLookupByLibrary.simpleMessage("Phone"),
+        "phoneNumberErrorMessage": MessageLookupByLibrary.simpleMessage(
+            "The phone number must consist of numbers!"),
+        "ready": MessageLookupByLibrary.simpleMessage("ready"),
+        "register": MessageLookupByLibrary.simpleMessage("Register"),
+        "registration": MessageLookupByLibrary.simpleMessage("Registration"),
+        "repeatPassword":
+            MessageLookupByLibrary.simpleMessage("Repeat password"),
+        "requiredField":
+            MessageLookupByLibrary.simpleMessage("This field must be filled!"),
+        "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "theme": MessageLookupByLibrary.simpleMessage("Theme")
       };
 }
