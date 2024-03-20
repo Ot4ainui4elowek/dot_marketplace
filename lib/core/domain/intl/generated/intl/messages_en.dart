@@ -38,7 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "phone": MessageLookupByLibrary.simpleMessage("Phone"),
         "phoneNumberErrorMessage": MessageLookupByLibrary.simpleMessage(
             "The phone number must consist of numbers!"),
-        "ready": MessageLookupByLibrary.simpleMessage("ready"),
+        "ready": MessageLookupByLibrary.simpleMessage("Ready"),
         "register": MessageLookupByLibrary.simpleMessage("Register"),
         "registration": MessageLookupByLibrary.simpleMessage("Registration"),
         "repeatPassword":

@@ -85,8 +85,12 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                     ReactiveCheckbox(
                       formControlName: FormControlNames.agreeWithRules,
                     ),
+                    const SizedBox(width: 10),
                     Flexible(
-                      child: Text(S.of(context).agreement),
+                      child: Text(
+                        S.of(context).agreement,
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
                     ),
                   ],
                 ),

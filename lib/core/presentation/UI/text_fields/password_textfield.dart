@@ -31,6 +31,8 @@ class PasswordTextField extends StatelessWidget {
         formControlName: _formControlName,
         obscureText: _textIsInvisible.value,
         decoration: InputDecoration(
+          labelText: labelText,
+          labelStyle: Theme.of(context).textTheme.bodyLarge,
           prefixIcon: const Padding(
             padding: textFieldIconPadding,
             child: Icon(Icons.lock_outline),
@@ -40,7 +42,6 @@ class PasswordTextField extends StatelessWidget {
             icon: const Icon(Icons.remove_red_eye_outlined),
             onPressed: _setPasswordISVisible,
           ),
-          labelText: labelText,
         ),
         validationMessages: {
           ...?_validationMeassages,

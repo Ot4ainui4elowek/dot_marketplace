@@ -60,10 +60,10 @@ class S {
     );
   }
 
-  /// `ready`
+  /// `Ready`
   String get ready {
     return Intl.message(
-      'ready',
+      'Ready',
       name: 'ready',
       desc: '',
       args: [],

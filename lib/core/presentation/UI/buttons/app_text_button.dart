@@ -14,7 +14,9 @@ class AppTextButton extends StatelessWidget {
       onPressed: onPressed,
       child: Padding(
         padding: verticalPadding10,
-        child: Text(_text),
+        child: Text(
+          _text,
+        ),
       ),
     );
   }

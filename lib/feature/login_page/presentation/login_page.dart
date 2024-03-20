@@ -26,7 +26,10 @@ class _LoginPageState extends State<LoginPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(S.of(context).settings),
+                  Text(
+                    S.of(context).settings,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
                   AppTextButton(
                     text: S.of(context).ready,
                     onPressed: () => context.pop(),
@@ -59,7 +62,10 @@ class _LoginPageState extends State<LoginPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(S.of(context).theme),
+                      Text(
+                        S.of(context).theme,
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
                       ValueListenableBuilder(
                         valueListenable: lightTheme,
                         builder: (context, value, child) => Switch(

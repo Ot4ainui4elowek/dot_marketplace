@@ -14,9 +14,11 @@ class PhoneTextfield extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return ReactiveTextField(
       formControlName: _formControlName,
       decoration: InputDecoration(
+        labelStyle: theme.textTheme.bodyLarge,
         labelText: S.of(context).phone,
         prefixIcon: const Padding(
           padding: EdgeInsets.all(15),
