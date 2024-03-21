@@ -1,4 +1,4 @@
-import 'package:dot_marketplace/theme/colors.dart';
+import 'package:dot_marketplace/theme/app_light_colors.dart';
 import 'package:flutter/material.dart';
 
 final theme = ThemeData(
@@ -6,7 +6,7 @@ final theme = ThemeData(
     brightness: AppLightColors.brightness,
     primary: AppLightColors.primary,
     onPrimary: AppLightColors.onPrimary,
-    secondary: Color(AppLightColors.secondary),
+    secondary: AppLightColors.secondary,
     onSecondary: Colors.white,
     error: AppLightColors.error,
     onError: AppLightColors.onError,

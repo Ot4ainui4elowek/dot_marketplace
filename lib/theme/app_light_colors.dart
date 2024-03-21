@@ -4,7 +4,7 @@ abstract class AppLightColors {
   static const brightness = Brightness.light;
   static const primary = Color(0xFFDF3A76);
   static const onPrimary = Colors.white;
-  static const secondary = 0xFFB61263;
+  static const secondary = Color(0xFFB61263);
   static const onSecondary = Colors.white;
   static const error = Color(0xFFBA1A1A);
   static const onError = Colors.white;
