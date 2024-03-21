@@ -111,13 +111,14 @@ class _LoginPageState extends State<LoginPage> {
           actions: [
             IconButton(
               icon: const Icon(
-                Icons.translate,
+                Icons.settings_outlined,
               ),
               onPressed: () => showModalBottomSheet(
                 context: context,
                 builder: (context) => localizationBottomSheet,
               ),
             ),
+            const SizedBox(width: 8),
           ],
           bottom: TabBar(
             tabs: _tabHeaders,

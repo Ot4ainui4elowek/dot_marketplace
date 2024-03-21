@@ -15,5 +15,5 @@
   "requiredField": "This field must be filled!",
   "phoneNumberErrorMessage": "The phone number must consist of numbers!",
   "minLength": "The line must contain {length} characters!",
-  "theme": "Theme"
+  "theme": "Dark theme"
 }

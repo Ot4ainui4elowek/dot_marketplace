@@ -46,6 +46,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "requiredField": MessageLookupByLibrary.simpleMessage(
             "Это поле должно быть заполнено!"),
         "settings": MessageLookupByLibrary.simpleMessage("Настройки"),
-        "theme": MessageLookupByLibrary.simpleMessage("Тема")
+        "theme": MessageLookupByLibrary.simpleMessage("Тёмная тема")
       };
 }

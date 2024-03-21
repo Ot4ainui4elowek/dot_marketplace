@@ -210,10 +210,10 @@ class S {
     );
   }
 
-  /// `Theme`
+  /// `Dark theme`
   String get theme {
     return Intl.message(
-      'Theme',
+      'Dark theme',
       name: 'theme',
       desc: '',
       args: [],
