@@ -1,4 +1,3 @@
-import 'package:dot_marketplace/theme/styles.dart';
 import 'package:flutter/material.dart';
 
 class AppTextButton extends StatelessWidget {
@@ -12,11 +11,8 @@ class AppTextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: onPressed,
-      child: Padding(
-        padding: verticalPadding10,
-        child: Text(
-          _text,
-        ),
+      child: Text(
+        _text,
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:dot_marketplace/theme/app_light_colors.dart';
+import 'package:dot_marketplace/theme/styles.dart';
 import 'package:flutter/material.dart';
 
 final theme = ThemeData(
@@ -42,6 +43,10 @@ final theme = ThemeData(
     border:
         OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16))),
   ),
+  textButtonTheme: const TextButtonThemeData(
+      style: ButtonStyle(padding: MaterialStatePropertyAll(verticalPadding18))),
+  filledButtonTheme: const FilledButtonThemeData(
+      style: ButtonStyle(padding: MaterialStatePropertyAll(verticalPadding18))),
   appBarTheme: const AppBarTheme(
     backgroundColor: Colors.white,
     elevation: 0,

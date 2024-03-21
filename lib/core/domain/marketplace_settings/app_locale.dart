@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
 class AppLocale extends Locale {
-  final name;
+  final String name;
   AppLocale(super.languageCode, {required this.name});
 }

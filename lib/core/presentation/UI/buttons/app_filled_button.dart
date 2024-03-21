@@ -1,4 +1,3 @@
-import 'package:dot_marketplace/theme/styles.dart';
 import 'package:flutter/material.dart';
 
 class AppFilledButton extends StatelessWidget {
@@ -12,10 +11,7 @@ class AppFilledButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FilledButton(
       onPressed: onPressed,
-      child: Padding(
-        padding: verticalPadding10,
-        child: _widget,
-      ),
+      child: _widget,
     );
   }
 }
