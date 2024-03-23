@@ -1,5 +1,11 @@
-import 'package:dot_marketplace/theme/styles.dart';
+import 'package:dot_marketplace/core/domain/intl/generated/l10n.dart';
+import 'package:dot_marketplace/core/presentation/UI/buttons/app_filled_button.dart';
+import 'package:dot_marketplace/core/presentation/UI/buttons/app_text_button.dart';
+import 'package:dot_marketplace/core/presentation/UI/text_fields/password_textfield.dart';
+import 'package:dot_marketplace/core/presentation/UI/text_fields/phone_textfield.dart';
+import 'package:dot_marketplace/feature/login_page/domain/form_control_names.dart';
 import 'package:flutter/material.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
 class AuthorizationWidget extends StatefulWidget {
   const AuthorizationWidget({super.key});
@@ -9,96 +15,69 @@ class AuthorizationWidget extends StatefulWidget {
 }
 
 class _AuthorizationWidgetState extends State<AuthorizationWidget> {
-  bool passwordIsUnVisible = true;
-
-  final passwordFieldController = TextEditingController();
-
-  void setPasswordVisible() {
-    setState(() {
-      passwordIsUnVisible = !passwordIsUnVisible;
-    });
-  }
+  final authorizatinForm = FormGroup({
+    FormControlNames.phoneNumber: FormControl<String>(
+      validators: [
+        Validators.required,
+        Validators.number,
+        Validators.minLength(10),
+      ],
+    ),
+    FormControlNames.password: FormControl<String>(
+      validators: [
+        Validators.required,
+        Validators.minLength(8),
+      ],
+    ),
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Padding(
-                padding: loginWidgetsVerticalPadding,
-                child: TextField(
-                  decoration: InputDecoration(
-                    prefixIcon: Padding(
-                      padding: textFieldIconPadding,
-                      child: Icon(
-                        Icons.phone_outlined,
-                      ),
-                    ),
-                    labelText: 'Телефон',
-                    border: OutlineInputBorder(
-                      borderRadius: inputBorderRadius,
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: loginWidgetsVerticalPadding,
-                child: TextField(
-                  controller: passwordFieldController,
-                  obscureText: passwordIsUnVisible,
-                  decoration: InputDecoration(
-                    prefixIcon: const Padding(
-                      padding: textFieldIconPadding,
-                      child: Icon(
-                        Icons.lock_outline,
-                      ),
-                    ),
-                    suffixIcon: IconButton(
-                      padding: textFieldIconPadding,
-                      icon: const Icon(
-                        Icons.remove_red_eye_outlined,
-                      ),
-                      onPressed: () => setPasswordVisible(),
-                    ),
-                    labelText: 'Пароль',
-                    border: const OutlineInputBorder(
-                      borderRadius: inputBorderRadius,
-                    ),
-                  ),
-                ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Container(
-                    padding: loginWidgetsVerticalPadding,
-                    child: FilledButton(
-                      onPressed: () => 0,
-                      child: const Padding(
-                        padding: buttonVerticalPadding,
-                        child: Text('Войти'),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: loginWidgetsVerticalPadding,
-                    child: TextButton(
-                      onPressed: () => 0,
-                      child: const Padding(
-                        padding: buttonVerticalPadding,
-                        child: Text('Забыли пароль?'),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
+          const SizedBox(
+            height: 100,
           ),
-          Container(),
+          ReactiveForm(
+            formGroup: authorizatinForm,
+            child: Column(
+              children: <Widget>[
+                PhoneTextfield(
+                  formControlName: FormControlNames.phoneNumber,
+                  validationMeassages: {
+                    'minLength': (error) => S.of(context).minLength(10),
+                  },
+                ),
+                const SizedBox(height: 20),
+                PasswordTextField(
+                  formControlName: FormControlNames.password,
+                  labelText: S.of(context).password,
+                ),
+                const SizedBox(height: 20),
+              ],
+            ),
+          ),
+          ReactiveValueListenableBuilder(
+            formControl: authorizatinForm,
+            builder: (context, control, child) => AppFilledButton(
+              onPressed: authorizatinForm.valid
+                  ? () {
+                      debugPrint('auth');
+                      authorizatinForm.reset();
+                    }
+                  : null,
+              widget: Text(S.of(context).logon),
+            ),
+          ),
+          const SizedBox(height: 20),
+          AppTextButton(
+            text: S.of(context).forgotPassword,
+            onPressed: () => 0,
+          ),
         ],
       ),
     );
