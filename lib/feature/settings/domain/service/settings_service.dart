@@ -10,10 +10,8 @@ class SettingsService extends Bloc<SettingsEvent, SettingsState> {
   ];
 
   AppLocale get curentLocale => localeList[state.curentLocalization];
-  static SettingsService? _localization;
-  factory SettingsService() => _localization ??= SettingsService._();
 
-  SettingsService._() : super(SettingsInitial(curentLocalization: 0)) {
+  SettingsService() : super(SettingsInitial(curentLocalization: 0)) {
     on<ChangeLocaleEvent>((event, emit) {
       final localization = localeList.indexOf(event.newLocation);
       if (localization != -1) {

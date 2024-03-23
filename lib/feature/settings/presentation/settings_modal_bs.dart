@@ -1,6 +1,6 @@
 import 'package:dot_marketplace/core/domain/intl/generated/l10n.dart';
 import 'package:dot_marketplace/feature/settings/domain/entity/app_locale.dart';
-import 'package:dot_marketplace/feature/settings/domain/service/settings_bloc.dart';
+import 'package:dot_marketplace/feature/settings/domain/service/settings_service.dart';
 import 'package:dot_marketplace/core/presentation/UI/buttons/app_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

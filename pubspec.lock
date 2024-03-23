@@ -485,6 +485,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "16.1.1"
+  reactive_variables:
+    dependency: "direct main"
+    description:
+      name: reactive_variables
+      sha256: "0463fbb90a95252f1388019b0f081428045937dc8807f20a878ee30cdda31b4b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   shelf:
     dependency: transitive
     description:

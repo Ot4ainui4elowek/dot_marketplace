@@ -1,5 +1,6 @@
 import 'package:dot_marketplace/core/domain/intl/generated/l10n.dart';
-import 'package:dot_marketplace/feature/settings/domain/service/settings_bloc.dart';
+import 'package:dot_marketplace/feature/login_page/presentation/auth_vm.dart';
+import 'package:dot_marketplace/feature/settings/domain/service/settings_service.dart';
 import 'package:dot_marketplace/feature/login_page/presentation/authorization_widget.dart';
 import 'package:dot_marketplace/feature/login_page/presentation/registration_widget.dart';
 import 'package:dot_marketplace/feature/settings/presentation/settings_modal_bs.dart';
@@ -7,13 +8,20 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  final AuthViewModel vm;
+
+  const LoginPage({
+    super.key,
+    required this.vm,
+  });
 
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage>
+    with SingleTickerProviderStateMixin {
+  AuthViewModel get vm => widget.vm;
   final settingService = SettingsService();
   Widget get localizationBottomSheet =>
       SettingsModalBottomSheet(settingsService: settingService);
@@ -31,6 +39,26 @@ class _LoginPageState extends State<LoginPage> {
         const AuthorizationWidget(),
         const RegistrationWidget(),
       ];
+
+  @override
+  void initState() {
+    vm.init(tabController: TabController(length: 2, vsync: this));
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant LoginPage oldWidget) {
+    if (oldWidget.vm != widget.vm) {
+      vm.init(tabController: oldWidget.vm.tabController);
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void dispose() {
+    vm.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

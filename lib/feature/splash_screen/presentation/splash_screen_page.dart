@@ -1,10 +1,12 @@
 import 'package:dot_marketplace/core/domain/router/dot_marketplace_routes.dart';
+import 'package:dot_marketplace/feature/splash_screen/presentation/splash_screen_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class SplashScreenPage extends StatefulWidget {
-  const SplashScreenPage({super.key});
+  final SpashScreenViewModel vm;
+  const SplashScreenPage({super.key, required this.vm});
 
   @override
   State<SplashScreenPage> createState() => _SplashScreenPageState();
@@ -15,9 +17,8 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
 
   @override
   void initState() {
-    super.initState;
-    Future.delayed(const Duration(seconds: 4),
-        () => context.go(DotMarketplaceRoutes.loginPage));
+    super.initState();
+    widget.vm.goToAuth(context);
   }
 
   @override

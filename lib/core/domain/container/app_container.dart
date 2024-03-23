@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:dot_marketplace/feature/login_page/data/source/auth_mocked_data_source.dart';
 import 'package:dot_marketplace/feature/login_page/domain/repository/auth_repository.dart';
-import 'package:dot_marketplace/feature/settings/domain/service/settings_bloc.dart';
+import 'package:dot_marketplace/feature/settings/domain/service/settings_service.dart';
 import 'package:get_it/get_it.dart';
 
 class AppContainer {
