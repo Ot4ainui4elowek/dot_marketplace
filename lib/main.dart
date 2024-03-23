@@ -1,5 +1,5 @@
 import 'package:dot_marketplace/core/domain/intl/generated/l10n.dart';
-import 'package:dot_marketplace/core/domain/marketplace_settings/settings_bloc.dart';
+import 'package:dot_marketplace/feature/settings/domain/service/settings_bloc.dart';
 import 'package:dot_marketplace/core/domain/router/router.dart';
 import 'package:dot_marketplace/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +13,7 @@ void main() {
 class DotMarketplaceApp extends StatelessWidget {
   DotMarketplaceApp({super.key});
 
-  final settingService = SettingsBloc();
+  final settingService = SettingsService();
 
   // This widget is the root of your application.
   @override

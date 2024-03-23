@@ -2,7 +2,7 @@ part of 'settings_bloc.dart';
 
 class SettingsEvent {}
 
-class EChangeLocale extends SettingsEvent {
+class ChangeLocaleEvent extends SettingsEvent {
   final AppLocale newLocation;
-  EChangeLocale(this.newLocation);
+  ChangeLocaleEvent(this.newLocation);
 }
