@@ -41,10 +41,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "ready": MessageLookupByLibrary.simpleMessage("Готово"),
         "register": MessageLookupByLibrary.simpleMessage("Зарегистрироваться"),
         "registration": MessageLookupByLibrary.simpleMessage("Регистрация"),
+        "registrationPhoneInputTitle": MessageLookupByLibrary.simpleMessage(
+            "Введите номер телефона, на который будет отправлен код для сброса пароля"),
         "repeatPassword":
             MessageLookupByLibrary.simpleMessage("Повторите пароль"),
         "requiredField": MessageLookupByLibrary.simpleMessage(
             "Это поле должно быть заполнено!"),
+        "restorePassword":
+            MessageLookupByLibrary.simpleMessage("Восстановление пароля"),
+        "send": MessageLookupByLibrary.simpleMessage("Отправить"),
         "settings": MessageLookupByLibrary.simpleMessage("Настройки"),
         "theme": MessageLookupByLibrary.simpleMessage("Тёмная тема")
       };

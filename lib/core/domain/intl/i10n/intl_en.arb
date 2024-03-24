@@ -15,5 +15,8 @@
   "requiredField": "This field must be filled!",
   "phoneNumberErrorMessage": "The phone number must consist of numbers!",
   "minLength": "The line must contain {length} characters!",
-  "theme": "Dark theme"
+  "theme": "Dark theme",
+  "restorePassword": "Restore the password",
+  "send": "Send",
+  "registrationPhoneInputTitle": "Enter the phone number to which the password reset code will be sent"
 }

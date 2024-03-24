@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:dot_marketplace/feature/login_page/data/source/auth_mocked_data_source.dart';
 import 'package:dot_marketplace/feature/login_page/domain/repository/auth_repository.dart';
+import 'package:dot_marketplace/feature/recovery_page/data/source/recovery_mocked_data_source.dart';
+import 'package:dot_marketplace/feature/recovery_page/domain/repository/recovery_repository.dart';
 import 'package:dot_marketplace/feature/settings/domain/service/settings_service.dart';
 import 'package:get_it/get_it.dart';
 
@@ -22,7 +24,12 @@ class AppContainer {
     try {
       final authRepo = AuthRepository(AuthMockedDataSource());
 
-      repositoryScope = RepositoryScope(authRepository: authRepo);
+      final recoverRepo = RecoveryRepository(RecoveryMockedDataSource());
+
+      repositoryScope = RepositoryScope(
+        authRepository: authRepo,
+        recoveryRepository: recoverRepo,
+      );
 
       final settingsService = SettingsService();
 
@@ -45,8 +52,10 @@ class ServiceScope {
 
 class RepositoryScope {
   final AuthRepository authRepository;
+  final RecoveryRepository recoveryRepository;
 
   RepositoryScope({
     required this.authRepository,
+    required this.recoveryRepository,
   });
 }

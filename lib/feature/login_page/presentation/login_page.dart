@@ -1,11 +1,11 @@
+import 'package:dot_marketplace/core/domain/container/app_container.dart';
 import 'package:dot_marketplace/core/domain/intl/generated/l10n.dart';
 import 'package:dot_marketplace/feature/login_page/presentation/auth_vm.dart';
-import 'package:dot_marketplace/feature/settings/domain/service/settings_service.dart';
 import 'package:dot_marketplace/feature/login_page/presentation/authorization_widget.dart';
 import 'package:dot_marketplace/feature/login_page/presentation/registration_widget.dart';
 import 'package:dot_marketplace/feature/settings/presentation/settings_modal_bs.dart';
+import 'package:dot_marketplace/core/presentation/UI/app_bar/app_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class LoginPage extends StatefulWidget {
   final AuthViewModel vm;
@@ -22,9 +22,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage>
     with SingleTickerProviderStateMixin {
   AuthViewModel get vm => widget.vm;
-  final settingService = SettingsService();
-  Widget get localizationBottomSheet =>
-      SettingsModalBottomSheet(settingsService: settingService);
+  Widget get localizationBottomSheet => SettingsModalBottomSheet(
+      settingsService: AppContainer().serviceScope.settingsService);
 
   List<Widget> get _tabHeaders => <Widget>[
         Tab(
@@ -36,8 +35,12 @@ class _LoginPageState extends State<LoginPage>
       ];
 
   List<Widget> get _tabWidgets => <Widget>[
-        const AuthorizationWidget(),
-        const RegistrationWidget(),
+        AuthorizationWidget(
+          vm: vm,
+        ),
+        RegistrationWidget(
+          vm: vm,
+        ),
       ];
 
   @override
@@ -65,20 +68,14 @@ class _LoginPageState extends State<LoginPage>
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          leading: BackButton(
-            onPressed: () => context.pop(),
-          ),
+        appBar: CustomAppBar(
+          context: context,
           actions: [
             IconButton(
               icon: const Icon(
                 Icons.settings_outlined,
               ),
-              onPressed: () => showModalBottomSheet(
-                context: context,
-                builder: (context) => localizationBottomSheet,
-              ),
+              onPressed: () => vm.onSettingsTap(context),
             ),
             const SizedBox(width: 8),
           ],

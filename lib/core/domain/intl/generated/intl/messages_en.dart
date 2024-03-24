@@ -41,10 +41,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "ready": MessageLookupByLibrary.simpleMessage("Ready"),
         "register": MessageLookupByLibrary.simpleMessage("Register"),
         "registration": MessageLookupByLibrary.simpleMessage("Registration"),
+        "registrationPhoneInputTitle": MessageLookupByLibrary.simpleMessage(
+            "Enter the phone number to which the password reset code will be sent"),
         "repeatPassword":
             MessageLookupByLibrary.simpleMessage("Repeat password"),
         "requiredField":
             MessageLookupByLibrary.simpleMessage("This field must be filled!"),
+        "restorePassword":
+            MessageLookupByLibrary.simpleMessage("Restore the password"),
+        "send": MessageLookupByLibrary.simpleMessage("Send"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "theme": MessageLookupByLibrary.simpleMessage("Dark theme")
       };

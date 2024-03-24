@@ -1,4 +1,5 @@
 import 'package:dot_marketplace/core/domain/intl/generated/l10n.dart';
+import 'package:dot_marketplace/core/presentation/UI/sheets/app_bottom_sheet.dart';
 import 'package:dot_marketplace/feature/settings/domain/entity/app_locale.dart';
 import 'package:dot_marketplace/feature/settings/domain/service/settings_service.dart';
 import 'package:dot_marketplace/core/presentation/UI/buttons/app_text_button.dart';
@@ -14,8 +15,8 @@ class SettingsModalBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottomSheet(
-      builder: (context) => Column(
+    return AppBottomSheet(
+      widget: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -78,7 +79,6 @@ class SettingsModalBottomSheet extends StatelessWidget {
           ),
         ],
       ),
-      onClosing: () => 0,
     );
   }
 }

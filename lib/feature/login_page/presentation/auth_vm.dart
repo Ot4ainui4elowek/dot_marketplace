@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:dot_marketplace/core/domain/router/dot_marketplace_routes.dart';
 import 'package:dot_marketplace/core/domain/use_case_result/use_case_result.dart';
 import 'package:dot_marketplace/core/presentation/UI/text_fields/controllers/app_text_editing_controller.dart';
 import 'package:dot_marketplace/core/presentation/UI/text_fields/controllers/password_text_editing_controller.dart';
@@ -8,6 +9,7 @@ import 'package:dot_marketplace/feature/login_page/domain/repository/auth_reposi
 import 'package:dot_marketplace/feature/settings/domain/service/settings_service.dart';
 import 'package:dot_marketplace/feature/settings/presentation/settings_modal_bs.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:reactive_variables/reactive_variables.dart';
 
 class AuthViewModel {
@@ -75,6 +77,9 @@ class AuthViewModel {
     isRegisterPossible(true);
   }
 
+  void goToRecoverPassword(BuildContext context) =>
+      context.push(DotMarketplaceRoutes.recoveryPhonePage);
+
   void _passwordVisibilityListener() {
     repeatPasswordRegisterTextCtrl
         .isTextHidden(passwordRegisterTextCtrl.isTextHidden());
@@ -132,12 +137,29 @@ class AuthViewModel {
     }
   }
 
+  Future<void> confirmCode() async {
+    final result = await _authRepository.signIn(
+      phone: phoneRegisterTextCtrl.text,
+      password: passwordRegisterTextCtrl.text,
+    );
+
+    switch (result) {
+      case GoodUseCaseResult<AuthCredentials>(:final data):
+        log(data.jvtToken);
+        break;
+      case BadUseCaseResult<AuthCredentials>(:final errorList):
+        for (final error in errorList) {
+          log(error.code);
+        }
+        break;
+    }
+  }
+
   void onSettingsTap(BuildContext context) {
     showModalBottomSheet(
       context: context,
       builder: (context) =>
           SettingsModalBottomSheet(settingsService: _settingsService),
-      showDragHandle: true,
     );
   }
 }

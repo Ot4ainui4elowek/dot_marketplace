@@ -1,53 +1,38 @@
-import 'package:dot_marketplace/core/domain/intl/generated/l10n.dart';
+import 'package:dot_marketplace/core/presentation/UI/text_fields/app_text_field.dart';
+import 'package:dot_marketplace/core/presentation/UI/text_fields/controllers/password_text_editing_controller.dart';
 import 'package:dot_marketplace/theme/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:reactive_forms/reactive_forms.dart';
 
 class PasswordTextField extends StatelessWidget {
   final ValueNotifier<bool> _textIsInvisible = ValueNotifier<bool>(true);
 
-  final String _formControlName;
-
-  final Map<String, String Function(Object)>? _validationMeassages;
+  final PassTextEditingController controller;
 
   void _setPasswordISVisible() =>
       _textIsInvisible.value = !_textIsInvisible.value;
 
   final String labelText;
 
-  PasswordTextField({
-    super.key,
-    required this.labelText,
-    required formControlName,
-    validationMeassages,
-  })  : _formControlName = formControlName,
-        _validationMeassages = validationMeassages;
+  PasswordTextField(
+      {super.key, required this.labelText, required this.controller});
 
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
       valueListenable: _textIsInvisible,
-      builder: (context, value, child) => ReactiveTextField(
-        formControlName: _formControlName,
+      builder: (context, value, child) => AppTextField(
+        controller: controller,
         obscureText: _textIsInvisible.value,
-        decoration: InputDecoration(
-          labelText: labelText,
-          labelStyle: Theme.of(context).textTheme.bodyLarge,
-          prefixIcon: const Padding(
-            padding: textFieldIconPadding,
-            child: Icon(Icons.lock_outline),
-          ),
-          suffixIcon: IconButton(
-            padding: textFieldIconPadding,
-            icon: const Icon(Icons.remove_red_eye_outlined),
-            onPressed: _setPasswordISVisible,
-          ),
+        labelText: labelText,
+        prefixIcon: const Padding(
+          padding: textFieldIconPadding,
+          child: Icon(Icons.lock_outline),
         ),
-        validationMessages: {
-          ...?_validationMeassages,
-          'required': (error) => S.of(context).requiredField,
-          'minLength': (error) => S.of(context).minLength(8),
-        },
+        suffixIcon: IconButton(
+          padding: textFieldIconPadding,
+          icon: const Icon(Icons.remove_red_eye_outlined),
+          onPressed: _setPasswordISVisible,
+        ),
       ),
     );
   }
