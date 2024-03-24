@@ -2,7 +2,6 @@ import 'package:dot_marketplace/core/domain/container/app_container.dart';
 import 'package:dot_marketplace/core/domain/router/dot_marketplace_routes.dart';
 import 'package:dot_marketplace/feature/login_page/presentation/auth_vm.dart';
 import 'package:dot_marketplace/feature/login_page/presentation/login_page.dart';
-import 'package:dot_marketplace/feature/recovery_page/domain/repository/recovery_repository.dart';
 import 'package:dot_marketplace/feature/recovery_page/presentation/recovery_code_confirm_page.dart';
 import 'package:dot_marketplace/feature/recovery_page/presentation/recovery_phone_page.dart';
 import 'package:dot_marketplace/feature/recovery_page/presentation/recovery_phone_vm.dart';

@@ -2,6 +2,7 @@ import 'package:dot_marketplace/core/data/model/rest_api_error_model.dart';
 import 'package:dot_marketplace/core/data/remote_response.dart';
 import 'package:dot_marketplace/feature/recovery_page/data/model/recovery_code_credentials.dart';
 import 'package:dot_marketplace/feature/recovery_page/data/model/recovery_new_password_credentials.dart';
+import 'package:dot_marketplace/feature/recovery_page/data/model/recovery_phone_creditionals.dart';
 import 'package:dot_marketplace/feature/recovery_page/data/source/recovery_data.dart';
 
 class RecoveryMockedDataSource implements RecoveryDataSource {
@@ -40,9 +41,31 @@ class RecoveryMockedDataSource implements RecoveryDataSource {
         detail: 'wrong password',
         errorList: [
           RestApiValidationErrorModel(
-            fieldName: 'code',
+            fieldName: 'password',
             errorList: [
               (code: 'password is wrong', params: null),
+            ],
+          ),
+        ],
+      );
+    }
+  }
+
+  @override
+  Future<RemoteResponse<RecoveryPhoneCredentialsModel>> sendCode(
+      {required String number}) async {
+    await Future.delayed(const Duration(seconds: 5));
+    if (number.length > 8) {
+      return DataRemoteResponse(data: RecoveryPhoneCredentialsModel(number));
+    } else {
+      return ErrorRemoteResponse(
+        title: 'The code was not sent to the specified number',
+        detail: 'wrong number',
+        errorList: [
+          RestApiValidationErrorModel(
+            fieldName: 'number',
+            errorList: [
+              (code: 'number is wrong', params: null),
             ],
           ),
         ],

@@ -8,13 +8,13 @@ import 'package:go_router/go_router.dart';
 import 'package:reactive_variables/reactive_variables.dart';
 
 class RecoveryPhoneViewModel {
-  final RecoveryRepository _recoveryRepository;
+  //final RecoveryRepository _recoveryRepository;
   final SettingsService _settingsService;
 
   RecoveryPhoneViewModel({
     required RecoveryRepository recoveryRepository,
     required SettingsService settingService,
-  })  : _recoveryRepository = recoveryRepository,
+  }) : //_recoveryRepository = recoveryRepository,
         _settingsService = settingService;
 
   final AppTextEditingController phoneCotroller = AppTextEditingController();
