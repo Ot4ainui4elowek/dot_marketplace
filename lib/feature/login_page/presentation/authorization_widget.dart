@@ -2,20 +2,25 @@ import 'package:dot_marketplace/core/domain/intl/generated/l10n.dart';
 import 'package:dot_marketplace/core/presentation/UI/buttons/app_filled_button.dart';
 import 'package:dot_marketplace/core/presentation/UI/buttons/app_text_button.dart';
 import 'package:dot_marketplace/core/presentation/UI/text_fields/app_text_field.dart';
+import 'package:dot_marketplace/core/presentation/UI/text_fields/controllers/app_text_editing_controller.dart';
+import 'package:dot_marketplace/core/presentation/UI/text_fields/controllers/password_text_editing_controller.dart';
 import 'package:dot_marketplace/core/presentation/UI/text_fields/password_textfield.dart';
-import 'package:dot_marketplace/feature/login_page/domain/form_control_names.dart';
-import 'package:dot_marketplace/feature/login_page/presentation/auth_vm.dart';
 import 'package:dot_marketplace/theme/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:reactive_forms/reactive_forms.dart';
 import 'package:reactive_variables/reactive_variables.dart';
 
 class AuthorizationWidget extends StatefulWidget {
-  final AuthViewModel vm;
+  final AppTextEditingController phoneLoginTextCtrl;
+  final PassTextEditingController passwordLoginTextCtrl;
+  final Rv<bool> isLoginPossible;
+  final Function(BuildContext context) goToRecoverPassword;
 
   const AuthorizationWidget({
     super.key,
-    required this.vm,
+    required this.phoneLoginTextCtrl,
+    required this.passwordLoginTextCtrl,
+    required this.isLoginPossible,
+    required this.goToRecoverPassword,
   });
 
   @override
@@ -23,23 +28,6 @@ class AuthorizationWidget extends StatefulWidget {
 }
 
 class _AuthorizationWidgetState extends State<AuthorizationWidget> {
-  AuthViewModel get vm => widget.vm;
-  final authorizatinForm = FormGroup({
-    FormControlNames.phoneNumber: FormControl<String>(
-      validators: [
-        Validators.required,
-        Validators.number,
-        Validators.minLength(10),
-      ],
-    ),
-    FormControlNames.password: FormControl<String>(
-      validators: [
-        Validators.required,
-        Validators.minLength(8),
-      ],
-    ),
-  });
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -54,7 +42,7 @@ class _AuthorizationWidgetState extends State<AuthorizationWidget> {
           Column(
             children: <Widget>[
               AppTextField(
-                controller: vm.phoneLoginTextCtrl,
+                controller: widget.phoneLoginTextCtrl,
                 labelText: S.of(context).phone,
                 prefixIcon: const Padding(
                   padding: textFieldIconPadding,
@@ -65,19 +53,18 @@ class _AuthorizationWidgetState extends State<AuthorizationWidget> {
               ),
               const SizedBox(height: 20),
               PasswordTextField(
-                controller: vm.passwordLoginTextCtrl,
+                controller: widget.passwordLoginTextCtrl,
                 labelText: S.of(context).password,
               ),
               const SizedBox(height: 20),
             ],
           ),
           Obs(
-            rvList: [vm.isLoginPossible],
+            rvList: [widget.isLoginPossible],
             builder: (context) => AppFilledButton(
-              onPressed: vm.isLoginPossible()
+              onPressed: widget.isLoginPossible()
                   ? () {
                       debugPrint('login');
-                      authorizatinForm.reset();
                     }
                   : null,
               child: Text(S.of(context).logon),
@@ -86,7 +73,7 @@ class _AuthorizationWidgetState extends State<AuthorizationWidget> {
           const SizedBox(height: 20),
           AppTextButton(
             text: S.of(context).forgotPassword,
-            onPressed: () => vm.goToRecoverPassword(context),
+            onPressed: () => widget.goToRecoverPassword(context),
           ),
         ],
       ),

@@ -20,30 +20,31 @@ abstract class AppRouterConfig {
         ),
       ),
       GoRoute(
-        path: DotMarketplaceRoutes.loginPage,
-        builder: (context, state) {
-          return LoginPage(
-            vm: AuthViewModel(
-              authRepository: AppContainer().repositoryScope.authRepository,
-              settingService: AppContainer().serviceScope.settingsService,
+          path: DotMarketplaceRoutes.loginPage,
+          builder: (context, state) {
+            return LoginPage(
+              vm: AuthViewModel(
+                authRepository: AppContainer().repositoryScope.authRepository,
+                settingService: AppContainer().serviceScope.settingsService,
+              ),
+            );
+          },
+          routes: [
+            GoRoute(
+              path: DotMarketplaceRoutes.recoverySendingPhonePage,
+              builder: (context, state) => RecoveryPhonePage(
+                vm: RecoveryPhoneViewModel(
+                    recoveryRepository:
+                        AppContainer().repositoryScope.recoveryRepository,
+                    settingService:
+                        AppContainer().serviceScope.settingsService),
+              ),
             ),
-          );
-        },
-      ),
-      GoRoute(
-        path: DotMarketplaceRoutes.recoveryPhonePage,
-        builder: (context, state) => RecoveryPhonePage(
-          vm: RecoveryPhoneViewModel(
-            recoveryRepository:
-                AppContainer().repositoryScope.recoveryRepository,
-            settingService: AppContainer().serviceScope.settingsService,
-          ),
-        ),
-      ),
-      GoRoute(
-        path: DotMarketplaceRoutes.recoveryCodePage,
-        builder: (context, state) => const RecoveryCodeConfirm(),
-      ),
+            GoRoute(
+              path: DotMarketplaceRoutes.recoveryCodePage,
+              builder: (context, state) => const RecoveryCodeConfirm(),
+            ),
+          ]),
     ],
   );
 }

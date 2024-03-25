@@ -77,8 +77,8 @@ class AuthViewModel {
     isRegisterPossible(true);
   }
 
-  void goToRecoverPassword(BuildContext context) =>
-      context.push(DotMarketplaceRoutes.recoveryPhonePage);
+  void goToRecoverPassword(BuildContext context) => context.push(
+      '${DotMarketplaceRoutes.loginPage}/${DotMarketplaceRoutes.recoverySendingPhonePage}');
 
   void _passwordVisibilityListener() {
     repeatPasswordRegisterTextCtrl

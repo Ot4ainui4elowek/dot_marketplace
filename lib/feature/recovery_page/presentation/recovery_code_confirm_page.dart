@@ -2,6 +2,7 @@ import 'package:dot_marketplace/core/presentation/UI/app_bar/app_bar.dart';
 import 'package:dot_marketplace/core/presentation/UI/text_fields/app_text_field.dart';
 import 'package:dot_marketplace/core/presentation/UI/text_fields/controllers/app_text_editing_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class RecoveryCodeConfirm extends StatefulWidget {
   const RecoveryCodeConfirm({super.key});
@@ -36,7 +37,8 @@ class _RecoveryCodeConfirmState extends State<RecoveryCodeConfirm> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 100),
-            Text('Введите код, отправленный на +3737777777'),
+            Text(
+                'Введите код, отправленный на ${GoRouterState.of(context).extra}'),
             const SizedBox(height: 20),
             AppTextField(labelText: '', controller: AppTextEditingController()),
           ],

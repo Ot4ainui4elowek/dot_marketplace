@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 class RecoveryPhonePage extends StatefulWidget {
   final RecoveryPhoneViewModel vm;
 
-  const RecoveryPhonePage({required this.vm});
+  const RecoveryPhonePage({super.key, required this.vm});
 
   @override
   State<RecoveryPhonePage> createState() => _RecoveryPhonePageState();

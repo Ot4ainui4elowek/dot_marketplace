@@ -6,6 +6,6 @@ class RecoveryCodeCredentials {
   const RecoveryCodeCredentials(this.isConfirmedNumber);
 
   factory RecoveryCodeCredentials.fromModel(
-          RecoveryCodeCredentialsModel model) =>
+          RecoveryCodeVerificationResultModel model) =>
       RecoveryCodeCredentials(model.isSuccess);
 }

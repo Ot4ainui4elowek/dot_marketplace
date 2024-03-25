@@ -36,10 +36,19 @@ class _LoginPageState extends State<LoginPage>
 
   List<Widget> get _tabWidgets => <Widget>[
         AuthorizationWidget(
-          vm: vm,
+          goToRecoverPassword: vm.goToRecoverPassword,
+          isLoginPossible: vm.isLoginPossible,
+          passwordLoginTextCtrl: vm.passwordLoginTextCtrl,
+          phoneLoginTextCtrl: vm.phoneLoginTextCtrl,
         ),
         RegistrationWidget(
-          vm: vm,
+          isRegisterPossible: vm.isRegisterPossible,
+          isUserAgreedWithPnPUsage: vm.isUserAgreedWithPnPUsage,
+          onCheckBoxChecked: vm.onCheckBoxChecked,
+          passwordRegisterTextCtrl: vm.passwordRegisterTextCtrl,
+          phoneRegisterTextCtrl: vm.phoneRegisterTextCtrl,
+          repeatPasswordRegisterTextCtrl: vm.repeatPasswordRegisterTextCtrl,
+          signUp: vm.signUp,
         ),
       ];
 
