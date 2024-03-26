@@ -2,7 +2,7 @@ import 'package:dot_marketplace/core/domain/intl/generated/l10n.dart';
 import 'package:dot_marketplace/core/presentation/UI/sheets/app_bottom_sheet.dart';
 import 'package:dot_marketplace/feature/settings/domain/entity/app_locale.dart';
 import 'package:dot_marketplace/feature/settings/domain/service/settings_service.dart';
-import 'package:dot_marketplace/core/presentation/UI/buttons/app_text_button.dart';
+import 'package:dot_marketplace/core/presentation/UI/buttons/app_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -29,8 +29,8 @@ class SettingsModalBottomSheet extends StatelessWidget {
                   S.of(context).settings,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
-                AppTextButton(
-                  text: S.of(context).ready,
+                AppElevatedButton(
+                  child: Text(S.of(context).ready),
                   onPressed: () => context.pop(),
                 )
               ],

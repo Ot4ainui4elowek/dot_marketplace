@@ -1,6 +1,5 @@
 import 'package:dot_marketplace/core/domain/intl/generated/l10n.dart';
 import 'package:dot_marketplace/core/presentation/UI/buttons/app_filled_button.dart';
-import 'package:dot_marketplace/core/presentation/UI/buttons/app_text_button.dart';
 import 'package:dot_marketplace/core/presentation/UI/text_fields/app_text_field.dart';
 import 'package:dot_marketplace/core/presentation/UI/text_fields/controllers/app_text_editing_controller.dart';
 import 'package:dot_marketplace/core/presentation/UI/text_fields/controllers/password_text_editing_controller.dart';
@@ -14,6 +13,7 @@ class AuthorizationWidget extends StatefulWidget {
   final PassTextEditingController passwordLoginTextCtrl;
   final Rv<bool> isLoginPossible;
   final Function(BuildContext context) goToRecoverPassword;
+  final Function() signIn;
 
   const AuthorizationWidget({
     super.key,
@@ -21,6 +21,7 @@ class AuthorizationWidget extends StatefulWidget {
     required this.passwordLoginTextCtrl,
     required this.isLoginPossible,
     required this.goToRecoverPassword,
+    required this.signIn,
   });
 
   @override
@@ -44,6 +45,7 @@ class _AuthorizationWidgetState extends State<AuthorizationWidget> {
               AppTextField(
                 controller: widget.phoneLoginTextCtrl,
                 labelText: S.of(context).phone,
+                keyboardType: TextInputType.phone,
                 prefixIcon: const Padding(
                   padding: textFieldIconPadding,
                   child: Icon(
@@ -62,17 +64,13 @@ class _AuthorizationWidgetState extends State<AuthorizationWidget> {
           Obs(
             rvList: [widget.isLoginPossible],
             builder: (context) => AppFilledButton(
-              onPressed: widget.isLoginPossible()
-                  ? () {
-                      debugPrint('login');
-                    }
-                  : null,
+              onPressed: widget.isLoginPossible() ? widget.signIn : null,
               child: Text(S.of(context).logon),
             ),
           ),
           const SizedBox(height: 20),
-          AppTextButton(
-            text: S.of(context).forgotPassword,
+          TextButton(
+            child: Text(S.of(context).forgotPassword),
             onPressed: () => widget.goToRecoverPassword(context),
           ),
         ],

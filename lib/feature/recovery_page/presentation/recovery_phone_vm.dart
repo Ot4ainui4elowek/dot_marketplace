@@ -44,15 +44,13 @@ class RecoveryPhoneViewModel {
     phoneCotroller.removeListener(_isPhoneSendListener);
   }
 
-  Future<void> goToCode(BuildContext context) async {
-    final result =
-        await _recoveryRepository.sendCode(number: phoneCotroller.text);
+  Future<void> sendPhone(BuildContext context) async {
+    final result = await _recoveryRepository.sendPhoneToReceiveCode(
+        number: phoneCotroller.text);
     switch (result) {
       case GoodUseCaseResult<RecoveryPhoneCredentials>(:final data):
         log('phone is valid');
-        context.pushReplacement(
-            '${DotMarketplaceRoutes.loginPage}/${DotMarketplaceRoutes.recoveryCodePage}',
-            extra: data.phone);
+        goToEnterCode(context, data);
         break;
       case BadUseCaseResult<RecoveryPhoneCredentials>(:final errorList):
         for (final error in errorList) {
@@ -60,5 +58,11 @@ class RecoveryPhoneViewModel {
         }
         break;
     }
+  }
+
+  void goToEnterCode(BuildContext context, RecoveryPhoneCredentials data) {
+    context.pushReplacement(
+        '${DotMarketplaceRoutes.recoverySendingPhonePage}/${DotMarketplaceRoutes.recoveryCodePage}',
+        extra: data.phone);
   }
 }

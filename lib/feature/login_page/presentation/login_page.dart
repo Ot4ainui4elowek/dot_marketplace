@@ -40,6 +40,7 @@ class _LoginPageState extends State<LoginPage>
           isLoginPossible: vm.isLoginPossible,
           passwordLoginTextCtrl: vm.passwordLoginTextCtrl,
           phoneLoginTextCtrl: vm.phoneLoginTextCtrl,
+          signIn: vm.signUp,
         ),
         RegistrationWidget(
           isRegisterPossible: vm.isRegisterPossible,

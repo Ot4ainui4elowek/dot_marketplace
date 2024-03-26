@@ -39,13 +39,14 @@ final theme = ThemeData(
       const DropdownMenuThemeData(inputDecorationTheme: InputDecorationTheme()),
   inputDecorationTheme: const InputDecorationTheme(
     prefixIconColor: AppLightColors.outline,
-    suffixIconColor: AppLightColors.outline,
     border:
         OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16))),
   ),
   textButtonTheme: const TextButtonThemeData(
       style: ButtonStyle(padding: MaterialStatePropertyAll(verticalPadding18))),
   filledButtonTheme: const FilledButtonThemeData(
+      style: ButtonStyle(padding: MaterialStatePropertyAll(verticalPadding18))),
+  elevatedButtonTheme: const ElevatedButtonThemeData(
       style: ButtonStyle(padding: MaterialStatePropertyAll(verticalPadding18))),
   appBarTheme: const AppBarTheme(
     backgroundColor: Colors.white,

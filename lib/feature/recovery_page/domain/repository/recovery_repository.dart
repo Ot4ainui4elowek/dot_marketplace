@@ -50,7 +50,7 @@ class RecoveryRepository {
     };
   }
 
-  Future<UseCaseResult<RecoveryPhoneCredentials>> sendCode(
+  Future<UseCaseResult<RecoveryPhoneCredentials>> sendPhoneToReceiveCode(
       {required String number}) async {
     final sourceResult = await _recoveryDataSource.sendCode(number: number);
 

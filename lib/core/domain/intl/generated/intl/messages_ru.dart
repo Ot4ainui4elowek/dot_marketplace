@@ -27,6 +27,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "agreement": MessageLookupByLibrary.simpleMessage(
             "Я согласен с Правилами и условиями использования"),
         "appLanguage": MessageLookupByLibrary.simpleMessage("Язык приложения"),
+        "codeConfirmTitle": MessageLookupByLibrary.simpleMessage("Введите код"),
+        "enterACode": MessageLookupByLibrary.simpleMessage(
+            "Введите код, отправленный на"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Забыли пароль?"),
         "login": MessageLookupByLibrary.simpleMessage("Вход"),

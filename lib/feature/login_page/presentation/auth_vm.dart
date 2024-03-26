@@ -77,8 +77,8 @@ class AuthViewModel {
     isRegisterPossible(true);
   }
 
-  void goToRecoverPassword(BuildContext context) => context.push(
-      '${DotMarketplaceRoutes.loginPage}/${DotMarketplaceRoutes.recoverySendingPhonePage}');
+  void goToRecoverPassword(BuildContext context) =>
+      context.push(DotMarketplaceRoutes.recoverySendingPhonePage);
 
   void _passwordVisibilityListener() {
     repeatPasswordRegisterTextCtrl
@@ -137,7 +137,7 @@ class AuthViewModel {
     }
   }
 
-  Future<void> confirmCode() async {
+  Future<void> signIn() async {
     final result = await _authRepository.signIn(
       phone: phoneRegisterTextCtrl.text,
       password: passwordRegisterTextCtrl.text,
@@ -146,6 +146,7 @@ class AuthViewModel {
     switch (result) {
       case GoodUseCaseResult<AuthCredentials>(:final data):
         log(data.jvtToken);
+
         break;
       case BadUseCaseResult<AuthCredentials>(:final errorList):
         for (final error in errorList) {

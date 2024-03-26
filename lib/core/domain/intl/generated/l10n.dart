@@ -249,6 +249,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Enter the code sent to the`
+  String get enterACode {
+    return Intl.message(
+      'Enter the code sent to the',
+      name: 'enterACode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter a code`
+  String get codeConfirmTitle {
+    return Intl.message(
+      'Enter a code',
+      name: 'codeConfirmTitle',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

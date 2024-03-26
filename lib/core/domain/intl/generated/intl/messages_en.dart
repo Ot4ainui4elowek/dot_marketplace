@@ -27,6 +27,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "agreement": MessageLookupByLibrary.simpleMessage(
             "I agree to the Terms and Conditions of Use"),
         "appLanguage": MessageLookupByLibrary.simpleMessage("App language"),
+        "codeConfirmTitle":
+            MessageLookupByLibrary.simpleMessage("Enter a code"),
+        "enterACode":
+            MessageLookupByLibrary.simpleMessage("Enter the code sent to the"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("Forgot your password?"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),

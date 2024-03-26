@@ -18,5 +18,7 @@
   "theme": "Dark theme",
   "restorePassword": "Restore the password",
   "send": "Send",
-  "registrationPhoneInputTitle": "Enter the phone number to which the password reset code will be sent"
+  "registrationPhoneInputTitle": "Enter the phone number to which the password reset code will be sent",
+  "enterACode": "Enter the code sent to the",
+  "codeConfirmTitle": "Enter a code"
 }

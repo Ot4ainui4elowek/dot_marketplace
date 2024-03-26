@@ -50,6 +50,7 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
           AppTextField(
             controller: widget.phoneRegisterTextCtrl,
             labelText: S.of(context).phone,
+            keyboardType: TextInputType.phone,
             prefixIcon: const Padding(
               padding: textFieldIconPadding,
               child: Icon(
