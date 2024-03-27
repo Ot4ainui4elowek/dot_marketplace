@@ -1,88 +1,29 @@
+import 'package:dot_marketplace/core/domain/container/app_container.dart';
 import 'package:dot_marketplace/core/domain/intl/generated/l10n.dart';
-import 'package:dot_marketplace/core/domain/marketplace_settings/settings_bloc.dart';
-import 'package:dot_marketplace/core/presentation/UI/buttons/app_text_button.dart';
+import 'package:dot_marketplace/feature/login_page/presentation/auth_vm.dart';
 import 'package:dot_marketplace/feature/login_page/presentation/authorization_widget.dart';
 import 'package:dot_marketplace/feature/login_page/presentation/registration_widget.dart';
+import 'package:dot_marketplace/feature/settings/presentation/settings_modal_bs.dart';
+import 'package:dot_marketplace/core/presentation/UI/app_bar/app_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  final AuthViewModel vm;
+
+  const LoginPage({
+    super.key,
+    required this.vm,
+  });
 
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  final settingService = SettingsBloc();
-  final ValueNotifier<bool> lightTheme = ValueNotifier<bool>(false);
-  Widget get localizationBottomSheet => BottomSheet(
-        builder: (context) => Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    S.of(context).settings,
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  AppTextButton(
-                    text: S.of(context).ready,
-                    onPressed: () => context.pop(),
-                  )
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  DropdownMenu(
-                      controller: TextEditingController(
-                          text: settingService.curentLocale.name),
-                      label: Text(S.of(context).appLanguage),
-                      onSelected: (value) {
-                        if (value != null) {
-                          settingService.add(EChangeLocale(value));
-                        }
-                      },
-                      expandedInsets: EdgeInsets.zero,
-                      dropdownMenuEntries: settingService.localeList
-                          .map(
-                              (e) => DropdownMenuEntry(value: e, label: e.name))
-                          .toList()),
-                  const SizedBox(height: 24),
-                  const Divider(height: 1),
-                  const SizedBox(height: 24),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        S.of(context).theme,
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
-                      ValueListenableBuilder(
-                        valueListenable: lightTheme,
-                        builder: (context, value, child) => Switch(
-                            value: lightTheme.value,
-                            onChanged: (value) {
-                              value = lightTheme.value = !lightTheme.value;
-                            }),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ],
-        ),
-        onClosing: () => 0,
-      );
+class _LoginPageState extends State<LoginPage>
+    with SingleTickerProviderStateMixin {
+  AuthViewModel get vm => widget.vm;
+  Widget get localizationBottomSheet => SettingsModalBottomSheet(
+      settingsService: AppContainer().serviceScope.settingsService);
 
   List<Widget> get _tabHeaders => <Widget>[
         Tab(
@@ -94,29 +35,47 @@ class _LoginPageState extends State<LoginPage> {
       ];
 
   List<Widget> get _tabWidgets => <Widget>[
-        const AuthorizationWidget(),
-        const RegistrationWidget(),
+        AuthorizationWidget(
+          vm: vm,
+        ),
+        RegistrationWidget(
+          vm: vm,
+        ),
       ];
+
+  @override
+  void initState() {
+    vm.init(tabController: TabController(length: 2, vsync: this));
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant LoginPage oldWidget) {
+    if (oldWidget.vm != widget.vm) {
+      vm.init(tabController: oldWidget.vm.tabController);
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void dispose() {
+    vm.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          leading: BackButton(
-            onPressed: () => context.pop(),
-          ),
+        appBar: CustomAppBar(
+          context: context,
           actions: [
             IconButton(
               icon: const Icon(
                 Icons.settings_outlined,
               ),
-              onPressed: () => showModalBottomSheet(
-                context: context,
-                builder: (context) => localizationBottomSheet,
-              ),
+              onPressed: () => vm.onSettingsTap(context),
             ),
             const SizedBox(width: 8),
           ],

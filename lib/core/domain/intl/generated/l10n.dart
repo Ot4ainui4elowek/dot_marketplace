@@ -219,6 +219,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Restore the password`
+  String get restorePassword {
+    return Intl.message(
+      'Restore the password',
+      name: 'restorePassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send`
+  String get send {
+    return Intl.message(
+      'Send',
+      name: 'send',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter the phone number to which the password reset code will be sent`
+  String get registrationPhoneInputTitle {
+    return Intl.message(
+      'Enter the phone number to which the password reset code will be sent',
+      name: 'registrationPhoneInputTitle',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

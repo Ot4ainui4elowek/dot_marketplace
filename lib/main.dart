@@ -1,5 +1,6 @@
+import 'package:dot_marketplace/core/domain/container/app_container.dart';
 import 'package:dot_marketplace/core/domain/intl/generated/l10n.dart';
-import 'package:dot_marketplace/core/domain/marketplace_settings/settings_bloc.dart';
+import 'package:dot_marketplace/feature/settings/domain/service/settings_service.dart';
 import 'package:dot_marketplace/core/domain/router/router.dart';
 import 'package:dot_marketplace/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -7,21 +8,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
-  runApp(DotMarketplaceApp());
+  runApp(DotMarketplaceApp(
+    appContainer: AppContainer.init(),
+  ));
 }
 
 class DotMarketplaceApp extends StatelessWidget {
-  DotMarketplaceApp({super.key});
+  final AppContainer appContainer;
 
-  final settingService = SettingsBloc();
+  const DotMarketplaceApp({
+    super.key,
+    required this.appContainer,
+  });
 
+  SettingsService get settingsService =>
+      appContainer.serviceScope.settingsService;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return BlocBuilder(
-      bloc: settingService,
+      bloc: settingsService,
       builder: (context, state) => MaterialApp.router(
-        routerConfig: router,
+        routerConfig: AppRouterConfig.instance,
         debugShowCheckedModeBanner: false,
         localizationsDelegates: const [
           S.delegate,
@@ -29,8 +37,8 @@ class DotMarketplaceApp extends StatelessWidget {
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        supportedLocales: settingService.localeList,
-        locale: settingService.curentLocale,
+        supportedLocales: settingsService.localeList,
+        locale: settingsService.curentLocale,
         title: 'Dot Marketplace',
         theme: theme,
       ),

@@ -1,20 +1,29 @@
 import 'package:dot_marketplace/core/domain/intl/generated/l10n.dart';
 import 'package:dot_marketplace/core/presentation/UI/buttons/app_filled_button.dart';
 import 'package:dot_marketplace/core/presentation/UI/buttons/app_text_button.dart';
+import 'package:dot_marketplace/core/presentation/UI/text_fields/app_text_field.dart';
 import 'package:dot_marketplace/core/presentation/UI/text_fields/password_textfield.dart';
-import 'package:dot_marketplace/core/presentation/UI/text_fields/phone_textfield.dart';
 import 'package:dot_marketplace/feature/login_page/domain/form_control_names.dart';
+import 'package:dot_marketplace/feature/login_page/presentation/auth_vm.dart';
+import 'package:dot_marketplace/theme/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import 'package:reactive_variables/reactive_variables.dart';
 
 class AuthorizationWidget extends StatefulWidget {
-  const AuthorizationWidget({super.key});
+  final AuthViewModel vm;
+
+  const AuthorizationWidget({
+    super.key,
+    required this.vm,
+  });
 
   @override
   State<AuthorizationWidget> createState() => _AuthorizationWidgetState();
 }
 
 class _AuthorizationWidgetState extends State<AuthorizationWidget> {
+  AuthViewModel get vm => widget.vm;
   final authorizatinForm = FormGroup({
     FormControlNames.phoneNumber: FormControl<String>(
       validators: [
@@ -42,41 +51,42 @@ class _AuthorizationWidgetState extends State<AuthorizationWidget> {
           const SizedBox(
             height: 100,
           ),
-          ReactiveForm(
-            formGroup: authorizatinForm,
-            child: Column(
-              children: <Widget>[
-                PhoneTextfield(
-                  formControlName: FormControlNames.phoneNumber,
-                  validationMeassages: {
-                    'minLength': (error) => S.of(context).minLength(10),
-                  },
+          Column(
+            children: <Widget>[
+              AppTextField(
+                controller: vm.phoneLoginTextCtrl,
+                labelText: S.of(context).phone,
+                prefixIcon: const Padding(
+                  padding: textFieldIconPadding,
+                  child: Icon(
+                    Icons.phone_outlined,
+                  ),
                 ),
-                const SizedBox(height: 20),
-                PasswordTextField(
-                  formControlName: FormControlNames.password,
-                  labelText: S.of(context).password,
-                ),
-                const SizedBox(height: 20),
-              ],
-            ),
+              ),
+              const SizedBox(height: 20),
+              PasswordTextField(
+                controller: vm.passwordLoginTextCtrl,
+                labelText: S.of(context).password,
+              ),
+              const SizedBox(height: 20),
+            ],
           ),
-          ReactiveValueListenableBuilder(
-            formControl: authorizatinForm,
-            builder: (context, control, child) => AppFilledButton(
-              onPressed: authorizatinForm.valid
+          Obs(
+            rvList: [vm.isLoginPossible],
+            builder: (context) => AppFilledButton(
+              onPressed: vm.isLoginPossible()
                   ? () {
-                      debugPrint('auth');
+                      debugPrint('login');
                       authorizatinForm.reset();
                     }
                   : null,
-              widget: Text(S.of(context).logon),
+              child: Text(S.of(context).logon),
             ),
           ),
           const SizedBox(height: 20),
           AppTextButton(
             text: S.of(context).forgotPassword,
-            onPressed: () => 0,
+            onPressed: () => vm.goToRecoverPassword(context),
           ),
         ],
       ),
