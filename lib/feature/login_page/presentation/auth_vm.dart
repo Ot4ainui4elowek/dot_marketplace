@@ -80,6 +80,9 @@ class AuthViewModel {
   void goToRecoverPassword(BuildContext context) =>
       context.push(DotMarketplaceRoutes.recoverySendingPhonePage);
 
+  void _goToMainPage(BuildContext context) =>
+      context.go(DotMarketplaceRoutes.mainPage);
+
   void _passwordVisibilityListener() {
     repeatPasswordRegisterTextCtrl
         .isTextHidden(passwordRegisterTextCtrl.isTextHidden());
@@ -119,7 +122,7 @@ class AuthViewModel {
   void onCheckBoxChecked(bool? value) =>
       isUserAgreedWithPnPUsage(value ?? false);
 
-  Future<void> signUp() async {
+  Future<void> signUp(BuildContext context) async {
     final result = await _authRepository.signIn(
       phone: phoneRegisterTextCtrl.text,
       password: passwordRegisterTextCtrl.text,
@@ -128,6 +131,7 @@ class AuthViewModel {
     switch (result) {
       case GoodUseCaseResult<AuthCredentials>(:final data):
         log(data.jvtToken);
+        _goToMainPage(context);
         break;
       case BadUseCaseResult<AuthCredentials>(:final errorList):
         for (final error in errorList) {

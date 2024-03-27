@@ -76,7 +76,7 @@ class _LoginPageState extends State<LoginPage>
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: _tabHeaders.length,
       child: Scaffold(
         appBar: CustomAppBar(
           context: context,

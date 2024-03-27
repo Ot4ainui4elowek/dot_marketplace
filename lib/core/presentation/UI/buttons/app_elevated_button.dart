@@ -63,7 +63,7 @@ class _AppElevatedButtonState extends State<AppElevatedButton> {
         ),
         child: !_isLoading
             ? widget.child
-            : Container(
+            : SizedBox(
                 height: _buttonHeight,
                 width: _buttonWidth,
                 child: const CircularProgressIndicator.adaptive(

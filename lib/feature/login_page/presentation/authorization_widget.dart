@@ -13,7 +13,7 @@ class AuthorizationWidget extends StatefulWidget {
   final PassTextEditingController passwordLoginTextCtrl;
   final Rv<bool> isLoginPossible;
   final Function(BuildContext context) goToRecoverPassword;
-  final Function() signIn;
+  final signIn;
 
   const AuthorizationWidget({
     super.key,
@@ -64,7 +64,9 @@ class _AuthorizationWidgetState extends State<AuthorizationWidget> {
           Obs(
             rvList: [widget.isLoginPossible],
             builder: (context) => AppFilledButton(
-              onPressed: widget.isLoginPossible() ? widget.signIn : null,
+              onPressed: widget.isLoginPossible()
+                  ? () => widget.signIn(context)
+                  : null,
               child: Text(S.of(context).logon),
             ),
           ),

@@ -27,8 +27,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "agreement": MessageLookupByLibrary.simpleMessage(
             "I agree to the Terms and Conditions of Use"),
         "appLanguage": MessageLookupByLibrary.simpleMessage("App language"),
-        "codeConfirmTitle":
-            MessageLookupByLibrary.simpleMessage("Enter a code"),
+        "codePageConfirm": MessageLookupByLibrary.simpleMessage("Confirm"),
+        "codePageResend": MessageLookupByLibrary.simpleMessage("Resend code"),
+        "codePageTitle": MessageLookupByLibrary.simpleMessage("Enter a code"),
         "enterACode":
             MessageLookupByLibrary.simpleMessage("Enter the code sent to the"),
         "forgotPassword":
@@ -36,6 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "logon": MessageLookupByLibrary.simpleMessage("Login"),
         "minLength": m0,
+        "newPassword": MessageLookupByLibrary.simpleMessage("New password"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "passwordMismatch":
             MessageLookupByLibrary.simpleMessage("Password mismatch!"),
@@ -53,8 +55,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("This field must be filled!"),
         "restorePassword":
             MessageLookupByLibrary.simpleMessage("Restore the password"),
+        "rybnitsa": MessageLookupByLibrary.simpleMessage("Рыбница"),
         "send": MessageLookupByLibrary.simpleMessage("Send"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
-        "theme": MessageLookupByLibrary.simpleMessage("Dark theme")
+        "theme": MessageLookupByLibrary.simpleMessage("Dark theme"),
+        "tiraspol": MessageLookupByLibrary.simpleMessage("Тирасполь")
       };
 }

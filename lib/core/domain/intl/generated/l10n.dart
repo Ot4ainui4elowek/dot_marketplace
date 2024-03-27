@@ -261,10 +261,60 @@ class S {
   }
 
   /// `Enter a code`
-  String get codeConfirmTitle {
+  String get codePageTitle {
     return Intl.message(
       'Enter a code',
-      name: 'codeConfirmTitle',
+      name: 'codePageTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Resend code`
+  String get codePageResend {
+    return Intl.message(
+      'Resend code',
+      name: 'codePageResend',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm`
+  String get codePageConfirm {
+    return Intl.message(
+      'Confirm',
+      name: 'codePageConfirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New password`
+  String get newPassword {
+    return Intl.message(
+      'New password',
+      name: 'newPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Тирасполь`
+  String get tiraspol {
+    return Intl.message(
+      'Тирасполь',
+      name: 'tiraspol',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Рыбница`
+  String get rybnitsa {
+    return Intl.message(
+      'Рыбница',
+      name: 'rybnitsa',
       desc: '',
       args: [],
     );

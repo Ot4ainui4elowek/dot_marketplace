@@ -2,6 +2,8 @@ import 'package:dot_marketplace/core/domain/container/app_container.dart';
 import 'package:dot_marketplace/core/domain/router/dot_marketplace_routes.dart';
 import 'package:dot_marketplace/feature/login_page/presentation/auth_vm.dart';
 import 'package:dot_marketplace/feature/login_page/presentation/login_page.dart';
+import 'package:dot_marketplace/feature/main_page/presentation/page/main_page.dart';
+import 'package:dot_marketplace/feature/main_page/presentation/page/main_page_vm.dart';
 import 'package:dot_marketplace/feature/recovery_page/presentation/recovery_code_confirm_page.dart';
 import 'package:dot_marketplace/feature/recovery_page/presentation/recovery_code_confirm_vm.dart';
 import 'package:dot_marketplace/feature/recovery_page/presentation/recovery_new_password_page.dart';
@@ -29,6 +31,16 @@ abstract class AppRouterConfig {
               authRepository: AppContainer().repositoryScope.authRepository,
               settingService: AppContainer().serviceScope.settingsService,
             ),
+          );
+        },
+      ),
+      GoRoute(
+        path: DotMarketplaceRoutes.mainPage,
+        builder: (context, state) {
+          return MainPage(
+            vm: MainPageViewModel(
+                advertisementRepository:
+                    AppContainer().repositoryScope.advertisementRepository),
           );
         },
       ),

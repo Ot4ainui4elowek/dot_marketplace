@@ -28,7 +28,6 @@ sealed class AppError {
 
   static const _errorKeySplitter = '.';
   static const _defaultErrorKey = 'Default';
-  // TODO this field have to handle all localizations
   static const _defaultErrorText = 'Unknown error';
 
   static GlobalErrorsMap globalErrorsMap = {};

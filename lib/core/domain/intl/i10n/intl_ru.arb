@@ -20,5 +20,10 @@
   "send": "Отправить",
   "registrationPhoneInputTitle": "Введите номер телефона, на который будет отправлен код для сброса пароля",
   "enterACode": "Введите код, отправленный на",
-  "codeConfirmTitle": "Введите код"
+  "codePageTitle": "Введите код",
+  "codePageResend": "Отправить код повтороно",
+  "codePageConfirm": "Подтвердить",
+  "newPassword": "New password",
+  "tiraspol": "Тирасполь",
+  "rybnitsa": "Рыбница"
 }

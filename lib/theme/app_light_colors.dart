@@ -30,4 +30,5 @@ abstract class AppLightColors {
   static const scrim = Colors.black;
   static const shadow = Colors.black;
   static const inversePrimary = Color(0xFFF9B1DB);
+  static const surfaceContainer = Color(0xFFF9EAEF);
 }

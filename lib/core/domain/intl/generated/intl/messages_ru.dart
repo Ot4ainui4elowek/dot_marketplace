@@ -27,7 +27,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "agreement": MessageLookupByLibrary.simpleMessage(
             "Я согласен с Правилами и условиями использования"),
         "appLanguage": MessageLookupByLibrary.simpleMessage("Язык приложения"),
-        "codeConfirmTitle": MessageLookupByLibrary.simpleMessage("Введите код"),
+        "codePageConfirm": MessageLookupByLibrary.simpleMessage("Подтвердить"),
+        "codePageResend":
+            MessageLookupByLibrary.simpleMessage("Отправить код повтороно"),
+        "codePageTitle": MessageLookupByLibrary.simpleMessage("Введите код"),
         "enterACode": MessageLookupByLibrary.simpleMessage(
             "Введите код, отправленный на"),
         "forgotPassword":
@@ -35,6 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "login": MessageLookupByLibrary.simpleMessage("Вход"),
         "logon": MessageLookupByLibrary.simpleMessage("Войти"),
         "minLength": m0,
+        "newPassword": MessageLookupByLibrary.simpleMessage("New password"),
         "password": MessageLookupByLibrary.simpleMessage("Пароль"),
         "passwordMismatch":
             MessageLookupByLibrary.simpleMessage("Пароли не совпадают!"),
@@ -52,8 +56,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Это поле должно быть заполнено!"),
         "restorePassword":
             MessageLookupByLibrary.simpleMessage("Восстановление пароля"),
+        "rybnitsa": MessageLookupByLibrary.simpleMessage("Рыбница"),
         "send": MessageLookupByLibrary.simpleMessage("Отправить"),
         "settings": MessageLookupByLibrary.simpleMessage("Настройки"),
-        "theme": MessageLookupByLibrary.simpleMessage("Тёмная тема")
+        "theme": MessageLookupByLibrary.simpleMessage("Тёмная тема"),
+        "tiraspol": MessageLookupByLibrary.simpleMessage("Тирасполь")
       };
 }

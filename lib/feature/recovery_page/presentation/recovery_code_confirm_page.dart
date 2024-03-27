@@ -127,13 +127,13 @@ class _RecoveryCodeConfirmState extends State<RecoveryCodeConfirm> {
             const SizedBox(height: 20),
             vm.isReadyToSent.observer(
               (context, value) => AppFilledButton(
-                child: Text('Подтвердить'),
+                child: Text(S.of(context).codePageConfirm),
                 onPressed: value ? () => vm.sendCode(context) : null,
               ),
             ),
             const SizedBox(height: 20),
             AppElevatedButton(
-              child: Text('Отправить текст повтороно'),
+              child: Text(S.of(context).codePageResend),
               onPressed: () => vm.sendPhone(
                   context, GoRouterState.of(context).extra.toString()),
             ),
