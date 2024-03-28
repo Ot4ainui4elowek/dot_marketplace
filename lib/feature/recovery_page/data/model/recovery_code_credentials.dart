@@ -1,12 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
 
 @JsonSerializable()
-class RecoveryCodeCredentialsModel {
+class RecoveryCodeVerificationResultModel {
   final bool isSuccess;
 
-  const RecoveryCodeCredentialsModel(this.isSuccess);
+  const RecoveryCodeVerificationResultModel(this.isSuccess);
 
-  factory RecoveryCodeCredentialsModel.fromModel(
-          RecoveryCodeCredentialsModel model) =>
-      RecoveryCodeCredentialsModel(model.isSuccess);
+  factory RecoveryCodeVerificationResultModel.fromModel(
+          RecoveryCodeVerificationResultModel model) =>
+      RecoveryCodeVerificationResultModel(model.isSuccess);
 }

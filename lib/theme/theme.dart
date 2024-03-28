@@ -34,18 +34,22 @@ final theme = ThemeData(
     shadow: AppLightColors.shadow,
     inversePrimary: AppLightColors.inversePrimary,
   ),
+  navigationBarTheme: const NavigationBarThemeData(
+      surfaceTintColor: AppLightColors.surfaceContainer,
+      indicatorColor: AppLightColors.secondaryContainer),
   useMaterial3: true,
   dropdownMenuTheme:
       const DropdownMenuThemeData(inputDecorationTheme: InputDecorationTheme()),
   inputDecorationTheme: const InputDecorationTheme(
     prefixIconColor: AppLightColors.outline,
-    suffixIconColor: AppLightColors.outline,
     border:
         OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16))),
   ),
   textButtonTheme: const TextButtonThemeData(
       style: ButtonStyle(padding: MaterialStatePropertyAll(verticalPadding18))),
   filledButtonTheme: const FilledButtonThemeData(
+      style: ButtonStyle(padding: MaterialStatePropertyAll(verticalPadding18))),
+  elevatedButtonTheme: const ElevatedButtonThemeData(
       style: ButtonStyle(padding: MaterialStatePropertyAll(verticalPadding18))),
   appBarTheme: const AppBarTheme(
     backgroundColor: Colors.white,
@@ -90,11 +94,13 @@ final theme = ThemeData(
       fontSize: 22,
       height: 28 / 22,
       letterSpacing: 0,
+      fontWeight: FontWeight.w600,
     ),
     titleMedium: TextStyle(
       fontSize: 16,
       height: 24 / 16,
       letterSpacing: 0.15,
+      fontWeight: FontWeight.w600,
     ),
     titleSmall: TextStyle(
       fontSize: 14,

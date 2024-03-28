@@ -36,10 +36,20 @@ class _LoginPageState extends State<LoginPage>
 
   List<Widget> get _tabWidgets => <Widget>[
         AuthorizationWidget(
-          vm: vm,
+          goToRecoverPassword: vm.goToRecoverPassword,
+          isLoginPossible: vm.isLoginPossible,
+          passwordLoginTextCtrl: vm.passwordLoginTextCtrl,
+          phoneLoginTextCtrl: vm.phoneLoginTextCtrl,
+          signIn: vm.signUp,
         ),
         RegistrationWidget(
-          vm: vm,
+          isRegisterPossible: vm.isRegisterPossible,
+          isUserAgreedWithPnPUsage: vm.isUserAgreedWithPnPUsage,
+          onCheckBoxChecked: vm.onCheckBoxChecked,
+          passwordRegisterTextCtrl: vm.passwordRegisterTextCtrl,
+          phoneRegisterTextCtrl: vm.phoneRegisterTextCtrl,
+          repeatPasswordRegisterTextCtrl: vm.repeatPasswordRegisterTextCtrl,
+          signUp: vm.signUp,
         ),
       ];
 
@@ -66,7 +76,7 @@ class _LoginPageState extends State<LoginPage>
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: _tabHeaders.length,
       child: Scaffold(
         appBar: CustomAppBar(
           context: context,

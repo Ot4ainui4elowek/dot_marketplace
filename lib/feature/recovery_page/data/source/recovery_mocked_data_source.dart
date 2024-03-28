@@ -7,11 +7,12 @@ import 'package:dot_marketplace/feature/recovery_page/data/source/recovery_data.
 
 class RecoveryMockedDataSource implements RecoveryDataSource {
   @override
-  Future<RemoteResponse<RecoveryCodeCredentialsModel>> confirmCode(
+  Future<RemoteResponse<RecoveryCodeVerificationResultModel>> confirmCode(
       {required final String code}) async {
     await Future.delayed(const Duration(seconds: 5));
     if (code == '6666') {
-      return DataRemoteResponse(data: const RecoveryCodeCredentialsModel(true));
+      return DataRemoteResponse(
+          data: const RecoveryCodeVerificationResultModel(true));
     } else {
       return ErrorRemoteResponse(
         title: 'code confirmation failed',

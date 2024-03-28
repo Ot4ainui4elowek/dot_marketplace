@@ -15,7 +15,7 @@ sealed class UseCaseResult<T> {
     if (errorList != null) {
       return UseCaseResult.bad(errorList);
     }
-    ;
+
     throw Exception('Something went wrong with UseCaseResult arguments!');
   }
 

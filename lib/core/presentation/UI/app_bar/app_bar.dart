@@ -14,6 +14,8 @@ class CustomAppBar extends AppBar {
   @override
   final PreferredSizeWidget? bottom;
 
+  final double? toolbarHeight;
+
   CustomAppBar({
     super.key,
     required BuildContext context,
@@ -21,7 +23,9 @@ class CustomAppBar extends AppBar {
     this.actions = const [],
     this.leading,
     this.bottom,
+    this.toolbarHeight,
   }) : super(
+          toolbarHeight: toolbarHeight,
           title: title,
           bottom: bottom,
           leadingWidth: leading != null

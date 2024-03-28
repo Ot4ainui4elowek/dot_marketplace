@@ -21,11 +21,13 @@ class RecoveryRepository {
     final sourceResult = await _recoveryDataSource.confirmCode(code: code);
 
     return switch (sourceResult) {
-      DataRemoteResponse<RecoveryCodeCredentialsModel>(:final data) =>
+      DataRemoteResponse<RecoveryCodeVerificationResultModel>(:final data) =>
         UseCaseResult.good(RecoveryCodeCredentials.fromModel(data)),
-      VoidRemoteResponse<RecoveryCodeCredentialsModel>() =>
+      VoidRemoteResponse<RecoveryCodeVerificationResultModel>() =>
         const UseCaseResult.bad([SelfValidationError('unexpected void')]),
-      ErrorRemoteResponse<RecoveryCodeCredentialsModel>(:final errorList) =>
+      ErrorRemoteResponse<RecoveryCodeVerificationResultModel>(
+        :final errorList
+      ) =>
         UseCaseResult.bad(errorList.asAppErrors.toList()),
     };
   }
@@ -48,7 +50,7 @@ class RecoveryRepository {
     };
   }
 
-  Future<UseCaseResult<RecoveryPhoneCredentials>> sendCode(
+  Future<UseCaseResult<RecoveryPhoneCredentials>> sendPhoneToReceiveCode(
       {required String number}) async {
     final sourceResult = await _recoveryDataSource.sendCode(number: number);
 

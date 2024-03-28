@@ -3,14 +3,13 @@ import 'dart:async';
 import 'package:dot_marketplace/theme/app_light_colors.dart';
 import 'package:flutter/material.dart';
 
-class AppFilledButton extends StatefulWidget {
-  final FutureOr<void> Function()? onPressed;
-
+class AppElevatedButton extends StatefulWidget {
   final Widget? child;
+  final FutureOr<void> Function()? onPressed;
 
   final double? width;
 
-  const AppFilledButton({
+  const AppElevatedButton({
     super.key,
     this.onPressed,
     this.child,
@@ -18,10 +17,10 @@ class AppFilledButton extends StatefulWidget {
   });
 
   @override
-  State<AppFilledButton> createState() => _AppFilledButtonState();
+  State<AppElevatedButton> createState() => _AppElevatedButtonState();
 }
 
-class _AppFilledButtonState extends State<AppFilledButton> {
+class _AppElevatedButtonState extends State<AppElevatedButton> {
   bool _isLoading = false;
 
   final _buttonGlobalKey = GlobalKey();
@@ -55,14 +54,17 @@ class _AppFilledButtonState extends State<AppFilledButton> {
       key: _buttonGlobalKey,
       width: widget.width ?? double.maxFinite,
       height: _buttonHeight,
-      child: FilledButton(
+      child: ElevatedButton(
         onPressed: widget.onPressed != null ? _onPressed : null,
         style: FilledButton.styleFrom(
-          backgroundColor: Theme.of(context).colorScheme.primary,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          disabledBackgroundColor: Colors.transparent,
         ),
         child: !_isLoading
             ? widget.child
             : SizedBox(
+                height: _buttonHeight,
                 width: _buttonWidth,
                 child: const CircularProgressIndicator.adaptive(
                   backgroundColor: AppLightColors.background,
