@@ -12,7 +12,7 @@ class AppBottomSheet extends StatelessWidget {
       dragHandleColor: AppLightColors.outline,
       enableDrag: true,
       builder: (context) => widget,
-      onClosing: () => 0,
+      onClosing: () {},
     );
   }
 }

@@ -56,16 +56,23 @@ class AdvertisementListItemWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(advertisementListItem.description,
+            Text(
+                '${advertisementListItem.description.split(' ').getRange(0, 12).join(' ')}...',
                 style: Theme.of(context).textTheme.bodyMedium),
             const SizedBox(height: 8),
             Text(
-              advertisementListItem.cost.toString() + ' руб.',
+              '${advertisementListItem.cost.toString()} руб.',
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 8),
             Text(
-              advertisementListItem.creationDate.toString(),
+              advertisementListItem.creationDate
+                  .toString()
+                  .split(' ')
+                  .first
+                  .split('-')
+                  .reversed
+                  .join(' '),
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             Text(advertisementListItem.locality.name(context)),

@@ -16,8 +16,9 @@ class AdvertisementMockedRepository implements AdvertisementRepository {
 
       return AdvertisementListItem(
         id: '$index',
-        title: 'title $index',
-        description: 'description $index',
+        title: 'Продажа велосипеда',
+        description:
+            'Почти новый горный велосипед, бренд XYZ, 2023 года выпуска. Использовался всего несколько раз. Отличное состояние, все компоненты работают идеально. Продается в связи с переездом в другой город.',
         creationDate: DateTime(2024, index, Random().nextInt(31)),
         cost: 1.0 * Random().nextInt(3000) + 2000,
         locality: locality,

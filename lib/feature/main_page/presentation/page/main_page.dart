@@ -1,3 +1,4 @@
+import 'package:dot_marketplace/core/presentation/UI/text_fields/app_text_field.dart';
 import 'package:dot_marketplace/core/presentation/UI/text_fields/controllers/app_text_editing_controller.dart';
 import 'package:dot_marketplace/feature/main_page/presentation/page/main_page_vm.dart';
 import 'package:dot_marketplace/core/presentation/UI/sheets/app_bottom_sheet.dart';
@@ -51,45 +52,104 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  Widget get _appFiltersBottomSheetBuilder => AppBottomSheet(
-        widget: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
+  Widget get _localityListBuilder => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 14.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Фильтры',
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    TextButton(
-                        onPressed: context.pop, child: Text('Применить')),
+              Expanded(
+                child: AppBar(
+                  leading: BackButton(
+                    onPressed: () => curentBottomSheetWidget(0),
+                  ),
+                  title: Text('Город'),
+                  backgroundColor: Colors.transparent,
+                  actions: [
+                    TextButton(onPressed: () {}, child: Text('Сбросить')),
+                    const SizedBox(width: 16),
                   ],
                 ),
-              ),
-              Text(
-                'Город',
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              const SizedBox(height: 12),
-              TextButton(
-                onPressed: () {},
-                child: Text('Добавить город'),
-              ),
-              const SizedBox(height: 24),
-              Text(
-                'Цена объявления',
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
+              )
             ],
           ),
+          Expanded(
+            child: ListView.separated(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              itemCount: vm.localityListItem.length,
+              itemBuilder: (context, index) => vm.localityListItem[index],
+              separatorBuilder: (context, index) => const SizedBox(height: 8),
+            ),
+          ),
+        ],
+      );
+
+  void _setCurenVottomSheetWidget(int index) {
+    if (index >= 0 && index < _bottomSheetwidgets.length) {
+      curentBottomSheetWidget(index);
+    }
+  }
+
+  final curentBottomSheetWidget = 0.rv;
+  List<Widget> get _bottomSheetwidgets => [
+        _filterBottomSheetBuilder,
+        _localityListBuilder,
+      ];
+
+  Widget get _filterBottomSheetBuilder => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 14.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Фильтры',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  TextButton(onPressed: context.pop, child: Text('Применить')),
+                ],
+              ),
+            ),
+            Text(
+              'Город',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            const SizedBox(height: 12),
+            TextButton(
+              onPressed: () => curentBottomSheetWidget(1),
+              child: Text('Добавить город'),
+            ),
+            const SizedBox(height: 24),
+            Text(
+              'Цена объявления',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                Expanded(
+                  child: AppTextField(
+                      labelText: 'От', controller: AppTextEditingController()),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: AppTextField(
+                      labelText: 'До', controller: AppTextEditingController()),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+          ],
         ),
       );
+
+  Widget get _appFiltersBottomSheetBuilder => AppBottomSheet(
+      widget: curentBottomSheetWidget.observer((context, value) =>
+          _bottomSheetwidgets[curentBottomSheetWidget.value]));
 
   AppBar get _appBarBuilder => AppBar(
         toolbarHeight: 68,

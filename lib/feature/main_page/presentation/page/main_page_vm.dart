@@ -1,7 +1,9 @@
+import 'package:dot_marketplace/feature/locality/domain/entity/locality.dart';
 import 'package:dot_marketplace/feature/main_page/domain/advertisement_repository.dart';
 import 'package:dot_marketplace/core/domain/use_case_result/use_case_result.dart';
 import 'package:dot_marketplace/feature/main_page/domain/entity/adverisement_list_item.dart';
 import 'package:dot_marketplace/feature/main_page/domain/entity/advertisement_list_filter.dart';
+import 'package:dot_marketplace/feature/main_page/presentation/widget/locality_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:reactive_variables/reactive_variables.dart';
 
@@ -13,6 +15,17 @@ class MainPageViewModel {
   MainPageViewModel({
     required AdvertisementRepository advertisementRepository,
   }) : _advertisementRepository = advertisementRepository;
+
+  final List<LocalityListItem> localityListItem =
+      List<LocalityListItem>.generate(
+    LocalityList.values.length,
+    (
+      index,
+    ) =>
+        LocalityListItem(
+      locality: LocalityList.values[index],
+    ),
+  );
 
   Future<void> getAdvertisementPage(final int page) async {
     final result = await _advertisementRepository.getList(
