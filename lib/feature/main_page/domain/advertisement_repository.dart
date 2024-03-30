@@ -4,11 +4,17 @@ import 'package:dot_marketplace/feature/main_page/domain/entity/advertisement_li
 
 abstract class AdvertisementRepository {
   Future<UseCaseResult<List<AdvertisementListItem>>> getList(
-      AdvertisementListFilter filter);
+      {required AdvertisementListFilter filter,
+      int minPrice = 0,
+      int? maxPrice});
 
   Future<UseCaseResult<AdvertisementListItem>> add(
       AdvertisementCreationEntity advCreationEntity);
 
+  Future<UseCaseResult<List<AdvertisementListItem>>> getFavoriteList(
+      AdvertisementListFilter filter);
+  Future<UseCaseResult<List<AdvertisementListItem>>> getMyAdvertList(
+      AdvertisementListFilter filter);
   // Future<UseCaseResult<List<AdvertisementListItem>>> getFavorites(
   //     AdvertisementListFilter filter);
   Future<UseCaseResult<void>> delete(final String id);

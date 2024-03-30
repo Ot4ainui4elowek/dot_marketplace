@@ -9,7 +9,7 @@ import 'package:dot_marketplace/feature/main_page/domain/entity/advertisement_li
 
 class AdvertisementMockedRepository implements AdvertisementRepository {
   final _mockedAdvertisementList = List<AdvertisementListItem>.generate(
-    12,
+    30,
     (index) {
       final localityCount = LocalityList.values.length;
       final locality = LocalityList.values[index % localityCount];
@@ -29,7 +29,12 @@ class AdvertisementMockedRepository implements AdvertisementRepository {
 
   @override
   Future<UseCaseResult<List<AdvertisementListItem>>> getList(
-      AdvertisementListFilter filter) async {
+      {required AdvertisementListFilter filter,
+      int minPrice = 0,
+      int? maxPrice}) async {
+    if (minPrice < 0) {
+      minPrice = 0;
+    }
     await Future.delayed(const Duration(seconds: 2));
     try {
       return UseCaseResult.good(_mockedAdvertisementList
@@ -39,7 +44,11 @@ class AdvertisementMockedRepository implements AdvertisementRepository {
                   filter.availableLocalityList.contains(element.locality);
               if (!localityResult) return false;
             }
-            return true;
+            if (maxPrice != null && maxPrice > minPrice) {
+              return minPrice < element.cost.toDouble() &&
+                  element.cost.toDouble() < maxPrice;
+            } else
+              return element.cost.toDouble() > minPrice;
           })
           .skip(filter.page * filter.limit)
           .take(filter.limit)
@@ -49,21 +58,32 @@ class AdvertisementMockedRepository implements AdvertisementRepository {
     }
   }
 
-  // Future<UseCaseResult<List<AdvertisementListItem>>> getFavorites(
-  //     AdvertisementListFilter filter) async {
-  //   await Future.delayed(const Duration(seconds: 2));
-  //   try {
-  //     return UseCaseResult.good(_mockedAdvertisementList
-  //         .where((element) {
-  //           return element.isFavorite;
-  //         })
-  //         .skip(filter.page * filter.limit)
-  //         .take(filter.limit)
-  //         .toList());
-  //   } catch (e) {
-  //     return UseCaseResult.bad([SpecificError('getList error')]);
-  //   }
-  // }
+  Future<UseCaseResult<List<AdvertisementListItem>>> getFavoriteList(
+      AdvertisementListFilter filter) async {
+    try {
+      return UseCaseResult.good(_mockedAdvertisementList
+          .where((element) => element.isFavorite)
+          .skip(filter.page * filter.limit)
+          .take(filter.limit)
+          .toList());
+    } catch (e) {
+      return UseCaseResult.bad([SpecificError('getFavoriteList error')]);
+    }
+  }
+
+  Future<UseCaseResult<List<AdvertisementListItem>>> getMyAdvertList(
+      AdvertisementListFilter filter) async {
+    try {
+      return UseCaseResult.good(_mockedAdvertisementList
+          .where((element) =>
+              int.parse(element.id) % 6 == 0 && element.cost > 3000)
+          .skip(filter.page * filter.limit)
+          .take(filter.limit)
+          .toList());
+    } catch (e) {
+      return UseCaseResult.bad([SpecificError('getMyAdvertList error')]);
+    }
+  }
 
   @override
   Future<UseCaseResult<AdvertisementListItem>> add(

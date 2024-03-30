@@ -1,5 +1,4 @@
 import 'package:dot_marketplace/core/presentation/UI/text_fields/app_text_field.dart';
-import 'package:dot_marketplace/core/presentation/UI/text_fields/controllers/app_text_editing_controller.dart';
 import 'package:dot_marketplace/feature/main_page/presentation/page/main_page_vm.dart';
 import 'package:dot_marketplace/core/presentation/UI/sheets/app_bottom_sheet.dart';
 import 'package:dot_marketplace/feature/main_page/presentation/widget/advertise_list_item.dart';
@@ -24,14 +23,31 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    vm.getAdvertisementPage(0);
+    vm.getAdvertisementPage(page: 0);
+    vm.getFavoriteList(0);
+    vm.getmtAdvertisementPage(0);
+    // vm.init();
   }
 
   @override
   void didUpdateWidget(covariant MainPage oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.vm != widget.vm) {
-      vm.getAdvertisementPage(0);
+      vm.getAdvertisementPage(page: 0);
+      vm.getFavoriteList(0);
+      vm.getmtAdvertisementPage(0);
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    // vm.dispose();
+  }
+
+  void _setCurenBottomSheetWidget(int index) {
+    if (index >= 0 && index < _bottomSheetwidgetsBuilder.length) {
+      vm.curentBottomSheetWidget(index);
     }
   }
 
@@ -42,7 +58,8 @@ class _MainPageState extends State<MainPage> {
       child: Scaffold(
         appBar: _appBarBuilder,
         bottomNavigationBar: _bottomNavBarBuilder,
-        body: _tabBarViewBuilder,
+        body: _currentPageIndex
+            .observer((context, value) => _pageTabsBuilder[value]),
         floatingActionButton: FloatingActionButton(
           backgroundColor: AppLightColors.primaryContainer,
           onPressed: () {},
@@ -52,6 +69,21 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
+  List<Widget> get _pageTabsBuilder => [
+        _tabBarViewBuilder,
+        _favoritesBuilder,
+      ];
+
+  Widget get _favoritesBuilder => vm.favoriteAdvertisementList.observer(
+        (context, value) => ListView.separated(
+          padding: const EdgeInsets.all(16),
+          itemBuilder: (context, index) => AdvertisementListItemWidget(
+              advertisementListItem: vm.favoriteAdvertisementList()[index]),
+          separatorBuilder: (context, index) => const SizedBox(height: 8),
+          itemCount: vm.favoriteAdvertisementList.value.length,
+        ),
+      );
+
   Widget get _localityListBuilder => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -60,7 +92,7 @@ class _MainPageState extends State<MainPage> {
               Expanded(
                 child: AppBar(
                   leading: BackButton(
-                    onPressed: () => curentBottomSheetWidget(0),
+                    onPressed: () => vm.curentBottomSheetWidget(0),
                   ),
                   title: Text('Город'),
                   backgroundColor: Colors.transparent,
@@ -83,17 +115,38 @@ class _MainPageState extends State<MainPage> {
         ],
       );
 
-  void _setCurenVottomSheetWidget(int index) {
-    if (index >= 0 && index < _bottomSheetwidgets.length) {
-      curentBottomSheetWidget(index);
-    }
-  }
-
-  final curentBottomSheetWidget = 0.rv;
-  List<Widget> get _bottomSheetwidgets => [
+  List<Widget> get _bottomSheetwidgetsBuilder => [
         _filterBottomSheetBuilder,
         _localityListBuilder,
       ];
+
+  Widget get _favoriteIsempty => Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.add,
+                size: 70,
+                color: AppLightColors.outlineVariant,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'У вас пока нет объявлений',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'Не упустите возможность! \nСоздайте и опубликуйте своё объявление прямо сейчас, чтобы предложить товары или услуги широкой аудитории.',
+                style: Theme.of(context).textTheme.bodyMedium,
+                textAlign: TextAlign.center,
+              )
+            ],
+          ),
+        ),
+      );
 
   Widget get _filterBottomSheetBuilder => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -110,7 +163,12 @@ class _MainPageState extends State<MainPage> {
                     'Фильтры',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
-                  TextButton(onPressed: context.pop, child: Text('Применить')),
+                  TextButton(
+                      onPressed: () {
+                        vm.isValidPrice();
+                        context.pop();
+                      },
+                      child: Text('Применить')),
                 ],
               ),
             ),
@@ -120,7 +178,7 @@ class _MainPageState extends State<MainPage> {
             ),
             const SizedBox(height: 12),
             TextButton(
-              onPressed: () => curentBottomSheetWidget(1),
+              onPressed: () => vm.curentBottomSheetWidget(1),
               child: Text('Добавить город'),
             ),
             const SizedBox(height: 24),
@@ -133,12 +191,18 @@ class _MainPageState extends State<MainPage> {
               children: [
                 Expanded(
                   child: AppTextField(
-                      labelText: 'От', controller: AppTextEditingController()),
+                    labelText: 'От',
+                    controller: vm.minPrice,
+                    keyboardType: TextInputType.number,
+                  ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: AppTextField(
-                      labelText: 'До', controller: AppTextEditingController()),
+                    labelText: 'До',
+                    controller: vm.maxPrice,
+                    keyboardType: TextInputType.number,
+                  ),
                 ),
               ],
             ),
@@ -148,8 +212,8 @@ class _MainPageState extends State<MainPage> {
       );
 
   Widget get _appFiltersBottomSheetBuilder => AppBottomSheet(
-      widget: curentBottomSheetWidget.observer((context, value) =>
-          _bottomSheetwidgets[curentBottomSheetWidget.value]));
+      widget: vm.curentBottomSheetWidget
+          .observer((context, value) => _bottomSheetwidgetsBuilder[value]));
 
   AppBar get _appBarBuilder => AppBar(
         toolbarHeight: 68,
@@ -171,7 +235,7 @@ class _MainPageState extends State<MainPage> {
               ),
               Expanded(
                 child: TextField(
-                  controller: AppTextEditingController(),
+                  controller: vm.searchTextField,
                   decoration: InputDecoration(
                       hintText: 'Поиск объявлений', border: InputBorder.none),
                 ),
@@ -214,11 +278,22 @@ class _MainPageState extends State<MainPage> {
                 itemCount: vm.advertisementList.value.length,
               ),
       );
+  Widget get _myAdvertiseBuilder => vm.myAdverList.observer(
+        (context, value) => value.isEmpty
+            ? _favoriteIsempty
+            : ListView.separated(
+                padding: const EdgeInsets.all(16),
+                itemBuilder: (context, index) => AdvertisementListItemWidget(
+                    advertisementListItem: vm.myAdverList()[index]),
+                separatorBuilder: (context, index) => const SizedBox(height: 8),
+                itemCount: vm.myAdverList.value.length,
+              ),
+      );
 
   Widget get _bottomNavBarBuilder => _currentPageIndex.observer(
         (context, value) => NavigationBar(
           onDestinationSelected: (int index) {
-            _currentPageIndex(index);
+            if (_pageTabsBuilder.length > index) _currentPageIndex(index);
           },
           selectedIndex: _currentPageIndex.value,
           destinations: const <Widget>[
@@ -249,7 +324,6 @@ class _MainPageState extends State<MainPage> {
           text: 'Мои',
         ),
       ]);
-  TabBarView get _tabBarViewBuilder => TabBarView(
-      clipBehavior: Clip.hardEdge,
-      children: [_otherAdvertiseBuilder, _otherAdvertiseBuilder]);
+  TabBarView get _tabBarViewBuilder =>
+      TabBarView(children: [_otherAdvertiseBuilder, _myAdvertiseBuilder]);
 }
