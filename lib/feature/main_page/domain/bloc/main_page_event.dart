@@ -1,10 +1,10 @@
 part of 'main_page_service.dart';
 
-class MainPageEvent {}
+class AdvertisementEvent {}
 
-class FetchAdvertsEvent extends MainPageEvent {
+class AdvertisementFetchEvent extends AdvertisementEvent {
   final UseCaseResult<List<AdvertisementListItem>> result;
-  FetchAdvertsEvent({required this.result});
+  AdvertisementFetchEvent({required this.result});
 }
 
-class LoadingEvent extends MainPageEvent {}
+class AdvertisementLoadingEvent extends AdvertisementEvent {}

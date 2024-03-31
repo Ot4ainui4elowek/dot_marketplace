@@ -1,16 +1,16 @@
 part of 'main_page_service.dart';
 
-class MainPageState {}
+class AdvertisemetState {}
 
-class InitialState extends MainPageState {}
+class InitialState extends AdvertisemetState {}
 
-class IsSuucessState extends MainPageState {
+class IsSuucessState extends AdvertisemetState {
   final List<AdvertisementListItem> advertice;
   IsSuucessState({required this.advertice});
 }
 
-class IsLoadingState extends MainPageState {}
+class IsLoadingState extends AdvertisemetState {}
 
-class IsErrorState extends MainPageState {}
+class IsErrorState extends AdvertisemetState {}
 
-class EmptyState extends MainPageState {}
+class IsEmptyState extends AdvertisemetState {}

@@ -1,5 +1,6 @@
 import 'package:dot_marketplace/core/presentation/UI/text_fields/controllers/app_text_editing_controller.dart';
 import 'package:dot_marketplace/feature/locality/domain/entity/locality.dart';
+import 'package:dot_marketplace/feature/main_page/domain/bloc/main_page_service.dart';
 import 'package:dot_marketplace/feature/main_page/domain/repository/advertisement_repository.dart';
 import 'package:dot_marketplace/core/domain/use_case_result/use_case_result.dart';
 import 'package:dot_marketplace/feature/main_page/domain/entity/adverisement_list_item.dart';
@@ -10,6 +11,7 @@ import 'package:reactive_variables/reactive_variables.dart';
 
 class MainPageViewModel {
   final AdvertisementRepository _advertisementRepository;
+  final bloc = AdvertisementService();
 
   final advertisementList = <AdvertisementListItem>[].rv;
   final favoriteAdvertisementList = <AdvertisementListItem>[].rv;
@@ -54,6 +56,7 @@ class MainPageViewModel {
 
   Future<void> getAdvertisementPage(
       {required int page, int minPrice = 0, int? maxPrice}) async {
+    bloc.add(AdvertisementLoadingEvent());
     final result = await _advertisementRepository.getList(
       filter: AdvertisementListFilter(
         availableLocalityList: [],
@@ -63,16 +66,7 @@ class MainPageViewModel {
       minPrice: minPrice,
       maxPrice: maxPrice,
     );
-
-    switch (result) {
-      case GoodUseCaseResult<List<AdvertisementListItem>>(:final data):
-        advertisementList.addAll(data);
-        break;
-      case BadUseCaseResult<List<AdvertisementListItem>>():
-        // TODO отобразить ошибку
-        advertisementList.clear();
-        break;
-    }
+    bloc.add(AdvertisementFetchEvent(result: result));
   }
 
   Future<void> getMyAdvertisementPage(int page) async {

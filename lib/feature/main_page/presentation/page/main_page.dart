@@ -1,10 +1,12 @@
 import 'package:dot_marketplace/core/presentation/UI/app_bar/app_bar.dart';
 import 'package:dot_marketplace/core/presentation/UI/text_fields/app_text_field.dart';
+import 'package:dot_marketplace/feature/main_page/domain/bloc/main_page_service.dart';
 import 'package:dot_marketplace/feature/main_page/presentation/page/main_page_vm.dart';
 import 'package:dot_marketplace/core/presentation/UI/sheets/app_bottom_sheet.dart';
 import 'package:dot_marketplace/feature/main_page/presentation/widget/advertise_list_item.dart';
 import 'package:dot_marketplace/theme/app_light_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:reactive_variables/reactive_variables.dart';
@@ -365,17 +367,32 @@ class _MainPageState extends State<MainPage> {
         ),
       );
 
-  Widget get _otherAdvertiseBuilder => vm.advertisementList.observer(
-        (context, value) => value.isEmpty
-            ? _preloaderBuilder
-            : ListView.separated(
+  Widget get _otherAdvertiseBuilder =>
+      BlocBuilder<AdvertisementService, AdvertisemetState>(
+          bloc: vm.bloc,
+          builder: (context, state) {
+            if (state is IsSuucessState) {
+              return ListView.separated(
                 padding: const EdgeInsets.all(16),
                 itemBuilder: (context, index) => AdvertisementListItemWidget(
-                    advertisementListItem: vm.advertisementList()[index]),
+                    advertisementListItem: state.advertice[index]),
                 separatorBuilder: (context, index) => const SizedBox(height: 8),
-                itemCount: vm.advertisementList.value.length,
-              ),
-      );
+                itemCount: state.advertice.length,
+              );
+            } else if (state is IsLoadingState) {
+              return _preloaderBuilder;
+            } else if (state is IsEmptyState) {
+              return Center(
+                child: Text('Ничего не найдено'),
+              );
+            } else if (state is IsErrorState) {
+              return Center(
+                child: Text('Ошибка'),
+              );
+            } else {
+              return Text('Что-то пошло не так');
+            }
+          });
   Widget get _myAdvertiseBuilder => vm.myAdverList.observer(
         (context, value) => value.isEmpty
             ? _favoriteIsempty
