@@ -1,6 +1,8 @@
+import 'package:dot_marketplace/core/domain/router/dot_marketplace_routes.dart';
 import 'package:dot_marketplace/feature/main_page/domain/entity/adverisement_list_item.dart';
 import 'package:dot_marketplace/theme/app_light_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class AdvertisementListItemWidget extends StatelessWidget {
   final AdvertisementListItem advertisementListItem;
@@ -82,13 +84,18 @@ class AdvertisementListItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: _cardDecoration(context),
-      child: Column(
-        children: [
-          _headerBuilder(context),
-          _textContentBuilder(context),
-        ],
+    return IconButton(
+      onPressed: () =>
+          context.pushNamed(DotMarketplaceRoutes.advertPage, extra: AppBar()),
+      style: TextButton.styleFrom(padding: EdgeInsets.zero),
+      icon: Container(
+        decoration: _cardDecoration(context),
+        child: Column(
+          children: [
+            _headerBuilder(context),
+            _textContentBuilder(context),
+          ],
+        ),
       ),
     );
   }

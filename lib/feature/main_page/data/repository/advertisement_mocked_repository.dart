@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:dot_marketplace/core/domain/app_error/app_error.dart';
 import 'package:dot_marketplace/core/domain/use_case_result/use_case_result.dart';
 import 'package:dot_marketplace/feature/locality/domain/entity/locality.dart';
-import 'package:dot_marketplace/feature/main_page/domain/advertisement_repository.dart';
+import 'package:dot_marketplace/feature/main_page/domain/repository/advertisement_repository.dart';
 import 'package:dot_marketplace/feature/main_page/domain/entity/adverisement_list_item.dart';
 import 'package:dot_marketplace/feature/main_page/domain/entity/advertisement_list_filter.dart';
 

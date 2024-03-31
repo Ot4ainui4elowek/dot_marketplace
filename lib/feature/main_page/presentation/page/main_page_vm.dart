@@ -1,6 +1,6 @@
 import 'package:dot_marketplace/core/presentation/UI/text_fields/controllers/app_text_editing_controller.dart';
 import 'package:dot_marketplace/feature/locality/domain/entity/locality.dart';
-import 'package:dot_marketplace/feature/main_page/domain/advertisement_repository.dart';
+import 'package:dot_marketplace/feature/main_page/domain/repository/advertisement_repository.dart';
 import 'package:dot_marketplace/core/domain/use_case_result/use_case_result.dart';
 import 'package:dot_marketplace/feature/main_page/domain/entity/adverisement_list_item.dart';
 import 'package:dot_marketplace/feature/main_page/domain/entity/advertisement_list_filter.dart';
@@ -33,16 +33,10 @@ class MainPageViewModel {
 
   final minPrice = AppTextEditingController();
   final maxPrice = AppTextEditingController();
-
-  // void init() {
-  //   minPrice.addListener(() => _isValidPrice());
-  //   maxPrice.addListener(() => _isValidPrice());
-  // }
-
-  // void dispose() {
-  //   minPrice.removeListener(() => _isValidPrice());
-  //   maxPrice.removeListener(() => _isValidPrice());
-  // }
+  final firstname = AppTextEditingController(text: 'Георгий');
+  final lastname = AppTextEditingController(text: 'Васильков');
+  final email = AppTextEditingController(text: 'examples@yourdomain.com');
+  final phone = AppTextEditingController(text: '+ 373 777 2 54 97');
 
   final searchTextField = AppTextEditingController();
 
@@ -81,7 +75,7 @@ class MainPageViewModel {
     }
   }
 
-  Future<void> getmtAdvertisementPage(int page) async {
+  Future<void> getMyAdvertisementPage(int page) async {
     final result = await _advertisementRepository.getMyAdvertList(
       AdvertisementListFilter(
         availableLocalityList: [],

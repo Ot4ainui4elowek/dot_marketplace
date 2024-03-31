@@ -5,4 +5,5 @@ abstract class DotMarketplaceRoutes {
   static const recoveryCodePage = 'recovery-code';
   static const newPasswordPage = 'new-password';
   static const mainPage = '/main';
+  static const advertPage = 'advert-page';
 }

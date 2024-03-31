@@ -2,6 +2,7 @@ import 'package:dot_marketplace/core/domain/container/app_container.dart';
 import 'package:dot_marketplace/core/domain/router/dot_marketplace_routes.dart';
 import 'package:dot_marketplace/feature/login_page/presentation/auth_vm.dart';
 import 'package:dot_marketplace/feature/login_page/presentation/login_page.dart';
+import 'package:dot_marketplace/feature/main_page/presentation/page/advert_page.dart';
 import 'package:dot_marketplace/feature/main_page/presentation/page/main_page.dart';
 import 'package:dot_marketplace/feature/main_page/presentation/page/main_page_vm.dart';
 import 'package:dot_marketplace/feature/recovery_page/presentation/recovery_code_confirm_page.dart';
@@ -35,15 +36,21 @@ abstract class AppRouterConfig {
         },
       ),
       GoRoute(
-        path: DotMarketplaceRoutes.mainPage,
-        builder: (context, state) {
-          return MainPage(
-            vm: MainPageViewModel(
-                advertisementRepository:
-                    AppContainer().repositoryScope.advertisementRepository),
-          );
-        },
-      ),
+          path: DotMarketplaceRoutes.mainPage,
+          builder: (context, state) {
+            return MainPage(
+              vm: MainPageViewModel(
+                  advertisementRepository:
+                      AppContainer().repositoryScope.advertisementRepository),
+            );
+          },
+          routes: [
+            GoRoute(
+              path: DotMarketplaceRoutes.advertPage,
+              name: DotMarketplaceRoutes.advertPage,
+              builder: (context, state) => AdvertPage(),
+            )
+          ]),
       GoRoute(
           path: DotMarketplaceRoutes.recoverySendingPhonePage,
           builder: (context, state) => RecoveryPhonePage(
