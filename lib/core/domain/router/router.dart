@@ -2,6 +2,8 @@ import 'package:dot_marketplace/core/domain/container/app_container.dart';
 import 'package:dot_marketplace/core/domain/router/dot_marketplace_routes.dart';
 import 'package:dot_marketplace/feature/login_page/presentation/auth_vm.dart';
 import 'package:dot_marketplace/feature/login_page/presentation/login_page.dart';
+import 'package:dot_marketplace/feature/main_page/domain/bloc/advertisement_service.dart';
+import 'package:dot_marketplace/feature/main_page/domain/entity/adverisement_list_item.dart';
 import 'package:dot_marketplace/feature/main_page/presentation/page/advert_page.dart';
 import 'package:dot_marketplace/feature/main_page/presentation/page/main_page.dart';
 import 'package:dot_marketplace/feature/main_page/presentation/page/main_page_vm.dart';
@@ -40,15 +42,24 @@ abstract class AppRouterConfig {
           builder: (context, state) {
             return MainPage(
               vm: MainPageViewModel(
-                  advertisementRepository:
-                      AppContainer().repositoryScope.advertisementRepository),
+                advertisementRepository:
+                    AppContainer().repositoryScope.advertisementRepository,
+                favoriteAdvertisementService: AdvertisementService(),
+                myAdvertisementService: AdvertisementService(),
+                otherAdvertisementService: AdvertisementService(),
+              ),
             );
           },
           routes: [
             GoRoute(
               path: DotMarketplaceRoutes.advertPage,
               name: DotMarketplaceRoutes.advertPage,
-              builder: (context, state) => AdvertPage(),
+              builder: (context, state) {
+                final data = state.extra! as AdvertisementListItem;
+                return AdvertPage(
+                  advertisementListItem: data,
+                );
+              },
             )
           ]),
       GoRoute(

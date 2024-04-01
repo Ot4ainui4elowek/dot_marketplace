@@ -1,4 +1,4 @@
-part of 'main_page_service.dart';
+part of 'advertisement_service.dart';
 
 class AdvertisementEvent {}
 

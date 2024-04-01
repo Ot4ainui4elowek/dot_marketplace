@@ -30,8 +30,8 @@ class AdvertisementMockedRepository implements AdvertisementRepository {
   @override
   Future<UseCaseResult<List<AdvertisementListItem>>> getList(
       {required AdvertisementListFilter filter,
-      int minPrice = 0,
-      int? maxPrice}) async {
+      required num minPrice,
+      required num maxPrice}) async {
     if (minPrice < 0) {
       minPrice = 0;
     }
@@ -44,7 +44,7 @@ class AdvertisementMockedRepository implements AdvertisementRepository {
                   filter.availableLocalityList.contains(element.locality);
               if (!localityResult) return false;
             }
-            if (maxPrice != null && maxPrice > minPrice) {
+            if (maxPrice > minPrice) {
               return minPrice < element.cost.toDouble() &&
                   element.cost.toDouble() < maxPrice;
             } else
@@ -61,6 +61,7 @@ class AdvertisementMockedRepository implements AdvertisementRepository {
   Future<UseCaseResult<List<AdvertisementListItem>>> getFavoriteList(
       AdvertisementListFilter filter) async {
     try {
+      await Future.delayed(const Duration(seconds: 2));
       return UseCaseResult.good(_mockedAdvertisementList
           .where((element) => element.isFavorite)
           .skip(filter.page * filter.limit)
@@ -74,6 +75,7 @@ class AdvertisementMockedRepository implements AdvertisementRepository {
   Future<UseCaseResult<List<AdvertisementListItem>>> getMyAdvertList(
       AdvertisementListFilter filter) async {
     try {
+      await Future.delayed(const Duration(seconds: 2));
       return UseCaseResult.good(_mockedAdvertisementList
           .where((element) =>
               int.parse(element.id) % 6 == 0 && element.cost > 3000)

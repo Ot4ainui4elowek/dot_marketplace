@@ -81,10 +81,10 @@ final theme = ThemeData(
       letterSpacing: 0,
     ),
     headlineMedium: TextStyle(
-      fontSize: 28,
-      height: 36 / 28,
-      letterSpacing: 0,
-    ),
+        fontSize: 28,
+        height: 36 / 28,
+        letterSpacing: 0,
+        fontWeight: FontWeight.w600),
     headlineSmall: TextStyle(
       fontSize: 24,
       height: 32 / 24,

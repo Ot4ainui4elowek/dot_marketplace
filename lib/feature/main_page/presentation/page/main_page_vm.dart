@@ -1,9 +1,7 @@
 import 'package:dot_marketplace/core/presentation/UI/text_fields/controllers/app_text_editing_controller.dart';
 import 'package:dot_marketplace/feature/locality/domain/entity/locality.dart';
-import 'package:dot_marketplace/feature/main_page/domain/bloc/main_page_service.dart';
+import 'package:dot_marketplace/feature/main_page/domain/bloc/advertisement_service.dart';
 import 'package:dot_marketplace/feature/main_page/domain/repository/advertisement_repository.dart';
-import 'package:dot_marketplace/core/domain/use_case_result/use_case_result.dart';
-import 'package:dot_marketplace/feature/main_page/domain/entity/adverisement_list_item.dart';
 import 'package:dot_marketplace/feature/main_page/domain/entity/advertisement_list_filter.dart';
 import 'package:dot_marketplace/feature/main_page/presentation/widget/locality_list_item.dart';
 import 'package:flutter/material.dart';
@@ -11,15 +9,17 @@ import 'package:reactive_variables/reactive_variables.dart';
 
 class MainPageViewModel {
   final AdvertisementRepository _advertisementRepository;
-  final bloc = AdvertisementService();
+  final AdvertisementService otherAdvertisementService;
+  final AdvertisementService myAdvertisementService;
+  final AdvertisementService favoriteAdvertisementService;
 
-  final advertisementList = <AdvertisementListItem>[].rv;
-  final favoriteAdvertisementList = <AdvertisementListItem>[].rv;
-  final myAdverList = <AdvertisementListItem>[].rv;
   final curentBottomSheetWidget = 0.rv;
 
   MainPageViewModel({
     required AdvertisementRepository advertisementRepository,
+    required this.otherAdvertisementService,
+    required this.myAdvertisementService,
+    required this.favoriteAdvertisementService,
   }) : _advertisementRepository = advertisementRepository;
 
   final List<LocalityListItem> localityListItem =
@@ -42,34 +42,24 @@ class MainPageViewModel {
 
   final searchTextField = AppTextEditingController();
 
-  Future<void> isValidPrice() async {
-    try {
-      advertisementList.clear();
-      getAdvertisementPage(
-          page: 0,
-          maxPrice: maxPrice.text.isEmpty ? 0 : int.parse(maxPrice.text),
-          minPrice: minPrice.text.isEmpty ? 0 : int.parse(minPrice.text));
-    } catch (e) {
-      throw Exception();
-    }
-  }
+  num isValidPrice(String price) => int.tryParse(price) ?? 0;
 
-  Future<void> getAdvertisementPage(
-      {required int page, int minPrice = 0, int? maxPrice}) async {
-    bloc.add(AdvertisementLoadingEvent());
+  Future<void> getAdvertisementPage({int page = 1}) async {
+    otherAdvertisementService.add(AdvertisementLoadingEvent());
     final result = await _advertisementRepository.getList(
       filter: AdvertisementListFilter(
         availableLocalityList: [],
         page: page,
         limit: 10,
       ),
-      minPrice: minPrice,
-      maxPrice: maxPrice,
+      minPrice: isValidPrice(minPrice.text),
+      maxPrice: isValidPrice(maxPrice.text),
     );
-    bloc.add(AdvertisementFetchEvent(result: result));
+    otherAdvertisementService.add(AdvertisementFetchEvent(result: result));
   }
 
   Future<void> getMyAdvertisementPage(int page) async {
+    myAdvertisementService.add(AdvertisementLoadingEvent());
     final result = await _advertisementRepository.getMyAdvertList(
       AdvertisementListFilter(
         availableLocalityList: [],
@@ -77,19 +67,11 @@ class MainPageViewModel {
         limit: 10,
       ),
     );
-
-    switch (result) {
-      case GoodUseCaseResult<List<AdvertisementListItem>>(:final data):
-        myAdverList.addAll(data);
-        break;
-      case BadUseCaseResult<List<AdvertisementListItem>>():
-        // TODO отобразить ошибку
-        myAdverList.clear();
-        break;
-    }
+    myAdvertisementService.add(AdvertisementFetchEvent(result: result));
   }
 
   Future<void> getFavoriteList(final int page) async {
+    favoriteAdvertisementService.add(AdvertisementLoadingEvent());
     final result = await _advertisementRepository.getFavoriteList(
       AdvertisementListFilter(
         availableLocalityList: [],
@@ -97,16 +79,7 @@ class MainPageViewModel {
         limit: 10,
       ),
     );
-
-    switch (result) {
-      case GoodUseCaseResult<List<AdvertisementListItem>>(:final data):
-        favoriteAdvertisementList.addAll(data);
-        break;
-      case BadUseCaseResult<List<AdvertisementListItem>>():
-        // TODO отобразить ошибку
-        favoriteAdvertisementList.clear();
-        break;
-    }
+    favoriteAdvertisementService.add(AdvertisementFetchEvent(result: result));
   }
 
   void onFilterTap(BuildContext context, Widget bottomSheet) {
