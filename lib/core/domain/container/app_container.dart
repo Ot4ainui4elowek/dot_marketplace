@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:dot_marketplace/feature/edit_profile_page/domain/service/advertisement_user_service.dart';
 import 'package:dot_marketplace/feature/login_page/data/source/auth_mocked_data_source.dart';
 import 'package:dot_marketplace/feature/login_page/domain/repository/auth_repository.dart';
 import 'package:dot_marketplace/feature/main_page/data/repository/advertisement_mocked_repository.dart';
@@ -37,7 +38,12 @@ class AppContainer {
 
       final settingsService = SettingsService();
 
-      serviceScope = ServiceScope(settingsService: settingsService);
+      final userService = AdvertisementUserService();
+
+      serviceScope = ServiceScope(
+        settingsService: settingsService,
+        userService: userService,
+      );
       return true;
     } catch (e, st) {
       log('App Container has not been initialized', error: e, stackTrace: st);
@@ -49,7 +55,10 @@ class AppContainer {
 class ServiceScope {
   final SettingsService settingsService;
 
+  final AdvertisementUserService userService;
+
   ServiceScope({
+    required this.userService,
     required this.settingsService,
   });
 }

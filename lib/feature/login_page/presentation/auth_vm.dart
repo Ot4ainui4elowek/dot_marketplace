@@ -77,11 +77,11 @@ class AuthViewModel {
     isRegisterPossible(true);
   }
 
-  void goToRecoverPassword(BuildContext context) =>
-      context.push(DotMarketplaceRoutes.recoverySendingPhonePage);
+  void goToRecoverPassword(BuildContext context) => context.go(
+      '${DotMarketplaceRoutes.loginPage}/${DotMarketplaceRoutes.recoverySendingPhonePage}');
 
   void _goToMainPage(BuildContext context) =>
-      context.go(DotMarketplaceRoutes.mainPage);
+      context.go(DotMarketplaceRoutes.advertisementPage);
 
   void _passwordVisibilityListener() {
     repeatPasswordRegisterTextCtrl
