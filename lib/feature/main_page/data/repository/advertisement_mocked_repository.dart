@@ -47,8 +47,9 @@ class AdvertisementMockedRepository implements AdvertisementRepository {
             if (maxPrice > minPrice) {
               return minPrice < element.cost.toDouble() &&
                   element.cost.toDouble() < maxPrice;
-            } else
+            } else {
               return element.cost.toDouble() > minPrice;
+            }
           })
           .skip(filter.page * filter.limit)
           .take(filter.limit)
@@ -58,6 +59,7 @@ class AdvertisementMockedRepository implements AdvertisementRepository {
     }
   }
 
+  @override
   Future<UseCaseResult<List<AdvertisementListItem>>> getFavoriteList(
       AdvertisementListFilter filter) async {
     try {
@@ -72,6 +74,7 @@ class AdvertisementMockedRepository implements AdvertisementRepository {
     }
   }
 
+  @override
   Future<UseCaseResult<List<AdvertisementListItem>>> getMyAdvertList(
       AdvertisementListFilter filter) async {
     try {
@@ -95,7 +98,6 @@ class AdvertisementMockedRepository implements AdvertisementRepository {
 
   @override
   Future<UseCaseResult<void>> delete(String id) {
-    // TODO: implement delete
     throw UnimplementedError();
   }
 }

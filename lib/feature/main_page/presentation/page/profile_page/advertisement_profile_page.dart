@@ -1,6 +1,7 @@
 import 'package:dot_marketplace/core/domain/router/dot_marketplace_routes.dart';
 import 'package:dot_marketplace/core/presentation/UI/app_bar/app_bar.dart';
 import 'package:dot_marketplace/feature/edit_profile_page/domain/service/advertisement_user_service.dart';
+import 'package:dot_marketplace/feature/sidebar/presentation/sidebar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -22,25 +23,28 @@ class _AdvertisementProfilePageState extends State<AdvertisementProfilePage> {
       appBar: CustomAppBar(
         context: context,
         title: Text('Профиль'),
-        leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.menu),
-          padding: const EdgeInsets.all(16),
+        leading: StatefulBuilder(
+          builder: (context, setState) => IconButton(
+            onPressed: Scaffold.of(context).openDrawer,
+            icon: const Icon(Icons.menu),
+            padding: const EdgeInsets.all(16),
+          ),
         ),
         actions: [
           IconButton(
               onPressed: () =>
                   context.push(DotMarketplaceRoutes.editProfilePage),
-              icon: Icon(Icons.edit)),
+              icon: const Icon(Icons.edit)),
           const SizedBox(width: 8),
         ],
       ),
+      drawer: SideBarWidget(),
       body: BlocBuilder(
         bloc: service,
         builder: (context, state) {
           if (state is AdvertisementUserState) {
             return Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -48,7 +52,7 @@ class _AdvertisementProfilePageState extends State<AdvertisementProfilePage> {
                     child: Column(
                       children: [
                         const SizedBox(height: 24),
-                        Image(
+                        const Image(
                           image: AssetImage('assets/image/logo.png'),
                           width: 100,
                           height: 100,
@@ -62,7 +66,7 @@ class _AdvertisementProfilePageState extends State<AdvertisementProfilePage> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  Divider(),
+                  const Divider(),
                   const SizedBox(height: 16),
                   Text(
                     'E-mail',

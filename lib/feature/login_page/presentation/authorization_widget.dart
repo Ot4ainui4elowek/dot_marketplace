@@ -13,7 +13,7 @@ class AuthorizationWidget extends StatefulWidget {
   final PassTextEditingController passwordLoginTextCtrl;
   final Rv<bool> isLoginPossible;
   final Function(BuildContext context) goToRecoverPassword;
-  final signIn;
+  final Function signIn;
 
   const AuthorizationWidget({
     super.key,

@@ -3,28 +3,30 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class CustomAppBar extends AppBar {
-  @override
-  final Widget? title;
-  @override
-  final List<Widget> actions;
+  // @override
+  // final Widget? title;
+  // @override
+  // final List<Widget> actions;
 
-  @override
-  final Widget? leading;
+  // @override
+  // final Widget? leading;
 
-  @override
-  final PreferredSizeWidget? bottom;
+  // @override
+  // final PreferredSizeWidget? bottom;
 
-  final double? toolbarHeight;
+  // final double? toolbarHeight;
 
   CustomAppBar({
     super.key,
     required BuildContext context,
-    this.title,
-    this.actions = const [],
-    this.leading,
-    this.bottom,
-    this.toolbarHeight,
+    Widget? title,
+    List<Widget> actions = const [],
+    Widget? leading,
+    PreferredSizeWidget? bottom,
+    double? toolbarHeight,
+    bool? forceMaterialTransparency,
   }) : super(
+          forceMaterialTransparency: forceMaterialTransparency ?? false,
           toolbarHeight: toolbarHeight,
           title: title,
           bottom: bottom,

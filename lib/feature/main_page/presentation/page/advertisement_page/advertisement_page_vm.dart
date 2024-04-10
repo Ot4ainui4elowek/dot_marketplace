@@ -18,6 +18,7 @@ class AdvertisementPageViewModel {
   void onFilterTap(BuildContext context, Widget bottomSheet) {
     showModalBottomSheet(
       context: context,
+      useRootNavigator: true,
       builder: (context) => AppBottomSheet(
         widget: bottomSheet,
       ),

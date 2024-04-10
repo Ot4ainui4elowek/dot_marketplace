@@ -5,6 +5,7 @@ class SettingsState {
 }
 
 class SettingsInitial extends SettingsState {
+  @override
   final int curentLocalization;
   SettingsInitial({required this.curentLocalization});
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 abstract class AppLightColors {
+  static const onPrimaryFixedVariant = Color(0xFF6A3457);
   static const brightness = Brightness.light;
   static const primary = Color(0xFFDF3A76);
   static const onPrimary = Colors.white;

@@ -20,7 +20,6 @@ class AdvertisementService extends Bloc<AdvertisementEvent, AdvertisemetState> {
           emit(AdvertisementIsSuccessState(advertice: data));
           break;
         case BadUseCaseResult<List<AdvertisementListItem>>():
-          // TODO отобразить ошибку
           emit(AdvertisementIsErrorState());
           break;
       }
