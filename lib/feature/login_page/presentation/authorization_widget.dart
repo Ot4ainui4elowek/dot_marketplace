@@ -72,7 +72,10 @@ class _AuthorizationWidgetState extends State<AuthorizationWidget> {
           ),
           const SizedBox(height: 20),
           TextButton(
-            child: Text(S.of(context).forgotPassword),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 18.0),
+              child: Text(S.of(context).forgotPassword),
+            ),
             onPressed: () => widget.goToRecoverPassword(context),
           ),
         ],

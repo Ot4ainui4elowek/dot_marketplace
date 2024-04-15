@@ -1,11 +1,13 @@
 import 'dart:ui';
 
+import 'package:dot_marketplace/core/domain/intl/generated/l10n.dart';
+import 'package:dot_marketplace/feature/sidebar/presentation/sidebar_widget_vm.dart';
 import 'package:dot_marketplace/theme/app_light_colors.dart';
 import 'package:flutter/material.dart';
 
 class SideBarWidget extends StatelessWidget {
-  const SideBarWidget({super.key});
-
+  const SideBarWidget({super.key, required this.vm});
+  final SidebarWidgetViewModel vm;
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -14,7 +16,8 @@ class SideBarWidget extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+              padding: const EdgeInsets.only(
+                  bottom: 12, right: 16, left: 24, top: 28),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -31,19 +34,22 @@ class SideBarWidget extends StatelessWidget {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(18),
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.settings,
-                  ),
-                  const SizedBox(width: 12),
-                  Text(
-                    'Настройки',
-                    style: Theme.of(context).textTheme.labelLarge,
-                  )
-                ],
+            IconButton(
+              onPressed: () => vm.onSettingsTap(context),
+              icon: Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.settings,
+                    ),
+                    const SizedBox(width: 12),
+                    Text(
+                      S.of(context).settings,
+                      style: Theme.of(context).textTheme.labelLarge,
+                    ),
+                  ],
+                ),
               ),
             ),
             Padding(

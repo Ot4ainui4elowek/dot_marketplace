@@ -26,7 +26,6 @@ class _AppElevatedButtonState extends State<AppElevatedButton> {
   final _buttonGlobalKey = GlobalKey();
 
   double? _buttonHeight;
-  double? _buttonWidth;
 
   Future<void> _onPressed() async {
     if (_isLoading) return;
@@ -44,7 +43,6 @@ class _AppElevatedButtonState extends State<AppElevatedButton> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _buttonHeight = _buttonGlobalKey.currentContext?.size?.height;
-      _buttonWidth = _buttonHeight! - 36;
     });
   }
 
@@ -56,20 +54,22 @@ class _AppElevatedButtonState extends State<AppElevatedButton> {
       height: _buttonHeight,
       child: ElevatedButton(
         onPressed: widget.onPressed != null ? _onPressed : null,
-        style: FilledButton.styleFrom(
+        style: ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
           elevation: 0,
           disabledBackgroundColor: Colors.transparent,
         ),
-        child: !_isLoading
-            ? widget.child
-            : SizedBox(
-                height: _buttonHeight,
-                width: _buttonWidth,
-                child: const CircularProgressIndicator.adaptive(
-                  backgroundColor: AppLightColors.background,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 18),
+          child: !_isLoading
+              ? widget.child
+              : SizedBox(
+                  width: _buttonHeight! - 36.0,
+                  child: const CircularProgressIndicator.adaptive(
+                    backgroundColor: AppLightColors.background,
+                  ),
                 ),
-              ),
+        ),
       ),
     );
   }

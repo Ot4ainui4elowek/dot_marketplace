@@ -6,7 +6,7 @@ import 'package:dot_marketplace/feature/main_page/presentation/page/advertisemen
 import 'package:dot_marketplace/feature/main_page/presentation/widget/advertise_list_item.dart';
 import 'package:dot_marketplace/feature/main_page/presentation/widget/locality_list_item.dart';
 import 'package:dot_marketplace/feature/sidebar/presentation/sidebar_widget.dart';
-import 'package:dot_marketplace/theme/app_light_colors.dart';
+import 'package:dot_marketplace/feature/sidebar/presentation/sidebar_widget_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -145,9 +145,9 @@ class _AdvertisementPageState extends State<AdvertisementPage> {
         bottom: _tabHeadersBuilder,
         title: Container(
           margin: const EdgeInsets.symmetric(vertical: 12),
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(28)),
-            color: AppLightColors.surfaceContainer,
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(28)),
+            color: Theme.of(context).colorScheme.surfaceVariant,
           ),
           child: Flex(
             direction: Axis.horizontal,
@@ -177,8 +177,9 @@ class _AdvertisementPageState extends State<AdvertisementPage> {
             icon: const Icon(Icons.filter_alt_outlined),
             padding: const EdgeInsets.all(16),
             style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.all(AppLightColors.surfaceContainer),
+              backgroundColor: MaterialStateProperty.all(
+                Theme.of(context).colorScheme.surfaceVariant,
+              ),
             ),
           ),
           const SizedBox(width: 16),
@@ -264,9 +265,11 @@ class _AdvertisementPageState extends State<AdvertisementPage> {
       child: Scaffold(
         appBar: _appBarBuilder,
         body: _tabsBuilder,
-        drawer: SideBarWidget(),
+        drawer: SideBarWidget(
+          vm: SidebarWidgetViewModel(),
+        ),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: AppLightColors.primaryContainer,
+          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           onPressed: () {},
           child: const Icon(Icons.add),
         ),

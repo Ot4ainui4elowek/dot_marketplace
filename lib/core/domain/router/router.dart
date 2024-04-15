@@ -37,7 +37,6 @@ abstract class AppRouterConfig {
             return LoginPage(
               vm: AuthViewModel(
                 authRepository: AppContainer().repositoryScope.authRepository,
-                settingService: AppContainer().serviceScope.settingsService,
               ),
             );
           },
@@ -46,10 +45,9 @@ abstract class AppRouterConfig {
                 path: DotMarketplaceRoutes.recoverySendingPhonePage,
                 builder: (context, state) => RecoveryPhonePage(
                       vm: RecoveryPhoneViewModel(
-                          recoveryRepository:
-                              AppContainer().repositoryScope.recoveryRepository,
-                          settingService:
-                              AppContainer().serviceScope.settingsService),
+                        recoveryRepository:
+                            AppContainer().repositoryScope.recoveryRepository,
+                      ),
                     ),
                 routes: [
                   GoRoute(

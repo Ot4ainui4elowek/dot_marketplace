@@ -10,11 +10,14 @@ class AppFilledButton extends StatefulWidget {
 
   final double? width;
 
+  final double? height;
+
   const AppFilledButton({
     super.key,
     this.onPressed,
     this.child,
     this.width,
+    this.height,
   });
 
   @override
@@ -25,9 +28,7 @@ class _AppFilledButtonState extends State<AppFilledButton> {
   bool _isLoading = false;
 
   final _buttonGlobalKey = GlobalKey();
-
   double? _buttonHeight;
-  double? _buttonWidth;
 
   Future<void> _onPressed() async {
     if (_isLoading) return;
@@ -45,7 +46,6 @@ class _AppFilledButtonState extends State<AppFilledButton> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _buttonHeight = _buttonGlobalKey.currentContext?.size?.height;
-      _buttonWidth = _buttonHeight! - 36;
     });
   }
 
@@ -60,14 +60,17 @@ class _AppFilledButtonState extends State<AppFilledButton> {
         style: FilledButton.styleFrom(
           backgroundColor: Theme.of(context).colorScheme.primary,
         ),
-        child: !_isLoading
-            ? widget.child
-            : SizedBox(
-                width: _buttonWidth,
-                child: const CircularProgressIndicator.adaptive(
-                  backgroundColor: AppLightColors.background,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 18),
+          child: !_isLoading
+              ? widget.child
+              : SizedBox(
+                  width: _buttonHeight! - 36.0,
+                  child: const CircularProgressIndicator.adaptive(
+                    backgroundColor: AppLightColors.background,
+                  ),
                 ),
-              ),
+        ),
       ),
     );
   }

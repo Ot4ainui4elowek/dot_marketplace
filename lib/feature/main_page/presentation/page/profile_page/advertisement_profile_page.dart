@@ -2,6 +2,7 @@ import 'package:dot_marketplace/core/domain/router/dot_marketplace_routes.dart';
 import 'package:dot_marketplace/core/presentation/UI/app_bar/app_bar.dart';
 import 'package:dot_marketplace/feature/edit_profile_page/domain/service/advertisement_user_service.dart';
 import 'package:dot_marketplace/feature/sidebar/presentation/sidebar_widget.dart';
+import 'package:dot_marketplace/feature/sidebar/presentation/sidebar_widget_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -38,7 +39,9 @@ class _AdvertisementProfilePageState extends State<AdvertisementProfilePage> {
           const SizedBox(width: 8),
         ],
       ),
-      drawer: SideBarWidget(),
+      drawer: SideBarWidget(
+        vm: SidebarWidgetViewModel(),
+      ),
       body: BlocBuilder(
         bloc: service,
         builder: (context, state) {

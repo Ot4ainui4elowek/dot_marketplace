@@ -6,8 +6,9 @@ import 'package:dot_marketplace/feature/main_page/domain/repository/advertisemen
 import 'package:flutter/material.dart';
 
 class AdvertisementPageViewModel {
-  AdvertisementPageViewModel({required advertisementRepository})
-      : _advertisementRepository = advertisementRepository;
+  AdvertisementPageViewModel({
+    required advertisementRepository,
+  }) : _advertisementRepository = advertisementRepository;
   final AdvertisementService advertisementService = AdvertisementService();
   final AdvertisementService myAdvertisementService = AdvertisementService();
   final AdvertisementRepository _advertisementRepository;

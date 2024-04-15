@@ -6,7 +6,6 @@ import 'package:dot_marketplace/core/presentation/UI/text_fields/controllers/app
 import 'package:dot_marketplace/core/presentation/UI/text_fields/controllers/password_text_editing_controller.dart';
 import 'package:dot_marketplace/feature/login_page/domain/entity/auth_credentials.dart';
 import 'package:dot_marketplace/feature/login_page/domain/repository/auth_repository.dart';
-import 'package:dot_marketplace/feature/settings/domain/service/settings_service.dart';
 import 'package:dot_marketplace/feature/settings/presentation/settings_modal_bs.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -14,13 +13,10 @@ import 'package:reactive_variables/reactive_variables.dart';
 
 class AuthViewModel {
   final AuthRepository _authRepository;
-  final SettingsService _settingsService;
 
   AuthViewModel({
     required AuthRepository authRepository,
-    required SettingsService settingService,
-  })  : _authRepository = authRepository,
-        _settingsService = settingService;
+  }) : _authRepository = authRepository;
 
   late TabController tabController;
 
@@ -163,8 +159,7 @@ class AuthViewModel {
   void onSettingsTap(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      builder: (context) =>
-          SettingsModalBottomSheet(settingsService: _settingsService),
+      builder: (context) => SettingsModalBottomSheet(),
     );
   }
 }

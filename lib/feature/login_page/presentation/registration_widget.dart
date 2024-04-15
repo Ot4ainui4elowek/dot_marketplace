@@ -6,7 +6,6 @@ import 'package:dot_marketplace/core/presentation/UI/text_fields/app_text_field.
 import 'package:dot_marketplace/core/presentation/UI/text_fields/controllers/app_text_editing_controller.dart';
 import 'package:dot_marketplace/core/presentation/UI/text_fields/controllers/password_text_editing_controller.dart';
 import 'package:dot_marketplace/core/presentation/UI/text_fields/password_textfield.dart';
-import 'package:dot_marketplace/theme/app_light_colors.dart';
 import 'package:dot_marketplace/theme/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:reactive_variables/reactive_variables.dart';
@@ -96,10 +95,12 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                         ),
                         TextSpan(
                           text: pnPUsage,
-                          style:
-                              Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                    color: AppLightColors.primary,
-                                  ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
                         ),
                       ],
                     ),

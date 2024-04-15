@@ -6,7 +6,8 @@ import 'package:dot_marketplace/feature/login_page/domain/repository/auth_reposi
 import 'package:dot_marketplace/feature/main_page/data/repository/advertisement_mocked_repository.dart';
 import 'package:dot_marketplace/feature/recovery_page/data/source/recovery_mocked_data_source.dart';
 import 'package:dot_marketplace/feature/recovery_page/domain/repository/recovery_repository.dart';
-import 'package:dot_marketplace/feature/settings/domain/service/settings_service.dart';
+import 'package:dot_marketplace/feature/settings/domain/service/locality_settings/settings_service.dart';
+import 'package:dot_marketplace/feature/settings/domain/service/theme_settings/theme_service.dart';
 import 'package:get_it/get_it.dart';
 
 class AppContainer {
@@ -40,9 +41,12 @@ class AppContainer {
 
       final userService = AdvertisementUserService();
 
+      final themeService = ThemeService();
+
       serviceScope = ServiceScope(
         settingsService: settingsService,
         userService: userService,
+        themeService: themeService,
       );
       return true;
     } catch (e, st) {
@@ -57,9 +61,12 @@ class ServiceScope {
 
   final AdvertisementUserService userService;
 
+  final ThemeService themeService;
+
   ServiceScope({
     required this.userService,
     required this.settingsService,
+    required this.themeService,
   });
 }
 
