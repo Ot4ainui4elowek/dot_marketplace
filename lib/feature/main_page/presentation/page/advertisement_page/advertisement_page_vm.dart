@@ -1,9 +1,11 @@
+import 'package:dot_marketplace/core/domain/router/dot_marketplace_routes.dart';
 import 'package:dot_marketplace/core/presentation/UI/text_fields/controllers/app_text_editing_controller.dart';
 import 'package:dot_marketplace/feature/locality/domain/entity/locality.dart';
 import 'package:dot_marketplace/feature/main_page/domain/bloc/advertisement_service.dart';
 import 'package:dot_marketplace/feature/main_page/domain/entity/advertisement_list_filter.dart';
 import 'package:dot_marketplace/feature/main_page/domain/repository/advertisement_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:reactive_variables/reactive_variables.dart';
 
 class AdvertisementPageViewModel {
@@ -28,6 +30,8 @@ class AdvertisementPageViewModel {
         builder: (context) => bottomSheet);
   }
 
+  void goToCreateAdvertPage(BuildContext context) =>
+      context.pushNamed(DotMarketplaceRoutes.createAdvert);
   num isValidPrice(String price) => int.tryParse(price) ?? 0;
 
   final Rv<List<Locality>> curentLocalityList = <Locality>[].rv;

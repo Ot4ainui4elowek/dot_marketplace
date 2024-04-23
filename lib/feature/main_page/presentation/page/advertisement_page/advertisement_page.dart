@@ -69,15 +69,16 @@ class _AdvertisementPageState extends State<AdvertisementPage> {
             const SizedBox(height: 12),
             Column(
               mainAxisSize: MainAxisSize.min,
-              children: LocalityList.values
-                  .map((locality) => LocalityListItem(
-                        locality: locality,
-                        addLocality: vm.addLocality,
-                        delleteLocality: vm.delleteLocality,
-                        isSelect:
-                            vm.curentLocalityList.value.contains(locality),
-                      ))
-                  .toList(),
+              children: List<LocalityListItem>.generate(
+                LocalityList.values.length,
+                (index) => LocalityListItem(
+                  locality: LocalityList.values[index],
+                  addLocality: vm.addLocality,
+                  delleteLocality: vm.delleteLocality,
+                  isSelect: vm.curentLocalityList.value
+                      .contains(LocalityList.values[index]),
+                ),
+              ),
             ),
           ],
         ),
@@ -140,7 +141,7 @@ class _AdvertisementPageState extends State<AdvertisementPage> {
                   .observer((context, value) => SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Row(
-                          children: vm.curentLocalityList.value
+                          children: value
                               .map(
                                   (locality) => _localityTitleBuilder(locality))
                               .toList(),
@@ -328,7 +329,9 @@ class _AdvertisementPageState extends State<AdvertisementPage> {
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-          onPressed: () {},
+          onPressed: () {
+            vm.goToCreateAdvertPage(context);
+          },
           child: const Icon(Icons.add),
         ),
       ),
