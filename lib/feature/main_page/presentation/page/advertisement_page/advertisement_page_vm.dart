@@ -36,6 +36,8 @@ class AdvertisementPageViewModel {
 
   final Rv<List<Locality>> curentLocalityList = <Locality>[].rv;
 
+  final isOpen = false.rv;
+
   void addLocality(Locality locality) {
     if (!curentLocalityList.value.contains(locality)) {
       curentLocalityList.add(locality);

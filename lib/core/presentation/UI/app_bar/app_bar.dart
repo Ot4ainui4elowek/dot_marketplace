@@ -18,18 +18,15 @@ class CustomAppBar extends AppBar {
 
   CustomAppBar({
     super.key,
+    super.bottom,
     required BuildContext context,
-    Widget? title,
+    super.title,
     List<Widget> actions = const [],
     Widget? leading,
-    PreferredSizeWidget? bottom,
-    double? toolbarHeight,
+    super.toolbarHeight,
     bool? forceMaterialTransparency,
   }) : super(
           forceMaterialTransparency: forceMaterialTransparency ?? false,
-          toolbarHeight: toolbarHeight,
-          title: title,
-          bottom: bottom,
           leadingWidth: leading != null
               ? null
               : context.canPop()

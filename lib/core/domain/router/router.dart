@@ -2,6 +2,7 @@ import 'package:dot_marketplace/core/domain/container/app_container.dart';
 import 'package:dot_marketplace/core/domain/router/dot_marketplace_routes.dart';
 import 'package:dot_marketplace/feature/advert_page/presentation/advert_page.dart';
 import 'package:dot_marketplace/feature/create_advert_page/presentation/create_advert_page.dart';
+import 'package:dot_marketplace/feature/create_advert_page/presentation/create_advert_page_vm.dart';
 import 'package:dot_marketplace/feature/edit_profile_page/presentation/advertisement_edit_profile_page.dart';
 import 'package:dot_marketplace/feature/edit_profile_page/presentation/advertisement_edit_profile_page_vm.dart';
 import 'package:dot_marketplace/feature/login_page/presentation/auth_vm.dart';
@@ -94,7 +95,9 @@ abstract class AppRouterConfig {
       GoRoute(
         path: DotMarketplaceRoutes.createAdvert,
         name: DotMarketplaceRoutes.createAdvert,
-        builder: (context, state) => CreateAdvertPage(),
+        builder: (context, state) => CreateAdvertPage(
+          vm: CreateAdvertPageViewModel(),
+        ),
       ),
       StatefulShellRoute.indexedStack(
           builder: (context, state, navigationShell) => MainPage(
