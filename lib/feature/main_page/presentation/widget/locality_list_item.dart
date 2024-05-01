@@ -4,27 +4,19 @@ import 'package:reactive_variables/reactive_variables.dart';
 
 class LocalityListItem extends StatefulWidget {
   final Locality locality;
-  final Function(Locality locality) addLocality;
-  final Function(Locality locality) delleteLocality;
-  final bool isSelect;
-  const LocalityListItem({
-    super.key,
-    required this.locality,
-    required this.addLocality,
-    required this.delleteLocality,
-    required this.isSelect,
-  });
+  final Rv<List<Locality>> localityList;
+  const LocalityListItem(
+      {super.key, required this.locality, required this.localityList});
   @override
   State<LocalityListItem> createState() => _LocalityListItemState();
 }
 
 class _LocalityListItemState extends State<LocalityListItem> {
-  final isSelect = false.rv;
-
+  final isSelected = false.rv;
   @override
   void initState() {
     super.initState();
-    isSelect(widget.isSelect);
+    isSelected(widget.localityList.value.contains(widget.locality));
   }
 
   @override
@@ -33,14 +25,17 @@ class _LocalityListItemState extends State<LocalityListItem> {
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
       child: Row(
         children: [
-          isSelect.observer(
-            (context, value) => Checkbox(
-              value: isSelect.value,
+          Obs(
+            rvList: [isSelected, widget.localityList],
+            builder: (context) => Checkbox(
+              value: widget.localityList.value.contains(widget.locality),
               onChanged: (value) {
-                isSelect(value ?? false);
-                isSelect.value
-                    ? widget.addLocality(widget.locality)
-                    : widget.delleteLocality(widget.locality);
+                value != null &&
+                        widget.localityList.value.contains(widget.locality)
+                    ? widget.localityList.remove(widget.locality)
+                    : widget.localityList.add(widget.locality);
+                value = isSelected.value ? null : true;
+                isSelected(value);
               },
             ),
           ),

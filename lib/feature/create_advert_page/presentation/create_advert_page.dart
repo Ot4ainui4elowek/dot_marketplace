@@ -80,18 +80,20 @@ class _CreateAdvertPageState extends State<CreateAdvertPage> {
             hintStyle: Theme.of(context).textTheme.bodyLarge),
       );
 
-  Widget _imageCardBuilder(String src) => Container(
-        width: MediaQuery.of(context).size.width / 2 - 28,
-        margin: const EdgeInsets.only(right: 12),
-        decoration:
-            BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(4.5))),
-        height: 125,
-        child: FittedBox(
-          clipBehavior: Clip.hardEdge,
-          fit: BoxFit.cover,
-          child: Image.asset(src),
-        ),
-      );
+  // Widget _imageCardBuilder(String src) => Container(
+  //       width: MediaQuery.of(context).size.width / 2 - 28,
+  //       margin: const EdgeInsets.only(right: 12),
+  //       decoration:
+  //           BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(4.5))),
+  //       height: 125,
+  //       child: FittedBox(
+  //         clipBehavior: Clip.hardEdge,
+  //         fit: BoxFit.cover,
+  //         child: Image.asset(src),
+  //       ),
+  //     );
+
+  //List<Widget> get imagesListBuilder => List<Widget>.generate(vm.imagesList.length / 2 , (index) => null)
 
   Widget get _mainContentBuilder => SingleChildScrollView(
         child: Padding(
@@ -112,10 +114,7 @@ class _CreateAdvertPageState extends State<CreateAdvertPage> {
               _descriptionBuilder,
               const SizedBox(height: 16),
               Row(
-                children: [
-                  _imageCardBuilder('assets/image/macbook.webp'),
-                  _imageCardBuilder('assets/image/macbook.webp'),
-                ],
+                children: [],
               ),
             ],
           ),

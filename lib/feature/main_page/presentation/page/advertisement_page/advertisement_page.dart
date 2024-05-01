@@ -11,7 +11,6 @@ import 'package:dot_marketplace/feature/sidebar/presentation/sidebar_widget_vm.d
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:reactive_variables/reactive_variables.dart';
 
 class AdvertisementPage extends StatefulWidget {
   const AdvertisementPage({super.key, required this.vm});
@@ -58,7 +57,7 @@ class _AdvertisementPageState extends State<AdvertisementPage> {
                     backgroundColor: Colors.transparent,
                     actions: [
                       TextButton(
-                          onPressed: vm.curentLocalityList.clear,
+                          onPressed: () => vm.curentLocalityList([]),
                           child: Text('Сбросить')),
                       const SizedBox(width: 16),
                     ],
@@ -69,16 +68,12 @@ class _AdvertisementPageState extends State<AdvertisementPage> {
             const SizedBox(height: 12),
             Column(
               mainAxisSize: MainAxisSize.min,
-              children: List<LocalityListItem>.generate(
-                LocalityList.values.length,
-                (index) => LocalityListItem(
-                  locality: LocalityList.values[index],
-                  addLocality: vm.addLocality,
-                  delleteLocality: vm.delleteLocality,
-                  isSelect: vm.curentLocalityList.value
-                      .contains(LocalityList.values[index]),
-                ),
-              ),
+              children: LocalityList.values
+                  .map((e) => LocalityListItem(
+                        locality: e,
+                        localityList: vm.curentLocalityList,
+                      ))
+                  .toList(),
             ),
           ],
         ),
