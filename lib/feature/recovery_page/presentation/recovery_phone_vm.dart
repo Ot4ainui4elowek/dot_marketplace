@@ -61,8 +61,8 @@ class RecoveryPhoneViewModel {
   }
 
   void goToEnterCode(BuildContext context, RecoveryPhoneCredentials data) {
-    context.pushReplacement(
-        '${DotMarketplaceRoutes.recoverySendingPhonePage}/${DotMarketplaceRoutes.recoveryCodePage}',
+    context.go(
+        '${DotMarketplaceRoutes.loginPage}/${DotMarketplaceRoutes.recoverySendingPhonePage}/${DotMarketplaceRoutes.recoveryCodePage}',
         extra: data.phone);
   }
 }

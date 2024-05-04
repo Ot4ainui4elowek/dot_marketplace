@@ -8,8 +8,13 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 
 class RecoveryCodeConfirm extends StatefulWidget {
-  const RecoveryCodeConfirm({super.key, required this.vm});
+  const RecoveryCodeConfirm({
+    super.key,
+    required this.vm,
+    required this.number,
+  });
   final RecoveryCodeConfirmViewModel vm;
+  final String number;
 
   @override
   State<RecoveryCodeConfirm> createState() => _RecoveryCodeConfirmState();
@@ -113,13 +118,13 @@ class _RecoveryCodeConfirmState extends State<RecoveryCodeConfirm> {
         ],
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 100),
             Text(
-              '${S.of(context).enterACode} ${GoRouterState.of(context).extra}',
+              '${S.of(context).enterACode} ${widget.number}',
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             const SizedBox(height: 20),

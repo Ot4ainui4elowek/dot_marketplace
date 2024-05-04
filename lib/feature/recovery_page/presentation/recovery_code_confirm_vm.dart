@@ -85,5 +85,5 @@ class RecoveryCodeConfirmViewModel {
   }
 
   void _goToNewPasswordPage(BuildContext context) => context.push(
-      '${DotMarketplaceRoutes.recoverySendingPhonePage}/${DotMarketplaceRoutes.newPasswordPage}');
+      '${DotMarketplaceRoutes.loginPage}/${DotMarketplaceRoutes.recoverySendingPhonePage}/${DotMarketplaceRoutes.newPasswordPage}');
 }

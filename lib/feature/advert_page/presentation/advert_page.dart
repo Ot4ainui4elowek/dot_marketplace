@@ -2,11 +2,36 @@ import 'package:dot_marketplace/core/presentation/UI/app_bar/app_bar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dot_marketplace/feature/main_page/domain/entity/adverisement_list_item.dart';
 import 'package:flutter/material.dart';
+import 'package:reactive_variables/reactive_variables.dart';
 
-class AdvertPage extends StatelessWidget {
-  const AdvertPage({super.key, required advertisementListItem})
-      : _advertisementListItem = advertisementListItem;
+class AdvertPage extends StatefulWidget {
+  AdvertPage({super.key, required advertisementListItem})
+      : _advertisementListItem = advertisementListItem {
+    isFavorite = _advertisementListItem.isFavorite.rv;
+  }
   final AdvertisementListItem _advertisementListItem;
+  late final Rv<bool> isFavorite;
+
+  @override
+  State<AdvertPage> createState() => _AdvertPageState();
+}
+
+class _AdvertPageState extends State<AdvertPage> {
+  Icon _isfavoriteIconBuilder(BuildContext context) {
+    if (widget.isFavorite.value) {
+      return Icon(
+        Icons.favorite_outlined,
+        size: 24,
+        color: Theme.of(context).colorScheme.primary,
+      );
+    } else {
+      return Icon(
+        Icons.favorite_border_outlined,
+        size: 24,
+        color: Theme.of(context).colorScheme.outline,
+      );
+    }
+  }
 
   Widget _titleBuilder(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -15,7 +40,7 @@ class AdvertPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                _advertisementListItem.creationDate
+                widget._advertisementListItem.creationDate
                     .toString()
                     .split(' ')
                     .first
@@ -24,19 +49,19 @@ class AdvertPage extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodySmall,
               ),
               Text(
-                _advertisementListItem.locality.name(context),
+                widget._advertisementListItem.locality.name(context),
                 style: Theme.of(context).textTheme.bodySmall,
               )
             ],
           ),
           const SizedBox(height: 8),
           Text(
-            _advertisementListItem.title,
+            widget._advertisementListItem.title,
             style: Theme.of(context).textTheme.titleLarge,
           ),
           const SizedBox(height: 8),
           Text(
-            '${_advertisementListItem.cost} руб',
+            '${widget._advertisementListItem.cost} руб',
             style: Theme.of(context).textTheme.headlineMedium,
           ),
           const SizedBox(height: 8),
@@ -52,7 +77,7 @@ class AdvertPage extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            _advertisementListItem.description,
+            widget._advertisementListItem.description,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
         ],
@@ -83,8 +108,8 @@ class AdvertPage extends StatelessWidget {
                       color: Colors.grey,
                       borderRadius: BorderRadius.all(Radius.circular(28))),
                   child: FittedBox(
-                    child: i,
                     fit: BoxFit.cover,
+                    child: i,
                   ),
                 );
               },
@@ -121,7 +146,7 @@ class AdvertPage extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Container(
-              margin: EdgeInsets.symmetric(vertical: 8),
+              margin: const EdgeInsets.symmetric(vertical: 8),
               child: Row(
                 children: [
                   const Icon(
@@ -137,7 +162,7 @@ class AdvertPage extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.symmetric(vertical: 8),
+              margin: const EdgeInsets.symmetric(vertical: 8),
               child: Row(
                 children: [
                   const Icon(
@@ -165,7 +190,9 @@ class AdvertPage extends StatelessWidget {
       appBar: CustomAppBar(
         context: context,
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.favorite_border)),
+          widget.isFavorite.observer((context, value) => IconButton(
+              onPressed: () => widget.isFavorite(!value),
+              icon: _isfavoriteIconBuilder(context))),
           const SizedBox(width: 8),
         ],
       ),
