@@ -8,8 +8,8 @@ abstract class Locality {
 }
 
 enum LocalityList implements Locality {
-  rybnitsa(_rybnitsa),
-  tiraspol(_tiraspol);
+  tiraspol(_tiraspol),
+  rybnitsa(_rybnitsa);
 
   const LocalityList(this.name);
 

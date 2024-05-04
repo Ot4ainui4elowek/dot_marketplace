@@ -6,7 +6,7 @@ import 'package:dot_marketplace/core/presentation/UI/text_fields/controllers/app
 import 'package:dot_marketplace/feature/recovery_page/domain/entity/recovery_code_creditinals.dart';
 import 'package:dot_marketplace/feature/recovery_page/domain/entity/recovery_phone_creditinals.dart';
 import 'package:dot_marketplace/feature/recovery_page/domain/repository/recovery_repository.dart';
-import 'package:dot_marketplace/feature/settings/domain/service/settings_service.dart';
+import 'package:dot_marketplace/feature/settings/domain/service/locality_settings/settings_service.dart';
 import 'package:dot_marketplace/feature/settings/presentation/settings_modal_bs.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -14,13 +14,11 @@ import 'package:reactive_variables/reactive_variables.dart';
 
 class RecoveryCodeConfirmViewModel {
   final RecoveryRepository _recoveryRepository;
-  final SettingsService _settingsService;
 
   RecoveryCodeConfirmViewModel({
     required RecoveryRepository recoveryRepository,
     required SettingsService settingService,
-  })  : _recoveryRepository = recoveryRepository,
-        _settingsService = settingService;
+  }) : _recoveryRepository = recoveryRepository;
 
   final List<AppTextEditingController> codeControllers = [
     AppTextEditingController(),
@@ -36,8 +34,7 @@ class RecoveryCodeConfirmViewModel {
 
   void showModal(context) => showModalBottomSheet(
         context: context,
-        builder: (context) =>
-            SettingsModalBottomSheet(settingsService: _settingsService),
+        builder: (context) => SettingsModalBottomSheet(),
       );
 
   void initListener() {

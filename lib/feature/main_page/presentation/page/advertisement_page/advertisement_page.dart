@@ -1,12 +1,17 @@
 import 'package:dot_marketplace/core/presentation/UI/preloader/preloader.dart';
+import 'package:dot_marketplace/core/presentation/UI/sheets/app_bottom_sheet.dart';
 import 'package:dot_marketplace/core/presentation/UI/text_fields/app_text_field.dart';
+import 'package:dot_marketplace/feature/locality/domain/entity/locality.dart';
 import 'package:dot_marketplace/feature/main_page/domain/bloc/advertisement_service.dart';
 import 'package:dot_marketplace/feature/main_page/presentation/page/advertisement_page/advertisement_page_vm.dart';
 import 'package:dot_marketplace/feature/main_page/presentation/widget/advertise_list_item.dart';
-import 'package:dot_marketplace/theme/app_light_colors.dart';
+import 'package:dot_marketplace/feature/main_page/presentation/widget/locality_list_item.dart';
+import 'package:dot_marketplace/feature/sidebar/presentation/sidebar_widget.dart';
+import 'package:dot_marketplace/feature/sidebar/presentation/sidebar_widget_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:reactive_variables/reactive_variables.dart';
 
 class AdvertisementPage extends StatefulWidget {
   const AdvertisementPage({super.key, required this.vm});
@@ -38,118 +43,172 @@ class _AdvertisementPageState extends State<AdvertisementPage> {
     super.dispose();
   }
 
-  // Widget get _localityListBuilder => Column(
-  //       mainAxisSize: MainAxisSize.min,
-  //       children: [
-  //         Row(
-  //           children: [
-  //             Expanded(
-  //               child: AppBar(
-  //                 leading: BackButton(
-  //                   onPressed: () => vm.curentBottomSheetWidget(0),
-  //                 ),
-  //                 title: Text('Город'),
-  //                 backgroundColor: Colors.transparent,
-  //                 actions: [
-  //                   TextButton(onPressed: () {}, child: Text('Сбросить')),
-  //                   const SizedBox(width: 16),
-  //                 ],
-  //               ),
-  //             )
-  //           ],
-  //         ),
-  //         Expanded(
-  //           child: ListView.separated(
-  //             padding: EdgeInsets.symmetric(horizontal: 16),
-  //             itemCount: vm.localityListItem.length,
-  //             itemBuilder: (context, index) => vm.localityListItem[index],
-  //             separatorBuilder: (context, index) => const SizedBox(height: 8),
-  //           ),
-  //         ),
-  //       ],
-  //     );
-
-  AdvertisementPageViewModel get vm => widget.vm;
-  Widget get _filterBottomSheetBuilder => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Column(
+  Widget get _localityListBuilder => AppBottomSheet(
+        widget: Column(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 14.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Фильтры',
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  TextButton(
-                      onPressed: () {
-                        vm.getAdvertisementPage();
-                        context.pop();
-                      },
-                      child: Text('Применить')),
-                ],
-              ),
-            ),
-            Text(
-              'Город',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            const SizedBox(height: 12),
-            TextButton(
-              onPressed: () {},
-              child: Text('Добавить город'),
-            ),
-            const SizedBox(height: 24),
-            Text(
-              'Цена объявления',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            const SizedBox(height: 12),
             Row(
               children: [
                 Expanded(
-                  child: AppTextField(
-                    labelText: 'От',
-                    controller: vm.minPrice,
-                    keyboardType: TextInputType.number,
+                  child: AppBar(
+                    leading: BackButton(
+                      onPressed: context.pop,
+                    ),
+                    title: Text('Город'),
+                    backgroundColor: Colors.transparent,
+                    actions: [
+                      TextButton(
+                          onPressed: vm.curentLocalityList.clear,
+                          child: Text('Сбросить')),
+                      const SizedBox(width: 16),
+                    ],
                   ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: AppTextField(
-                    labelText: 'До',
-                    controller: vm.maxPrice,
-                    keyboardType: TextInputType.number,
-                  ),
-                ),
+                )
               ],
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 12),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: List<LocalityListItem>.generate(
+                LocalityList.values.length,
+                (index) => LocalityListItem(
+                  locality: LocalityList.values[index],
+                  addLocality: vm.addLocality,
+                  delleteLocality: vm.delleteLocality,
+                  isSelect: vm.curentLocalityList.value
+                      .contains(LocalityList.values[index]),
+                ),
+              ),
+            ),
           ],
         ),
       );
 
+  Widget _localityTitleBuilder(Locality locality) => Container(
+        padding: const EdgeInsets.only(left: 12),
+        margin: const EdgeInsets.only(right: 8),
+        decoration: BoxDecoration(
+          color: Colors.transparent,
+          border: Border.all(
+            width: 1,
+            color: Theme.of(context).colorScheme.outlineVariant,
+          ),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Row(
+          children: [
+            Text(locality.name(context)),
+            IconButton(
+                padding: EdgeInsets.zero,
+                onPressed: () => vm.delleteLocality(locality),
+                icon: const Icon(Icons.close))
+          ],
+        ),
+      );
+
+  AdvertisementPageViewModel get vm => widget.vm;
+  Widget get _filterBottomSheetBuilder => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: AppBottomSheet(
+          widget: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 14.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Фильтры',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          vm.getAdvertisementPage();
+                          context.pop();
+                        },
+                        child: Text('Применить')),
+                  ],
+                ),
+              ),
+              Text(
+                'Город',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(height: 12),
+              vm.curentLocalityList
+                  .observer((context, value) => SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: value
+                              .map(
+                                  (locality) => _localityTitleBuilder(locality))
+                              .toList(),
+                        ),
+                      )),
+              const SizedBox(height: 12),
+              const SizedBox(height: 12),
+              TextButton(
+                onPressed: () => showModalBottomSheet(
+                    context: context,
+                    useRootNavigator: true,
+                    builder: (context) => _localityListBuilder),
+                child: Text('Добавить город'),
+              ),
+              const SizedBox(height: 24),
+              Text(
+                'Цена объявления',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  Expanded(
+                    child: AppTextField(
+                      labelText: 'От',
+                      controller: vm.minPrice,
+                      keyboardType: TextInputType.number,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: AppTextField(
+                      labelText: 'До',
+                      controller: vm.maxPrice,
+                      keyboardType: TextInputType.number,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+            ],
+          ),
+        ),
+      );
+
   AppBar get _appBarBuilder => AppBar(
+        automaticallyImplyLeading: false,
         toolbarHeight: 68,
         forceMaterialTransparency: true,
         bottom: _tabHeadersBuilder,
         title: Container(
           margin: const EdgeInsets.symmetric(vertical: 12),
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(28)),
-            color: AppLightColors.surfaceContainer,
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(28)),
+            color: Theme.of(context).colorScheme.surfaceVariant,
           ),
           child: Flex(
             direction: Axis.horizontal,
             children: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.menu),
-                padding: const EdgeInsets.all(16),
+              StatefulBuilder(
+                builder: (BuildContext context, setState) {
+                  return IconButton(
+                    icon: const Icon(Icons.menu),
+                    padding: const EdgeInsets.all(16),
+                    onPressed: Scaffold.of(context).openDrawer,
+                  );
+                },
               ),
               Expanded(
                 child: TextField(
@@ -163,12 +222,23 @@ class _AdvertisementPageState extends State<AdvertisementPage> {
         ),
         actions: [
           IconButton(
-            onPressed: () => vm.onFilterTap(context, _filterBottomSheetBuilder),
+            onPressed: () => showModalBottomSheet(
+              context: context,
+              useRootNavigator: true,
+              isScrollControlled: true,
+              builder: (context) => Padding(
+                padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom,
+                ),
+                child: _filterBottomSheetBuilder,
+              ),
+            ),
             icon: const Icon(Icons.filter_alt_outlined),
             padding: const EdgeInsets.all(16),
             style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.all(AppLightColors.surfaceContainer),
+              backgroundColor: MaterialStateProperty.all(
+                Theme.of(context).colorScheme.surfaceVariant,
+              ),
             ),
           ),
           const SizedBox(width: 16),
@@ -254,9 +324,14 @@ class _AdvertisementPageState extends State<AdvertisementPage> {
       child: Scaffold(
         appBar: _appBarBuilder,
         body: _tabsBuilder,
+        drawer: SideBarWidget(
+          vm: SidebarWidgetViewModel(),
+        ),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: AppLightColors.primaryContainer,
-          onPressed: () {},
+          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+          onPressed: () {
+            vm.goToCreateAdvertPage(context);
+          },
           child: const Icon(Icons.add),
         ),
       ),

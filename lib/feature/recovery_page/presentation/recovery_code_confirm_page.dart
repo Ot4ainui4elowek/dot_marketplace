@@ -32,7 +32,7 @@ class _RecoveryCodeConfirmState extends State<RecoveryCodeConfirm> {
   }
 
   Widget get rowCodeFields {
-    final _codeFieldList = List.generate(
+    final codeFieldList = List.generate(
       vm.codeControllers.length - 1,
       (index) => Expanded(
         child: Padding(
@@ -53,7 +53,7 @@ class _RecoveryCodeConfirmState extends State<RecoveryCodeConfirm> {
         ),
       ),
     );
-    _codeFieldList.add(
+    codeFieldList.add(
       Expanded(
         child: TextField(
           controller: vm.codeControllers.last,
@@ -74,7 +74,7 @@ class _RecoveryCodeConfirmState extends State<RecoveryCodeConfirm> {
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: _codeFieldList,
+      children: codeFieldList,
     );
   }
 
@@ -121,7 +121,7 @@ class _RecoveryCodeConfirmState extends State<RecoveryCodeConfirm> {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: <Widget>[
             const SizedBox(height: 100),
             Text(
               '${S.of(context).enterACode} ${widget.number}',

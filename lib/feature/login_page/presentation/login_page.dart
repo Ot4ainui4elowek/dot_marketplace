@@ -1,10 +1,8 @@
-import 'package:dot_marketplace/core/domain/container/app_container.dart';
 import 'package:dot_marketplace/core/domain/intl/generated/l10n.dart';
 import 'package:dot_marketplace/feature/login_page/presentation/auth_vm.dart';
 import 'package:dot_marketplace/feature/login_page/presentation/authorization_widget.dart';
 import 'package:dot_marketplace/feature/login_page/presentation/registration_widget.dart';
 import 'package:dot_marketplace/feature/settings/presentation/settings_modal_bs.dart';
-import 'package:dot_marketplace/core/presentation/UI/app_bar/app_bar.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -22,8 +20,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage>
     with SingleTickerProviderStateMixin {
   AuthViewModel get vm => widget.vm;
-  Widget get localizationBottomSheet => SettingsModalBottomSheet(
-      settingsService: AppContainer().serviceScope.settingsService);
+  Widget get localizationBottomSheet => SettingsModalBottomSheet();
 
   List<Widget> get _tabHeaders => <Widget>[
         Tab(
@@ -78,8 +75,7 @@ class _LoginPageState extends State<LoginPage>
     return DefaultTabController(
       length: _tabHeaders.length,
       child: Scaffold(
-        appBar: CustomAppBar(
-          context: context,
+        appBar: AppBar(
           actions: [
             IconButton(
               icon: const Icon(

@@ -1,5 +1,4 @@
 import 'package:dot_marketplace/core/presentation/UI/text_fields/controllers/app_text_editing_controller.dart';
-import 'package:dot_marketplace/theme/app_light_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:reactive_variables/reactive_variables.dart';
 
@@ -34,22 +33,22 @@ class AppTextField extends StatelessWidget {
             decoration: InputDecoration(
               labelText: labelText,
               labelStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: AppLightColors.onSurfaceVariant,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
               floatingLabelStyle:
                   Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: AppLightColors.primary,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
               prefixIcon: prefixIcon,
               suffixIcon: suffixIcon,
-              prefixIconColor: AppLightColors.outline,
-              suffixIconColor: AppLightColors.outline,
+              prefixIconColor: Theme.of(context).colorScheme.outline,
+              suffixIconColor: Theme.of(context).colorScheme.outline,
               errorText: controller.errorText(),
-              border: const OutlineInputBorder(
+              border: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: AppLightColors.outline,
+                  color: Theme.of(context).colorScheme.outline,
                 ),
-                borderRadius: BorderRadius.all(Radius.circular(16)),
+                borderRadius: const BorderRadius.all(Radius.circular(16)),
               ),
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 12, horizontal: 16),

@@ -13,7 +13,7 @@ class AuthorizationWidget extends StatefulWidget {
   final PassTextEditingController passwordLoginTextCtrl;
   final Rv<bool> isLoginPossible;
   final Function(BuildContext context) goToRecoverPassword;
-  final signIn;
+  final Function signIn;
 
   const AuthorizationWidget({
     super.key,
@@ -72,7 +72,10 @@ class _AuthorizationWidgetState extends State<AuthorizationWidget> {
           ),
           const SizedBox(height: 20),
           TextButton(
-            child: Text(S.of(context).forgotPassword),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 18.0),
+              child: Text(S.of(context).forgotPassword),
+            ),
             onPressed: () => widget.goToRecoverPassword(context),
           ),
         ],

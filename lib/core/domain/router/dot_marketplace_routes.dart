@@ -10,4 +10,5 @@ abstract class DotMarketplaceRoutes {
   static const advertPage = '/advert-page';
   static const profilePage = '/profile-page';
   static const editProfilePage = '/edit-profile';
+  static const createAdvert = '/create-advert';
 }

@@ -34,7 +34,7 @@ class _RecoveryNewPasswordPageState extends State<RecoveryNewPasswordPage> {
                 labelText: 'Подтвердите пароль',
                 controller: PassTextEditingController()),
             const SizedBox(height: 20),
-            AppFilledButton(
+            const AppFilledButton(
               child: Text('Сохранить новый пароль'),
             )
           ],

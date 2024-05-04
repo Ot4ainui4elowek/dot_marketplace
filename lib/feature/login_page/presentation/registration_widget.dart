@@ -1,21 +1,23 @@
+import 'dart:async';
+
 import 'package:dot_marketplace/core/domain/intl/generated/l10n.dart';
 import 'package:dot_marketplace/core/presentation/UI/buttons/app_filled_button.dart';
 import 'package:dot_marketplace/core/presentation/UI/text_fields/app_text_field.dart';
 import 'package:dot_marketplace/core/presentation/UI/text_fields/controllers/app_text_editing_controller.dart';
 import 'package:dot_marketplace/core/presentation/UI/text_fields/controllers/password_text_editing_controller.dart';
 import 'package:dot_marketplace/core/presentation/UI/text_fields/password_textfield.dart';
-import 'package:dot_marketplace/theme/app_light_colors.dart';
 import 'package:dot_marketplace/theme/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:reactive_variables/reactive_variables.dart';
 
 class RegistrationWidget extends StatefulWidget {
   final AppTextEditingController phoneRegisterTextCtrl;
   final PassTextEditingController passwordRegisterTextCtrl;
   final PassTextEditingController repeatPasswordRegisterTextCtrl;
-  final isUserAgreedWithPnPUsage;
-  final onCheckBoxChecked;
-  final isRegisterPossible;
-  final signUp;
+  final Rv<bool> isUserAgreedWithPnPUsage;
+  final void Function(bool?)? onCheckBoxChecked;
+  final Rv<bool> isRegisterPossible;
+  final Future<void> Function(BuildContext) signUp;
 
   const RegistrationWidget({
     super.key,
@@ -35,7 +37,7 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
   String get imAgreedWith =>
       S.of(context).agreement.split(' ').getRange(0, 3).join(' ');
 
-  String get PnPUsage {
+  String get pnPUsage {
     final wordList = S.of(context).agreement.split(' ');
     return wordList.getRange(3, wordList.length).join(' ');
   }
@@ -92,11 +94,13 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         TextSpan(
-                          text: PnPUsage,
-                          style:
-                              Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                    color: AppLightColors.primary,
-                                  ),
+                          text: pnPUsage,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
                         ),
                       ],
                     ),
@@ -108,7 +112,7 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
           const SizedBox(height: 20),
           widget.isRegisterPossible.observer(
             (context, value) => AppFilledButton(
-              onPressed: value ? widget.signUp : null,
+              onPressed: value ? () => widget.signUp(context) : null,
               child: Text(S.of(context).register),
             ),
           ),
