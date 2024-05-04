@@ -1,9 +1,16 @@
+import 'package:dot_marketplace/core/domain/router/dot_marketplace_routes.dart';
 import 'package:dot_marketplace/feature/main_page/domain/entity/adverisement_list_item.dart';
 import 'package:dot_marketplace/theme/app_light_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 
 class AdvertisementListItemWidget extends StatelessWidget {
   final AdvertisementListItem advertisementListItem;
+
+  final image =
+      'https://media.cnn.com/api/v1/images/stellar/prod/230419133455-velotric-thunder-1-ebike-lead-cnnu.jpg?c=16x9&q=h_653,w_1160,c_fill/f_webp';
 
   const AdvertisementListItemWidget(
       {super.key, required this.advertisementListItem});
@@ -82,13 +89,30 @@ class AdvertisementListItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: _cardDecoration(context),
-      child: Column(
-        children: [
-          _headerBuilder(context),
-          _textContentBuilder(context),
-        ],
+    return IconButton(
+      onPressed: () => context.pushNamed(DotMarketplaceRoutes.advertPage,
+          extra: advertisementListItem),
+      style: TextButton.styleFrom(padding: EdgeInsets.zero),
+      icon: Container(
+        clipBehavior: Clip.hardEdge,
+        decoration: _cardDecoration(context),
+        child: Column(
+          children: [
+            Container(
+                width: MediaQuery.of(context).size.width,
+                height: 176,
+                clipBehavior: Clip.hardEdge,
+                decoration: BoxDecoration(),
+                child: FittedBox(
+                  fit: BoxFit.cover,
+                  child: Image.network(
+                    image,
+                  ),
+                )),
+            _headerBuilder(context),
+            _textContentBuilder(context),
+          ],
+        ),
       ),
     );
   }

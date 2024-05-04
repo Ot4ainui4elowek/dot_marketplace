@@ -1,9 +1,12 @@
+import 'package:dot_marketplace/core/presentation/UI/app_bar/app_bar.dart';
 import 'package:dot_marketplace/core/presentation/UI/text_fields/app_text_field.dart';
+import 'package:dot_marketplace/feature/main_page/domain/bloc/advertisement_service.dart';
 import 'package:dot_marketplace/feature/main_page/presentation/page/main_page_vm.dart';
 import 'package:dot_marketplace/core/presentation/UI/sheets/app_bottom_sheet.dart';
 import 'package:dot_marketplace/feature/main_page/presentation/widget/advertise_list_item.dart';
 import 'package:dot_marketplace/theme/app_light_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:reactive_variables/reactive_variables.dart';
@@ -25,7 +28,7 @@ class _MainPageState extends State<MainPage> {
     super.initState();
     vm.getAdvertisementPage(page: 0);
     vm.getFavoriteList(0);
-    vm.getmtAdvertisementPage(0);
+    vm.getMyAdvertisementPage(0);
     // vm.init();
   }
 
@@ -35,7 +38,7 @@ class _MainPageState extends State<MainPage> {
     if (oldWidget.vm != widget.vm) {
       vm.getAdvertisementPage(page: 0);
       vm.getFavoriteList(0);
-      vm.getmtAdvertisementPage(0);
+      vm.getMyAdvertisementPage(0);
     }
   }
 
@@ -51,36 +54,140 @@ class _MainPageState extends State<MainPage> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: _tabHeadersBuilder.tabs.length,
-      child: Scaffold(
-        appBar: _appBarBuilder,
-        bottomNavigationBar: _bottomNavBarBuilder,
-        body: _currentPageIndex
-            .observer((context, value) => _pageTabsBuilder[value]),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: AppLightColors.primaryContainer,
-          onPressed: () {},
-          child: const Icon(Icons.add),
+  List<Widget> get _pagesBuilder =>
+      [_tabsBuilder, _favoritesBuilder, _profilePageBuilder];
+
+  Widget get _favoritesBuilder => Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Избранное',
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+          titleTextStyle: Theme.of(context).textTheme.headlineMedium,
+          forceMaterialTransparency: true,
         ),
-      ),
-    );
-  }
+        body: BlocBuilder<AdvertisementService, AdvertisemetState>(
+            bloc: vm.favoriteAdvertisementService,
+            builder: (context, state) {
+              if (state is AdvertisementIsSuccessState) {
+                return ListView.separated(
+                  padding: const EdgeInsets.all(16),
+                  itemBuilder: (context, index) => AdvertisementListItemWidget(
+                      advertisementListItem: state.advertice[index]),
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: 8),
+                  itemCount: state.advertice.length,
+                );
+              } else if (state is AdvertisementIsLoadingState) {
+                return _preloaderBuilder;
+              } else if (state is AdvertisementIsEmptyState) {
+                return Center(
+                  child: _favoriteIsempty,
+                );
+              } else if (state is AdvertisementIsErrorState) {
+                return Center(
+                  child: Text('Ошибка'),
+                );
+              } else {
+                return Center(
+                  child: Text('Что-то пошло не так'),
+                );
+              }
+            }),
+      );
 
-  List<Widget> get _pageTabsBuilder => [
-        _tabBarViewBuilder,
-        _favoritesBuilder,
-      ];
+  Widget get _profilePageBuilder => Scaffold(
+        appBar: CustomAppBar(
+          context: context,
+          title: Text('Профиль'),
+          leading: IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.menu),
+            padding: const EdgeInsets.all(16),
+          ),
+          actions: [
+            IconButton(
+                onPressed: () => context.push(''), icon: Icon(Icons.edit)),
+            const SizedBox(width: 8),
+          ],
+        ),
+        body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 24),
+                    Image(
+                      image: AssetImage('assets/image/logo.png'),
+                      width: 100,
+                      height: 100,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      '${vm.firstname.text} ${vm.lastname.text}',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+              Divider(),
+              const SizedBox(height: 16),
+              Text(
+                'E-mail',
+                style: Theme.of(context).textTheme.labelMedium,
+              ),
+              Text(
+                vm.email.text,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'Телефон',
+                style: Theme.of(context).textTheme.labelMedium,
+              ),
+              Text(
+                vm.phone.text,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            ],
+          ),
+        ),
+      );
 
-  Widget get _favoritesBuilder => vm.favoriteAdvertisementList.observer(
-        (context, value) => ListView.separated(
-          padding: const EdgeInsets.all(16),
-          itemBuilder: (context, index) => AdvertisementListItemWidget(
-              advertisementListItem: vm.favoriteAdvertisementList()[index]),
-          separatorBuilder: (context, index) => const SizedBox(height: 8),
-          itemCount: vm.favoriteAdvertisementList.value.length,
+  Widget get _editingProfilePageBuilder => Scaffold(
+        appBar: CustomAppBar(
+          context: context,
+          title: Text('Редкатирование профиля'),
+          actions: [
+            IconButton(onPressed: () {}, icon: Icon(Icons.check)),
+            const SizedBox(width: 8),
+          ],
+        ),
+        body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            children: [
+              const SizedBox(height: 24),
+              Image(
+                image: AssetImage('assets/image/logo.png'),
+                width: 100,
+                height: 100,
+              ),
+              const SizedBox(height: 8),
+              AppTextField(labelText: 'Имя', controller: vm.firstname),
+              const SizedBox(height: 20),
+              AppTextField(labelText: 'Фамили', controller: vm.lastname),
+              const SizedBox(height: 20),
+              AppTextField(labelText: 'Email', controller: vm.email),
+              const SizedBox(height: 20),
+              AppTextField(labelText: 'Телефон', controller: vm.phone),
+              const SizedBox(height: 20),
+            ],
+          ),
         ),
       );
 
@@ -165,7 +272,7 @@ class _MainPageState extends State<MainPage> {
                   ),
                   TextButton(
                       onPressed: () {
-                        vm.isValidPrice();
+                        vm.getAdvertisementPage();
                         context.pop();
                       },
                       child: Text('Применить')),
@@ -267,39 +374,73 @@ class _MainPageState extends State<MainPage> {
         ),
       );
 
-  Widget get _otherAdvertiseBuilder => vm.advertisementList.observer(
-        (context, value) => value.isEmpty
-            ? _preloaderBuilder
-            : ListView.separated(
+  Widget get _otherAdvertiseBuilder =>
+      BlocBuilder<AdvertisementService, AdvertisemetState>(
+          bloc: vm.otherAdvertisementService,
+          builder: (context, state) {
+            if (state is AdvertisementIsSuccessState) {
+              return ListView.separated(
                 padding: const EdgeInsets.all(16),
                 itemBuilder: (context, index) => AdvertisementListItemWidget(
-                    advertisementListItem: vm.advertisementList()[index]),
+                    advertisementListItem: state.advertice[index]),
                 separatorBuilder: (context, index) => const SizedBox(height: 8),
-                itemCount: vm.advertisementList.value.length,
-              ),
-      );
-  Widget get _myAdvertiseBuilder => vm.myAdverList.observer(
-        (context, value) => value.isEmpty
-            ? _favoriteIsempty
-            : ListView.separated(
+                itemCount: state.advertice.length,
+              );
+            } else if (state is AdvertisementIsLoadingState) {
+              return _preloaderBuilder;
+            } else if (state is AdvertisementIsEmptyState) {
+              return Center(
+                child: Text('Ничего не найдено'),
+              );
+            } else if (state is AdvertisementIsErrorState) {
+              return Center(
+                child: Text('Ошибка'),
+              );
+            } else {
+              return Center(
+                child: Text('Что-то пошло не так'),
+              );
+            }
+          });
+  Widget get _myAdvertiseBuilder =>
+      BlocBuilder<AdvertisementService, AdvertisemetState>(
+          bloc: vm.myAdvertisementService,
+          builder: (context, state) {
+            if (state is AdvertisementIsSuccessState) {
+              return ListView.separated(
                 padding: const EdgeInsets.all(16),
                 itemBuilder: (context, index) => AdvertisementListItemWidget(
-                    advertisementListItem: vm.myAdverList()[index]),
+                    advertisementListItem: state.advertice[index]),
                 separatorBuilder: (context, index) => const SizedBox(height: 8),
-                itemCount: vm.myAdverList.value.length,
-              ),
-      );
+                itemCount: state.advertice.length,
+              );
+            } else if (state is AdvertisementIsLoadingState) {
+              return _preloaderBuilder;
+            } else if (state is AdvertisementIsEmptyState) {
+              return Center(
+                child: Text('Ничего не найдено'),
+              );
+            } else if (state is AdvertisementIsErrorState) {
+              return Center(
+                child: Text('Ошибка'),
+              );
+            } else {
+              return Center(
+                child: Text('Что-то пошло не так'),
+              );
+            }
+          });
 
   Widget get _bottomNavBarBuilder => _currentPageIndex.observer(
         (context, value) => NavigationBar(
           onDestinationSelected: (int index) {
-            if (_pageTabsBuilder.length > index) _currentPageIndex(index);
+            if (_pagesBuilder.length > index) _currentPageIndex(index);
           },
           selectedIndex: _currentPageIndex.value,
           destinations: const <Widget>[
             NavigationDestination(
-              selectedIcon: Icon(Icons.library_books),
-              icon: Icon(Icons.library_books_outlined),
+              selectedIcon: Icon(Icons.assignment),
+              icon: Icon(Icons.assignment_outlined),
               label: 'Объявления',
             ),
             NavigationDestination(
@@ -324,6 +465,26 @@ class _MainPageState extends State<MainPage> {
           text: 'Мои',
         ),
       ]);
-  TabBarView get _tabBarViewBuilder =>
-      TabBarView(children: [_otherAdvertiseBuilder, _myAdvertiseBuilder]);
+  Widget get _tabsBuilder => Scaffold(
+        appBar: _appBarBuilder,
+        body:
+            TabBarView(children: [_otherAdvertiseBuilder, _myAdvertiseBuilder]),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: AppLightColors.primaryContainer,
+          onPressed: () {},
+          child: const Icon(Icons.add),
+        ),
+      );
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: _tabHeadersBuilder.tabs.length,
+      child: Scaffold(
+        bottomNavigationBar: _bottomNavBarBuilder,
+        body: _currentPageIndex
+            .observer((context, value) => _pagesBuilder[value]),
+      ),
+    );
+  }
 }

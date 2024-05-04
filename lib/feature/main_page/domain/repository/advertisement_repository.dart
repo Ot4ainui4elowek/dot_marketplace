@@ -5,8 +5,8 @@ import 'package:dot_marketplace/feature/main_page/domain/entity/advertisement_li
 abstract class AdvertisementRepository {
   Future<UseCaseResult<List<AdvertisementListItem>>> getList(
       {required AdvertisementListFilter filter,
-      int minPrice = 0,
-      int? maxPrice});
+      required num minPrice,
+      required num maxPrice});
 
   Future<UseCaseResult<AdvertisementListItem>> add(
       AdvertisementCreationEntity advCreationEntity);

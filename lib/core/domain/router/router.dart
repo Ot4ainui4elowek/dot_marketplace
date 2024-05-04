@@ -2,6 +2,9 @@ import 'package:dot_marketplace/core/domain/container/app_container.dart';
 import 'package:dot_marketplace/core/domain/router/dot_marketplace_routes.dart';
 import 'package:dot_marketplace/feature/login_page/presentation/auth_vm.dart';
 import 'package:dot_marketplace/feature/login_page/presentation/login_page.dart';
+import 'package:dot_marketplace/feature/main_page/domain/bloc/advertisement_service.dart';
+import 'package:dot_marketplace/feature/main_page/domain/entity/adverisement_list_item.dart';
+import 'package:dot_marketplace/feature/main_page/presentation/page/advert_page.dart';
 import 'package:dot_marketplace/feature/main_page/presentation/page/main_page.dart';
 import 'package:dot_marketplace/feature/main_page/presentation/page/main_page_vm.dart';
 import 'package:dot_marketplace/feature/recovery_page/presentation/recovery_code_confirm_page.dart';
@@ -35,15 +38,30 @@ abstract class AppRouterConfig {
         },
       ),
       GoRoute(
-        path: DotMarketplaceRoutes.mainPage,
-        builder: (context, state) {
-          return MainPage(
-            vm: MainPageViewModel(
+          path: DotMarketplaceRoutes.mainPage,
+          builder: (context, state) {
+            return MainPage(
+              vm: MainPageViewModel(
                 advertisementRepository:
-                    AppContainer().repositoryScope.advertisementRepository),
-          );
-        },
-      ),
+                    AppContainer().repositoryScope.advertisementRepository,
+                favoriteAdvertisementService: AdvertisementService(),
+                myAdvertisementService: AdvertisementService(),
+                otherAdvertisementService: AdvertisementService(),
+              ),
+            );
+          },
+          routes: [
+            GoRoute(
+              path: DotMarketplaceRoutes.advertPage,
+              name: DotMarketplaceRoutes.advertPage,
+              builder: (context, state) {
+                final data = state.extra! as AdvertisementListItem;
+                return AdvertPage(
+                  advertisementListItem: data,
+                );
+              },
+            )
+          ]),
       GoRoute(
           path: DotMarketplaceRoutes.recoverySendingPhonePage,
           builder: (context, state) => RecoveryPhonePage(
