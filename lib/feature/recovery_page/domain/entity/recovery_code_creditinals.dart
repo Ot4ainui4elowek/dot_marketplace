@@ -1,11 +1,11 @@
 import 'package:dot_marketplace/feature/recovery_page/data/model/recovery_code_credentials.dart';
 
 class RecoveryCodeCredentials {
-  final bool isConfirmedNumber;
+  final bool isConfirmed;
 
-  const RecoveryCodeCredentials(this.isConfirmedNumber);
+  const RecoveryCodeCredentials(this.isConfirmed);
 
   factory RecoveryCodeCredentials.fromModel(
-          RecoveryCodeCredentialsModel model) =>
+          RecoveryCodeVerificationResultModel model) =>
       RecoveryCodeCredentials(model.isSuccess);
 }

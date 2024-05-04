@@ -18,5 +18,12 @@
   "theme": "Тёмная тема",
   "restorePassword": "Восстановление пароля",
   "send": "Отправить",
-  "registrationPhoneInputTitle": "Введите номер телефона, на который будет отправлен код для сброса пароля"
+  "registrationPhoneInputTitle": "Введите номер телефона, на который будет отправлен код для сброса пароля",
+  "enterACode": "Введите код, отправленный на",
+  "codePageTitle": "Введите код",
+  "codePageResend": "Отправить код повтороно",
+  "codePageConfirm": "Подтвердить",
+  "newPassword": "New password",
+  "tiraspol": "Тирасполь",
+  "rybnitsa": "Рыбница"
 }

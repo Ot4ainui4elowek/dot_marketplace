@@ -7,7 +7,7 @@ abstract interface class RecoveryDataSource {
   Future<RemoteResponse<RecoveryPhoneCredentialsModel>> sendCode({
     required final String number,
   });
-  Future<RemoteResponse<RecoveryCodeCredentialsModel>> confirmCode({
+  Future<RemoteResponse<RecoveryCodeVerificationResultModel>> confirmCode({
     required final String code,
   });
   Future<RemoteResponse<RecoveryNewPasswordCredentialsModel>> newPassword({

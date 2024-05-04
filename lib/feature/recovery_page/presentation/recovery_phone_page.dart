@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 class RecoveryPhonePage extends StatefulWidget {
   final RecoveryPhoneViewModel vm;
 
-  const RecoveryPhonePage({required this.vm});
+  const RecoveryPhonePage({super.key, required this.vm});
 
   @override
   State<RecoveryPhonePage> createState() => _RecoveryPhonePageState();
@@ -22,6 +22,14 @@ class _RecoveryPhonePageState extends State<RecoveryPhonePage> {
   void initState() {
     super.initState();
     vm.initListener();
+  }
+
+  @override
+  void didUpdateWidget(covariant RecoveryPhonePage oldWidget) {
+    if (oldWidget.vm != widget.vm) {
+      vm.initListener();
+    }
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
@@ -54,9 +62,13 @@ class _RecoveryPhonePageState extends State<RecoveryPhonePage> {
         child: Column(
           children: [
             const SizedBox(height: 100),
-            Text(S.of(context).registrationPhoneInputTitle),
+            Text(
+              S.of(context).registrationPhoneInputTitle,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
             const SizedBox(height: 20),
             AppTextField(
+              keyboardType: TextInputType.phone,
               prefixIcon: const Padding(
                 padding: textFieldIconPadding,
                 child: Icon(Icons.phone_outlined),
@@ -66,7 +78,7 @@ class _RecoveryPhonePageState extends State<RecoveryPhonePage> {
             ),
             const SizedBox(height: 20),
             vm.isPhoneSend.observer((context, value) => AppFilledButton(
-                  onPressed: value ? () => vm.goToCode(context) : null,
+                  onPressed: value ? () => vm.sendPhone(context) : null,
                   child: Text(S.of(context).send),
                 ))
           ],
